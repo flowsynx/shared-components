@@ -36,7 +36,7 @@ public static class PathHelper
     /// <returns></returns>
     public static string Combine(IEnumerable<string> parts)
     {
-        return Normalize(parts == null ? null : string.Join(PathSeparatorString, parts.Where(p => !string.IsNullOrEmpty(p)).Select(NormalizePart)));
+        return Normalize(string.Join(PathSeparatorString, parts.Where(p => !string.IsNullOrEmpty(p)).Select(NormalizePart)));
     }
 
     /// <summary>
@@ -44,12 +44,12 @@ public static class PathHelper
     /// </summary>
     public static string GetParent(string path)
     {
-        if (string.IsNullOrEmpty(path)) return null;
+        if (string.IsNullOrEmpty(path)) return string.Empty;
 
         path = Normalize(path);
 
         var parts = Split(path);
-        if (parts.Length == 0) return null;
+        if (parts.Length == 0) return string.Empty;
 
         return parts.Length > 1
            ? Combine(parts.Take(parts.Length - 1))
@@ -67,7 +67,7 @@ public static class PathHelper
     }
 
     /// <summary>
-    /// Normalizes path. Normalisation makes sure that:
+    /// Normalizes path. Normalization makes sure that:
     /// - When path is null or empty returns root path '/'
     /// - path separators are trimmed from both ends
     /// </summary>
@@ -121,7 +121,7 @@ public static class PathHelper
     /// </summary>
     public static string[] Split(string path)
     {
-        return string.IsNullOrEmpty(path) ? null : path.Split(new[] { PathSeparator }, StringSplitOptions.RemoveEmptyEntries).Select(NormalizePart).ToArray();
+        return string.IsNullOrEmpty(path) ? new string[]{} : path.Split(new[] { PathSeparator }, StringSplitOptions.RemoveEmptyEntries).Select(NormalizePart).ToArray();
     }
 
     /// <summary>
@@ -130,15 +130,6 @@ public static class PathHelper
     public static bool IsRootPath(string path)
     {
         return string.IsNullOrEmpty(path) || path == RootDirectoryPath;
-    }
-
-    /// <summary>
-    /// Gets the root folder name
-    /// </summary>
-    public static string GetRootFolder(string path)
-    {
-        var parts = Split(path);
-        return parts.Length == 1 ? null : parts[0];
     }
 
     /// <summary>
