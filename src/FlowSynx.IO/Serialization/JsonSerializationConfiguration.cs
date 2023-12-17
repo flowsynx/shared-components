@@ -1,0 +1,7 @@
+﻿namespace FlowSynx.IO.Serialization;
+
+public class JsonSerializationConfiguration
+{
+    public bool Indented { get; set; } = false;
+    public bool NameCaseInsensitive { get; set; } = true;
+}
