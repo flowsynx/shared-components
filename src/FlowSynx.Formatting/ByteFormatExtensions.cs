@@ -9,16 +9,18 @@ public static class ByteFormatExtensions
 
     public static string ToString(this long size, bool? applyFormat = true)
     {
-        if (applyFormat is null or false)
-            return $"{size:0.##}";
+        if (applyFormat is null or false) return $"{size:0.##}";
+        if (size < 0) return "-" + ToString(-size, applyFormat);
 
-        string[] sizes = { "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB" };
+        string[] sizes = { "B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB" };
         var order = 0;
-        while (size >= 1024 && order < sizes.Length - 1)
+        var decimalSize = (decimal)size;
+
+        while (decimalSize >= 1024 && order < sizes.Length - 1)
         {
-            size /= 1024;
+            decimalSize /= 1024;
             order++;
         }
-        return $"{size:0.##} {sizes[order]}";
+        return $"{decimalSize:0.##} {sizes[order]}";
     }
 }
