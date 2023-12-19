@@ -23,7 +23,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Security", "src\Fl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Formatting", "src\FlowSynx.Formatting\FlowSynx.Formatting.csproj", "{0484EBCA-7A42-491A-88BB-734189204A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Plugin", "src\FlowSynx.Plugin\FlowSynx.Plugin.csproj", "{2492EE07-AB28-4C32-BB4F-DEFEC6C3C397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Plugin", "src\FlowSynx.Plugin\FlowSynx.Plugin.csproj", "{2492EE07-AB28-4C32-BB4F-DEFEC6C3C397}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Formatting.UnitTests", "src\FlowSynx.Formatting.UnitTests\FlowSynx.Formatting.UnitTests.csproj", "{F9080AF9-CE55-4F1D-AAC9-C2C5202C3481}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Environment", "src\FlowSynx.Environment\FlowSynx.Environment.csproj", "{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Commons.UnitTests", "src\FlowSynx.Commons.UnitTests\FlowSynx.Commons.UnitTests.csproj", "{3A174EE3-17E7-4572-B767-A73792CADC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +81,18 @@ Global
 		{2492EE07-AB28-4C32-BB4F-DEFEC6C3C397}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2492EE07-AB28-4C32-BB4F-DEFEC6C3C397}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2492EE07-AB28-4C32-BB4F-DEFEC6C3C397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9080AF9-CE55-4F1D-AAC9-C2C5202C3481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9080AF9-CE55-4F1D-AAC9-C2C5202C3481}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9080AF9-CE55-4F1D-AAC9-C2C5202C3481}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9080AF9-CE55-4F1D-AAC9-C2C5202C3481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A174EE3-17E7-4572-B767-A73792CADC2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A174EE3-17E7-4572-B767-A73792CADC2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A174EE3-17E7-4572-B767-A73792CADC2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A174EE3-17E7-4572-B767-A73792CADC2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
