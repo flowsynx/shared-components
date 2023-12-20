@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Abstractions.Wrapper;
+﻿namespace FlowSynx.Abstractions;
 
 public class Result : IResult
 {

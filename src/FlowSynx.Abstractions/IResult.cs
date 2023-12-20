@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Abstractions.Wrapper;
+﻿namespace FlowSynx.Abstractions;
 
 public interface IResult
 {
