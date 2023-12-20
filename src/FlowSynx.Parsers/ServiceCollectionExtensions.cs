@@ -3,11 +3,11 @@ using FlowSynx.Parsers.Size;
 using FlowSynx.Parsers.Sort;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FlowSynx.Parsers.Extensions;
+namespace FlowSynx.Parsers;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFlowSynxParsersCore(this IServiceCollection services)
+    public static IServiceCollection AddParsers(this IServiceCollection services)
     {
         services.AddScoped<IDateParser, DateParser>();
         services.AddScoped<ISizeParser, SizeParser>();

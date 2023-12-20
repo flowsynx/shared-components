@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Parsers.Extensions;
 
-internal static class DateTimeExtensions
+public static class DateTimeExtensions
 {
     public static DateTime AddYears(this DateTime dateTime, double value)
     {
