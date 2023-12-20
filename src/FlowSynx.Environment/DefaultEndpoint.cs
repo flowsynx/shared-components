@@ -6,8 +6,6 @@ public class DefaultEndpoint : IEndpoint
 {
     private readonly ILogger<DefaultEndpoint> _logger;
     private readonly IEnvironmentManager _environmentManager;
-    private const string VariableName = "FLOWSYNC_HTTP_PORT";
-    private const int DefaultPort = 5860;
 
     public DefaultEndpoint(ILogger<DefaultEndpoint> logger,IEnvironmentManager environmentManager)
     {
@@ -17,9 +15,9 @@ public class DefaultEndpoint : IEndpoint
 
     public int GetDefaultHttpPort()
     {
-        var flowSyncPort = _environmentManager.Get(VariableName);
+        var flowSyncPort = _environmentManager.Get(EnvironmentVariables.FlowsynxHttpPort);
         var parsedPort = int.TryParse(flowSyncPort, out var result);
-        return result > 0 ? result : DefaultPort;
+        return result > 0 ? result : EnvironmentVariables.FlowsynxDefaultPort;
     }
 
     public string GetDefaultHttpEndpoint()
