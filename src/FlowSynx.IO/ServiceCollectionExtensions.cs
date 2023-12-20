@@ -6,7 +6,7 @@ namespace FlowSynx.IO;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFlowSynxSerialization(this IServiceCollection services)
+    public static IServiceCollection AddSerialization(this IServiceCollection services)
     {
         services
             .AddTransient<ISerializer, JsonSerializer>()
@@ -15,7 +15,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddFlowSynxFileSystem(this IServiceCollection services)
+    public static IServiceCollection AddFileSystem(this IServiceCollection services)
     {
         services
             .AddTransient<IFileReader, FileReader>()
