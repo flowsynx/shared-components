@@ -59,7 +59,7 @@ public class ConfigurationManager : IConfigurationManager
         return ConfigurationStatus.Added;
     }
 
-    public bool DeleteSetting(string name)
+    public void DeleteSetting(string name)
     {
         var contents = _fileReader.Read(_options.Path);
         var data = _deserializer.Deserialize<Configuration>(contents);
@@ -67,7 +67,7 @@ public class ConfigurationManager : IConfigurationManager
         if (data is null)
         {
             _logger.LogWarning($"No setting found!");
-            return false;
+            throw new ConfigurationException("No setting found!");
         }
 
         var convertedData = data.Configurations.ToList();
@@ -76,7 +76,7 @@ public class ConfigurationManager : IConfigurationManager
         if (item == null)
         {
             _logger.LogWarning($"{0} is not found.", name);
-            return false;
+            throw new ConfigurationException($"{name} is not found.");
         }
 
         convertedData.Remove(item);
@@ -87,7 +87,7 @@ public class ConfigurationManager : IConfigurationManager
         };
 
         var dataToWrite = _serializer.Serialize(newSetting);
-        return _fileWriter.Write(_options.Path, dataToWrite);
+        _fileWriter.Write(_options.Path, dataToWrite);
     }
 
     public ConfigurationItem GetSetting(string name)

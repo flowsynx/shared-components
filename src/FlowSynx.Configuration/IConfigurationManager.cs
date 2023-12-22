@@ -6,5 +6,5 @@ public interface IConfigurationManager
     IEnumerable<ConfigurationItem> GetSettings();
     bool IsExist(string name);
     ConfigurationStatus AddSetting(ConfigurationItem configuration);
-    bool DeleteSetting(string name);
+    void DeleteSetting(string name);
 }
