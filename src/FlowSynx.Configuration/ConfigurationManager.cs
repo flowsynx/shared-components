@@ -75,7 +75,7 @@ public class ConfigurationManager : IConfigurationManager
 
         if (item == null)
         {
-            _logger.LogWarning($"{0} is not found.", name);
+            _logger.LogWarning($"{name} is not found.");
             throw new ConfigurationException($"{name} is not found.");
         }
 
