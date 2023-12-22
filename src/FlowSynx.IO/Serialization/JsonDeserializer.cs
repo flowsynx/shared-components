@@ -18,12 +18,12 @@ public class JsonDeserializer : IDeserializer
 
     public string ContentMineType => "application/json";
 
-    public T? Deserialize<T>(string? input)
+    public T Deserialize<T>(string? input)
     {
         return Deserialize<T>(input, new JsonSerializationConfiguration { });
     }
 
-    public T? Deserialize<T>(string? input, JsonSerializationConfiguration configuration)
+    public T Deserialize<T>(string? input, JsonSerializationConfiguration configuration)
     {
         try
         {
