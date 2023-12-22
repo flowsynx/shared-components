@@ -68,5 +68,41 @@ namespace FlowSynx.Net {
                 return ResourceManager.GetString("MimeTypeMapMimeTypeNotValid", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unhandled error when calling the Uri. Message: {0}..
+        /// </summary>
+        internal static string RequestServiceException {
+            get {
+                return ResourceManager.GetString("RequestServiceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error in http request when calling and reaching the Uri..
+        /// </summary>
+        internal static string RequestServiceHttpRequestExceptionMessage {
+            get {
+                return ResourceManager.GetString("RequestServiceHttpRequestExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The http request was canceled during call the Uri..
+        /// </summary>
+        internal static string RequestServiceOperationCanceledException {
+            get {
+                return ResourceManager.GetString("RequestServiceOperationCanceledException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Http request timeout during call the Uri..
+        /// </summary>
+        internal static string RequestServiceTimeoutException {
+            get {
+                return ResourceManager.GetString("RequestServiceTimeoutException", resourceCulture);
+            }
+        }
     }
 }

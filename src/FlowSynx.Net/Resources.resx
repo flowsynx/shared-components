@@ -120,4 +120,16 @@
   <data name="MimeTypeMapMimeTypeNotValid" xml:space="preserve">
     <value>Requested mime type is not valid: {0}</value>
   </data>
+  <data name="RequestServiceException" xml:space="preserve">
+    <value>Unhandled error when calling the Uri. Message: {0}.</value>
+  </data>
+  <data name="RequestServiceHttpRequestExceptionMessage" xml:space="preserve">
+    <value>Error in http request when calling and reaching the Uri.</value>
+  </data>
+  <data name="RequestServiceOperationCanceledException" xml:space="preserve">
+    <value>The http request was canceled during call the Uri.</value>
+  </data>
+  <data name="RequestServiceTimeoutException" xml:space="preserve">
+    <value>Http request timeout during call the Uri.</value>
+  </data>
 </root>
