@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Formatting.UnitTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Environment", "src\FlowSynx.Environment\FlowSynx.Environment.csproj", "{C4304EF0-1F99-40D3-9BD5-4DDF701C9A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Commons.UnitTests", "src\FlowSynx.Commons.UnitTests\FlowSynx.Commons.UnitTests.csproj", "{3A174EE3-17E7-4572-B767-A73792CADC2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Commons.UnitTests", "src\FlowSynx.Commons.UnitTests\FlowSynx.Commons.UnitTests.csproj", "{3A174EE3-17E7-4572-B767-A73792CADC2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
