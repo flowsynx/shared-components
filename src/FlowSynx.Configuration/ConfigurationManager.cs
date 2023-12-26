@@ -43,7 +43,7 @@ public class ConfigurationManager : IConfigurationManager
 
         if (findItems != null && findItems.Any())
         {
-            _logger.LogWarning($"{configuration.Name} is already exist.");
+            _logger.LogWarning($"{0} is already exist.", configuration.Name);
             return ConfigurationStatus.Exist;
         }
 
@@ -67,7 +67,7 @@ public class ConfigurationManager : IConfigurationManager
         if (data is null)
         {
             _logger.LogWarning($"No setting found!");
-            throw new ConfigurationException("No setting found!");
+            throw new ConfigurationException(Resources.ConfigurationManagerNotSettingFoumd);
         }
 
         var convertedData = data.Configurations.ToList();
@@ -75,8 +75,8 @@ public class ConfigurationManager : IConfigurationManager
 
         if (item == null)
         {
-            _logger.LogWarning($"{name} is not found.");
-            throw new ConfigurationException($"{name} is not found.");
+            _logger.LogWarning($"{0} is not found.", name);
+            throw new ConfigurationException(string.Format(Resources.ConfigurationManagerItemNotFoumd, name));
         }
 
         convertedData.Remove(item);
@@ -98,7 +98,7 @@ public class ConfigurationManager : IConfigurationManager
         var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
         if (result != null) return result;
-        _logger.LogWarning($"{name} is not found.");
+        _logger.LogWarning($"{0} is not found.", name);
         throw new ConfigurationException(string.Format(Resources.ConfigurationManagerItemNotFoumd, name));
     }
 
@@ -118,7 +118,7 @@ public class ConfigurationManager : IConfigurationManager
         var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
         if (result != null) return true;
-        _logger.LogWarning($"{name} is not found.");
+        _logger.LogWarning($"{0} is not found.", name);
         return false;
     }
 }

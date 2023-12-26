@@ -68,5 +68,14 @@ namespace FlowSynx.Configuration {
                 return ResourceManager.GetString("ConfigurationManagerItemNotFoumd", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No setting found!.
+        /// </summary>
+        internal static string ConfigurationManagerNotSettingFoumd {
+            get {
+                return ResourceManager.GetString("ConfigurationManagerNotSettingFoumd", resourceCulture);
+            }
+        }
     }
 }

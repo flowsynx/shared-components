@@ -120,4 +120,7 @@
   <data name="ConfigurationManagerItemNotFoumd" xml:space="preserve">
     <value>{0} is not found.</value>
   </data>
+  <data name="ConfigurationManagerNotSettingFoumd" xml:space="preserve">
+    <value>No setting found!</value>
+  </data>
 </root>
