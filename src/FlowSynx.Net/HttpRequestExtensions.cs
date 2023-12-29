@@ -1,13 +1,5 @@
-﻿using FlowSynx.IO.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection.Metadata;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FlowSynx.Net;
 
@@ -30,9 +22,7 @@ internal static class HttpRequestExtensions
         var request = new HttpRequestMessage(method, new Uri(uri));
         request.Headers.AddMediaTypeHeader(mediaType);
         request.Headers.AddHeaders(headers);
-        var response = await httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
-        return response;
+        return await httpClient.SendAsync(request, cancellationToken);
     }
 
     internal static async Task<HttpResponseMessage> SendAsync(this HttpClient httpClient, HttpMethod method, string uri,
@@ -43,8 +33,6 @@ internal static class HttpRequestExtensions
         request.Headers.AddMediaTypeHeader(mediaType);
         request.Headers.AddHeaders(headers);
         request.Content = new StringContent(content, Encoding.UTF8, mediaType);
-        var response = await httpClient.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
-        return response;
+        return await httpClient.SendAsync(request, cancellationToken);
     }
 }
