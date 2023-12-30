@@ -90,6 +90,37 @@ public class HttpRequestService : IHttpRequestService
         }
     }
 
+    public async Task<Stream> PostAsync<TRequest>(string uri, TRequest content, CancellationToken cancellationToken)
+    {
+        var headers = new Dictionary<string, string>();
+        return await PostAsync<TRequest>(uri, content, headers, cancellationToken);
+    }
+
+    public async Task<Stream> PostAsync<TRequest>(string uri, TRequest content, IDictionary<string, string> headers, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var response = await _httpClient.SendAsync(HttpMethod.Post, uri, headers, MediaType, _serializer.Serialize(content), cancellationToken);
+            return await response.Content.ReadAsStreamAsync(cancellationToken);
+        }
+        catch (HttpRequestException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceHttpRequestExceptionMessage);
+        }
+        catch (TimeoutException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceTimeoutException);
+        }
+        catch (OperationCanceledException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceOperationCanceledException);
+        }
+        catch (Exception ex)
+        {
+            throw new RequestServiceException(string.Format(Resources.RequestServiceException, ex.Message));
+        }
+    }
+
     public async Task<TResult> PutAsync<TRequest, TResult>(string uri, TRequest content, CancellationToken cancellationToken)
     {
         var headers = new Dictionary<string, string>();
