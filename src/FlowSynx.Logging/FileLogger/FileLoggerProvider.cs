@@ -8,53 +8,24 @@ namespace FlowSynx.Logging.FileLogger;
 public class FileLoggerProvider : LoggerProvider
 {
     private bool _terminated;
-    private int _counter = 0;
     private string _filePath;
+    private bool _isActiveLogging = true;
     private readonly Dictionary<string, int> _lengths = new Dictionary<string, int>();
     private readonly ConcurrentQueue<LogMessage> _logsQueue = new ConcurrentQueue<LogMessage>();
 
-    private void ApplyRetainPolicy()
-    {
-        try
-        {
-            var fileList = new DirectoryInfo(Settings.Path)
-            .GetFiles("*.log", SearchOption.TopDirectoryOnly)
-            .OrderBy(fi => fi.CreationTime)
-            .ToList();
-
-            while (fileList.Count >= Settings.RetainPolicyFileCount)
-            {
-                var fileInfo = fileList.First();
-                fileInfo.Delete();
-                fileList.Remove(fileInfo);
-            }
-        }
-        catch
-        {
-            // ignored
-        }
-    }
-
-    private void WriteLine(string message)
-    {
-        _counter++;
-        if (_counter % 100 == 0)
-        {
-            var fi = new FileInfo(_filePath);
-            if (fi.Length > (1024 * 1024 * Settings.MaxFileSizeInMb))
-            {
-                BeginFile();
-            }
-        }
-
-        File.AppendAllText(_filePath, message);
-    }
-
     private void BeginFile()
     {
-        Directory.CreateDirectory(Settings.Path);
-        _filePath = Path.Combine(Settings.Path, "Log-" + DateTime.Now.ToString("yyyyMMdd-HHmm") + ".log");
-        ApplyRetainPolicy();
+        if (string.IsNullOrEmpty(Settings.Path))
+        {
+            _isActiveLogging = false;
+            return;
+        }
+
+        var directory = Path.GetDirectoryName(Settings.Path);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+        
+        _filePath = Settings.Path;
     }
 
     private void WriteLogLine()
@@ -64,6 +35,12 @@ public class FileLoggerProvider : LoggerProvider
         var sb = new StringBuilder();
         sb.AppendLine(LogTemplate.Format(logMessage, OutputTemplate));
         WriteLine(sb.ToString());
+    }
+
+    private void WriteLine(string message)
+    {
+        if (!_isActiveLogging) return;
+        File.AppendAllText(_filePath, message);
     }
 
     private void ThreadProc()
@@ -90,17 +67,19 @@ public class FileLoggerProvider : LoggerProvider
     {
         _terminated = true;
     }
-    
+
     public FileLoggerProvider(FileLoggerOptions settings)
     {
         Settings = settings;
         BeginFile();
-        ThreadProc();
+
+        if (_isActiveLogging)
+            ThreadProc();
     }
 
     public override bool IsEnabled(LogLevel logLevel)
     {
-        return logLevel != LogLevel.None && logLevel >= Settings.MinLevel;
+        return logLevel != LogLevel.None && logLevel >= Settings.MinLevel && _isActiveLogging;
     }
 
     public override void WriteLog(LogMessage logMessage)
