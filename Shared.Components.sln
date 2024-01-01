@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Environment", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Commons.UnitTests", "src\FlowSynx.Commons.UnitTests\FlowSynx.Commons.UnitTests.csproj", "{3A174EE3-17E7-4572-B767-A73792CADC2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Logging", "src\FlowSynx.Logging\FlowSynx.Logging.csproj", "{6245D488-474C-4B79-A247-799CEECBA0AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Logging", "src\FlowSynx.Logging\FlowSynx.Logging.csproj", "{6245D488-474C-4B79-A247-799CEECBA0AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Reflections", "src\FlowSynx.Reflections\FlowSynx.Reflections.csproj", "{9B175F21-89BB-4DFB-AF01-1E8A1A13F778}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +101,10 @@ Global
 		{6245D488-474C-4B79-A247-799CEECBA0AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6245D488-474C-4B79-A247-799CEECBA0AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6245D488-474C-4B79-A247-799CEECBA0AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B175F21-89BB-4DFB-AF01-1E8A1A13F778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B175F21-89BB-4DFB-AF01-1E8A1A13F778}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B175F21-89BB-4DFB-AF01-1E8A1A13F778}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B175F21-89BB-4DFB-AF01-1E8A1A13F778}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
