@@ -114,6 +114,35 @@ public class HttpRequestService : IHttpRequestService
         }
     }
 
+    public async Task<Stream> SendRequestAsync(Request request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var response = await CreateHttpRequestAsync(request, cancellationToken).ConfigureAwait(false);
+            return await response.Content.ReadAsStreamAsync(cancellationToken);
+        }
+        catch (HttpRequestException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceHttpRequestExceptionMessage);
+        }
+        catch (TimeoutException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceTimeoutException);
+        }
+        catch (OperationCanceledException)
+        {
+            throw new RequestServiceException(Resources.RequestServiceOperationCanceledException);
+        }
+        catch (JsonException ex)
+        {
+            throw new RequestServiceException(Resources.PayloadCouldNotBeDeserialized, ex);
+        }
+        catch (Exception ex)
+        {
+            throw new RequestServiceException(string.Format(Resources.RequestServiceException, ex.Message));
+        }
+    }
+
     #region private methods
     private async Task<HttpResponseMessage> CreateHttpRequestAsync<TRequest>(Request<TRequest> request, CancellationToken cancellationToken)
     {
