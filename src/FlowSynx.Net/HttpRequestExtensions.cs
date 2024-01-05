@@ -1,38 +1,153 @@
-﻿using System.Net.Http.Headers;
-using System.Text;
+﻿namespace FlowSynx.Net;
 
-namespace FlowSynx.Net;
-
-internal static class HttpRequestExtensions
+public static class HttpRequestExtensions
 {
-    internal static void AddMediaTypeHeader(this HttpRequestHeaders requestHeader, string mediaType)
+    public static async Task<TResult?> GetRequestAsync<TResult>(this IHttpRequestService httpRequestService, string uri, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
-        requestHeader.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
+        var message = new Request()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Get
+        };
+
+        return await httpRequestService.SendRequestAsync<TResult>(message, cancellationToken);
     }
 
-    public static void AddHeaders(this HttpRequestHeaders requestHeader, IDictionary<string, string> headers)
+    public static async Task<TResult?> GetRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
-        foreach (var header in headers)
-            requestHeader.Add(header.Key, header.Value);
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Post,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    internal static async Task<HttpResponseMessage> SendAsync(this HttpClient httpClient, HttpMethod method, string uri, 
-        IDictionary<string, string> headers, string mediaType, CancellationToken cancellationToken)
+    public static async Task<Stream> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
-        var request = new HttpRequestMessage(method, new Uri(uri));
-        request.Headers.AddMediaTypeHeader(mediaType);
-        request.Headers.AddHeaders(headers);
-        return await httpClient.SendAsync(request, cancellationToken);
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Get,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
     }
 
-    internal static async Task<HttpResponseMessage> SendAsync(this HttpClient httpClient, HttpMethod method, string uri,
-        IDictionary<string, string> headers, string mediaType, string content,
-        CancellationToken cancellationToken)
+    public static async Task<Stream> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
-        var request = new HttpRequestMessage(method, new Uri(uri));
-        request.Headers.AddMediaTypeHeader(mediaType);
-        request.Headers.AddHeaders(headers);
-        request.Content = new StringContent(content, Encoding.UTF8, mediaType);
-        return await httpClient.SendAsync(request, cancellationToken);
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Get,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Post,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Post,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
+    }
+
+    public static async Task<Stream> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Post,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
+    }
+
+    public static async Task<Stream> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Post,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Put,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Put,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            Headers = headers,
+            HttpMethod = HttpMethod.Delete,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
+    }
+
+    public static async Task<TResult?> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    {
+        var message = new Request<TRequest>()
+        {
+            Uri = uri,
+            HttpMethod = HttpMethod.Delete,
+            Content = request
+        };
+
+        return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 }

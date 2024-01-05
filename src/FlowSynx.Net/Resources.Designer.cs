@@ -70,6 +70,15 @@ namespace FlowSynx.Net {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operation failed: the payload could not be deserialized. See InnerException for details..
+        /// </summary>
+        internal static string PayloadCouldNotBeDeserialized {
+            get {
+                return ResourceManager.GetString("PayloadCouldNotBeDeserialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unhandled error when calling the Uri. Message: {0}..
         /// </summary>
         internal static string RequestServiceException {

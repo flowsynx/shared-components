@@ -120,6 +120,9 @@
   <data name="MimeTypeMapMimeTypeNotValid" xml:space="preserve">
     <value>Requested mime type is not valid: {0}</value>
   </data>
+  <data name="PayloadCouldNotBeDeserialized" xml:space="preserve">
+    <value>Operation failed: the payload could not be deserialized. See InnerException for details.</value>
+  </data>
   <data name="RequestServiceException" xml:space="preserve">
     <value>Unhandled error when calling the Uri. Message: {0}.</value>
   </data>
