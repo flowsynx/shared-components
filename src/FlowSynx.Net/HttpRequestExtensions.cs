@@ -31,7 +31,7 @@ public static class HttpRequestExtensions
         var message = new Request<TRequest>
         {
             Uri = uri,
-            HttpMethod = HttpMethod.Post,
+            HttpMethod = HttpMethod.Get,
             Content = request
         };
 
