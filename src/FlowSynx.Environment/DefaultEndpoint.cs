@@ -16,7 +16,7 @@ public class DefaultEndpoint : IEndpoint
     public int GetDefaultHttpPort()
     {
         var flowSyncPort = _environmentManager.Get(EnvironmentVariables.FlowsynxHttpPort);
-        var parsedPort = int.TryParse(flowSyncPort, out var result);
+        var _ = int.TryParse(flowSyncPort, out var result);
         return result > 0 ? result : EnvironmentVariables.FlowsynxDefaultPort;
     }
 
