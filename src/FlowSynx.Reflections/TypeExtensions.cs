@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace FlowSynx.Reflections;
+﻿namespace FlowSynx.Reflections;
 
 public static class TypeExtensions
 {
@@ -26,7 +24,7 @@ public static class TypeExtensions
 
     public static bool IsDictionaryType(this Type type)
     {
-        return type.IsGenericType() && type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
+        return type.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDictionary<,>));
     }
 
     public static bool IsAssignable(this Type concretion, Type abstraction)
