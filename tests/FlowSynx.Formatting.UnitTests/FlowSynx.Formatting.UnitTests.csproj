@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FlowSynx.Commons\FlowSynx.Commons.csproj" />
+    <ProjectReference Include="..\..\src\FlowSynx.Formatting\FlowSynx.Formatting.csproj" />
   </ItemGroup>
 
 </Project>
