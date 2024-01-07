@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FlowSynx.Parsers.Date;
 
-internal class DateParser : IDateParser
+public class DateParser : IDateParser
 {
     public double Years { get; private set; } = 0.0;
     public double Months { get; private set; } = 0.0;
@@ -42,7 +42,7 @@ internal class DateParser : IDateParser
 
     protected DateTime ParseDateTimeWithSuffix(string dateTime)
     {
-        if (!HasSuffix(dateTime))
+        if (!HasValidSuffix(dateTime))
         {
             _logger.LogError($"The given datetime '{dateTime}' is not valid!");
             throw new DateParserException(Resources.DateParserInvalidInput);
@@ -101,27 +101,31 @@ internal class DateParser : IDateParser
             .AddSeconds(Seconds).AddMilliseconds(Milliseconds);
     }
 
-    protected bool HasSuffix(string date)
+    protected bool HasValidSuffix(string date)
     {
-        return date.Contains("y") || date.Contains("M") ||
-               date.Contains("w") || date.Contains("d") ||
-               date.Contains("h") || date.Contains("m") ||
-               date.Contains("s") || date.Contains("ms");
+        var letters = new string(date.Where(char.IsLetter).ToArray());
+        var validSymbols = new List<char>() { 'y', 'M', 'w', 'd', 'h', 'm', 's' };
+        return letters.All(symbol => validSymbols.Contains(symbol));
     }
 
     protected double ExtractValue(string dateTime, string key, ref int position)
     {
-        var charLocation = dateTime.IndexOf(key, StringComparison.Ordinal);
-        if (charLocation < 0)
+        try
         {
-            _logger.LogWarning($"The value from ({dateTime}) could not be extracted!");
-            throw new DateParserException(string.Format(Resources.DateParserCannotExtractValue, dateTime));
+            var charLocation = dateTime.IndexOf(key, StringComparison.Ordinal);
+            if (charLocation < 0)
+                return 0;
+            
+            var extractedValue = dateTime.Substring(position, charLocation - position);
+            var validValue = double.TryParse(extractedValue, out var val);
+            position = charLocation + 1;
+            return validValue ? val : 0.0;
         }
-
-        var extractedValue = dateTime.Substring(position, charLocation - position);
-        var validValue = double.TryParse(extractedValue, out var val);
-        position = charLocation + 1;
-        return validValue ? val : 0.0;
+        catch (Exception)
+        {
+            _logger.LogWarning($"Error in validating and parsing '{dateTime}' string.");
+            throw new DateParserException(string.Format(Resources.ErrorInValidatingAndParsingDateTimeString, dateTime));
+        }
     }
 
     public void Dispose() { }

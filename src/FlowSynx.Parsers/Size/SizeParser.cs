@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FlowSynx.Parsers.Size;
 
-internal class SizeParser : ISizeParser
+public class SizeParser : ISizeParser
 {
     private const long BytesInKibiByte = 1_024;
     private const long BytesInMebiByte = 1_048_576;

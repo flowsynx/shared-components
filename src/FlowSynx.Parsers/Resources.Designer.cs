@@ -79,6 +79,15 @@ namespace FlowSynx.Parsers {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error in validating and parsing &apos;{0}&apos; string..
+        /// </summary>
+        internal static string ErrorInValidatingAndParsingDateTimeString {
+            get {
+                return ResourceManager.GetString("ErrorInValidatingAndParsingDateTimeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value from ({0}) could not be extracted!.
         /// </summary>
         internal static string SizeParserCannotExtractValue {

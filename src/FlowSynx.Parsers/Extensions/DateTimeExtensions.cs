@@ -7,7 +7,7 @@ public static class DateTimeExtensions
         var roundedValue = (int)Math.Floor(value);
         var partialValue = value - roundedValue;
         var result = dateTime.AddYears(roundedValue);
-        return result.AddMonths(Math.Floor(result.AddYears(1).Subtract(result).TotalDays * partialValue));
+        return result.AddDays(Math.Floor(result.AddYears(1).Subtract(result).TotalDays * partialValue));
     }
 
     public static DateTime AddMonths(this DateTime dateTime, double value)

@@ -123,6 +123,9 @@
   <data name="DateParserInvalidInput" xml:space="preserve">
     <value>The given datetime is not valid!</value>
   </data>
+  <data name="ErrorInValidatingAndParsingDateTimeString" xml:space="preserve">
+    <value>Error in validating and parsing '{0}' string.</value>
+  </data>
   <data name="SizeParserCannotExtractValue" xml:space="preserve">
     <value>The value from ({0}) could not be extracted!</value>
   </data>

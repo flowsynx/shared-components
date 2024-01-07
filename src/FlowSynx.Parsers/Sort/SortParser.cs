@@ -4,7 +4,7 @@ using FlowSynx.Parsers.Exceptions;
 
 namespace FlowSynx.Parsers.Sort;
 
-internal class SortParser : ISortParser
+public class SortParser : ISortParser
 {
     private readonly ILogger<SortParser> _logger;
 
