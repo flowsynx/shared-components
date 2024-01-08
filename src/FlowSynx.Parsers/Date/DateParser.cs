@@ -53,6 +53,7 @@ public class DateParser : IDateParser
 
         while (phase != DateTimeSpanPhase.Done)
         {
+            var location = 0;
             switch (phase)
             {
                 case DateTimeSpanPhase.Years:
@@ -76,15 +77,25 @@ public class DateParser : IDateParser
                     phase = DateTimeSpanPhase.Minutes;
                     break;
                 case DateTimeSpanPhase.Minutes:
-                    if (dateTime.IndexOf("ms", StringComparison.Ordinal) < 0)
-                        Minutes = ExtractValue(dateTime, "m", ref lastPos);
+                    location = dateTime.IndexOf("m", StringComparison.Ordinal);
+                    if (location > 0 && ((location + 1) <= dateTime.Length - 1) && dateTime[location + 1] == 's')
+                    {
+                        phase = DateTimeSpanPhase.Seconds;
+                        break;
+                    }
 
+                    Minutes = ExtractValue(dateTime, "m", ref lastPos);
                     phase = DateTimeSpanPhase.Seconds;
                     break;
                 case DateTimeSpanPhase.Seconds:
-                    if (dateTime.IndexOf("ms", StringComparison.Ordinal) < 0)
-                        Seconds = ExtractValue(dateTime, "s", ref lastPos);
+                    location = dateTime.IndexOf("s", StringComparison.Ordinal);
+                    if (location > 0 && ((location) <= dateTime.Length-1) && dateTime[location - 1] == 'm')
+                    {
+                        phase = DateTimeSpanPhase.Milliseconds;
+                        break;
+                    }
 
+                    Seconds = ExtractValue(dateTime, "s", ref lastPos);
                     phase = DateTimeSpanPhase.Milliseconds;
                     break;
                 case DateTimeSpanPhase.Milliseconds:
@@ -115,7 +126,7 @@ public class DateParser : IDateParser
             var charLocation = dateTime.IndexOf(key, StringComparison.Ordinal);
             if (charLocation < 0)
                 return 0;
-            
+
             var extractedValue = dateTime.Substring(position, charLocation - position);
             var validValue = double.TryParse(extractedValue, out var val);
             position = charLocation + 1;
