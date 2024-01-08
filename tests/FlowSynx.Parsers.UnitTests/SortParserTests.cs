@@ -25,7 +25,7 @@ public class SortParserTests : IDisposable
 
     [Theory]
     [MemberData(nameof(GetSortInfoFromDataGenerator))]
-    public void GivenAString_WhenSizeParseIsCalled_ThenCorrectSizeIsReturned(string input, List<SortInfo> expected)
+    public void GivenAStringAndPropertiesName_WhenSortParseIsCalled_ThenCorrectSortInfoIsReturned(string input, List<SortInfo> expected)
     {
         var index = 0;
         foreach (var sortInfo in _sortParser.Parse(input, _properties))
