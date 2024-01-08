@@ -52,7 +52,9 @@ public class DateParserTests : IDisposable
     [InlineData("3m", "01/01/2024 00:03:00")]                           //Adding 3      Minutes
     [InlineData("18s", "01/01/2024 00:00:18")]                          //Adding 18     Seconds
     [InlineData("18ms", "01/01/2024 00:00:00.018")]                     //Adding 18     Milliseconds
-    public void GivenAStringAsYearSuffix_WhenParseIsCalled_ThenDateTimeIsReturned(string input, string dateTime)
+    [InlineData("10m20s30ms", "01/01/2024 00:10:20.030")]               //Adding 10     Minutes, 20 Seconds, and 30 Milliseconds
+    [InlineData("27m16ms", "01/01/2024 00:27:00.016")]                  //Adding 27     Minutes, and 16 Milliseconds
+    public void GivenAString_WhenDateParseIsCalled_ThenDateTimeIsReturned(string input, string dateTime)
     {
         var expected = DateTime.Parse(dateTime);
         var actual = _dateParser.Parse(input);
