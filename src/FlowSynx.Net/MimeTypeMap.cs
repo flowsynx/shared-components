@@ -600,7 +600,7 @@ public static class MimeTypeMap
 
         try
         {
-            return Mappings.TryGetValue(mimeType, out var extension) ? extension : string.Empty;
+            return Mappings.FirstOrDefault(x => string.Equals(x.Value, mimeType, StringComparison.OrdinalIgnoreCase)).Key;
         }
         catch (Exception)
         {
