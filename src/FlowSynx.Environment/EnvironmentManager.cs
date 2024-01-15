@@ -16,7 +16,7 @@ public class EnvironmentManager : IEnvironmentManager
             StartInfo = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c echo {variableName}",
+                Arguments = $"-c \"echo {variableName}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
@@ -29,7 +29,6 @@ public class EnvironmentManager : IEnvironmentManager
 
         proc.WaitForExit();
         return result;
-
     }
 
     public void Set(string variableName, string value)
@@ -45,7 +44,7 @@ public class EnvironmentManager : IEnvironmentManager
             StartInfo = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c export {variableName}={value}",
+                Arguments = $"-c \"echo export {variableName}={value}>>~/.bashrc; source ~/.bashrc\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
