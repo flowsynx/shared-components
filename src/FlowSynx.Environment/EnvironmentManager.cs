@@ -16,7 +16,7 @@ public class EnvironmentManager : IEnvironmentManager
             StartInfo = new ProcessStartInfo
             {
                 FileName = "/bin/bash",
-                Arguments = $"-c \"echo {variableName}\"",
+                Arguments = $"-c \"echo ${variableName}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true
