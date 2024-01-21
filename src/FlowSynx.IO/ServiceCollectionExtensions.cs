@@ -1,4 +1,5 @@
-﻿using FlowSynx.IO.FileSystem;
+﻿using FlowSynx.IO.Compression;
+using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +21,15 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<IFileReader, FileReader>()
             .AddTransient<IFileWriter, FileWriter>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddCompression(this IServiceCollection services)
+    {
+        services
+            .AddTransient<IZipFile, ZipFile>()
+            .AddTransient<IGZipFile, GZipFile>();
 
         return services;
     }
