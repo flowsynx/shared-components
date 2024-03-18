@@ -9,7 +9,7 @@ namespace FlowSynx.Plugin.Storage;
 public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
 {
     [SortMember]
-    public string Id => this.ToString().CreateMd5();
+    public string Id => HashHelper.GetMd5Hash(this.ToString());
 
     [SortMember]
     public StorageEntityItemKind Kind { get; }
@@ -29,7 +29,7 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
     [SortMember]
     public string? MimeType => IsFile ? GetExtension().GetMimeType() : "";
 
-    public string? HashCode { get; set; }
+    public string? Md5 { get; set; }
 
     public DateTimeOffset? CreatedTime { get; set; }
 
@@ -38,9 +38,9 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
 
     public string FullPath => PathHelper.Combine(DirectoryPath, Name);
 
-    public Dictionary<string, object> Metadata { get; private set; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-
     public bool IsRootFolder => Kind == StorageEntityItemKind.Directory && PathHelper.IsRootPath(FullPath);
+
+    public Dictionary<string, object> Metadata { get; private set; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
     public bool TryGetMetadata<TValue>(string name, out TValue value, TValue defaultValue)
     {
@@ -52,7 +52,7 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
 
         if (objValue is TValue val)
         {
-            value = val;
+            value = (TValue)val;
             return true;
         }
 
@@ -67,10 +67,13 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
             var key = (string)keyValues[i];
             var value = keyValues[i + 1];
 
-            if (value is string s && string.IsNullOrEmpty(s))
-                continue;
+            if (key != null && value != null)
+            {
+                if (value is string s && string.IsNullOrEmpty(s))
+                    continue;
 
-            Metadata[key] = value;
+                Metadata[key] = value;
+            }
         }
     }
 
