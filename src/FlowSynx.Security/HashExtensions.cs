@@ -1,13 +1,28 @@
-﻿namespace FlowSynx.Security;
+﻿using System.Security.Cryptography;
 
-public static class HashExtensions
+namespace FlowSynx.Security;
+
+public class HashHelper
 {
-    public static string CreateMd5(this string input)
+    public static string GetMd5Hash(string input)
     {
-        using var md5 = System.Security.Cryptography.MD5.Create();
+        using var hasher = MD5.Create();
         var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-        var hashBytes = md5.ComputeHash(inputBytes);
+        var hashBytes = hasher.ComputeHash(inputBytes);
 
+        return Convert.ToHexString(hashBytes);
+    }
+
+    public static string GetMd5HashFile(string path)
+    {
+        using var stream = System.IO.File.OpenRead(path);
+        return GetMd5HashFile(stream);
+    }
+
+    public static string GetMd5HashFile(Stream stream)
+    {
+        using var hasher = MD5.Create();
+        var hashBytes = hasher.ComputeHash(stream);
         return Convert.ToHexString(hashBytes);
     }
 }
