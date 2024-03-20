@@ -13,7 +13,7 @@ public interface IStoragePlugin : IPlugin, IDisposable
 
     Task WriteAsync(string path, StorageStream storageStream, CancellationToken cancellationToken = default);
 
-    Task<StorageRead> ReadAsync(string path, CancellationToken cancellationToken = default);
+    Task<StorageRead> ReadAsync(string path, StorageHashOptions hashOptions, CancellationToken cancellationToken = default);
 
     Task<bool> FileExistAsync(string path, CancellationToken cancellationToken = default);
 
