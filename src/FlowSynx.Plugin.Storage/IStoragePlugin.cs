@@ -4,7 +4,7 @@ namespace FlowSynx.Plugin.Storage;
 
 public interface IStoragePlugin : IPlugin, IDisposable
 {
-    Specifications? Specifications { get; set; }
+    Dictionary<string, object?>? Specifications { get; set; }
 
     Task<StorageUsage> About(CancellationToken cancellationToken = default);
 
