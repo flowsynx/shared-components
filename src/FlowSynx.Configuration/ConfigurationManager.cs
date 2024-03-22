@@ -35,7 +35,7 @@ public class ConfigurationManager : IConfigurationManager
     public ConfigurationStatus AddSetting(ConfigurationItem configuration)
     {
         var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents);
+        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
 
         var convertedData = data?.Configurations;
         var findItems = convertedData?.Where(x => 
@@ -62,7 +62,7 @@ public class ConfigurationManager : IConfigurationManager
     public void DeleteSetting(string name)
     {
         var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents);
+        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
 
         if (data is null)
         {
@@ -93,7 +93,7 @@ public class ConfigurationManager : IConfigurationManager
     public ConfigurationItem GetSetting(string name)
     {
         var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents);
+        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration(){NameCaseInsensitive = false});
 
         var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
@@ -106,14 +106,14 @@ public class ConfigurationManager : IConfigurationManager
     {
         var result = new List<ConfigurationItem>();
         var contents = _fileReader.Read(_options.Path);
-        var deserializeResult = _deserializer.Deserialize<Configuration>(contents);
+        var deserializeResult = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
         return deserializeResult == null ? result : deserializeResult.Configurations;
     }
 
     public bool IsExist(string name)
     {
         var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents);
+        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
 
         var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
