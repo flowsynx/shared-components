@@ -11,7 +11,8 @@ public interface IStoragePlugin : IPlugin, IDisposable
     Task<IEnumerable<StorageEntity>> ListAsync(string path, StorageSearchOptions searchOptions, 
         StorageListOptions listOptions, StorageHashOptions hashOptions, CancellationToken cancellationToken = default);
 
-    Task WriteAsync(string path, StorageStream storageStream, CancellationToken cancellationToken = default);
+    Task WriteAsync(string path, StorageStream storageStream, StorageWriteOptions writeOptions, 
+        CancellationToken cancellationToken = default);
 
     Task<StorageRead> ReadAsync(string path, StorageHashOptions hashOptions, CancellationToken cancellationToken = default);
 
