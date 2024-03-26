@@ -2,12 +2,12 @@
 
 namespace FlowSynx.Net;
 
-public static class MimeTypeMap
+public static class ContentTypeMap
 {
     private const string Dot = ".";
     private static readonly IDictionary<string, string> Mappings = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
 
-        #region Big freaking list of mime types
+        #region Big freaking list of content types
         {".323", "text/h323"},
         {".3g2", "video/3gpp2"},
         {".3gp", "video/3gpp"},
@@ -572,7 +572,7 @@ public static class MimeTypeMap
         
         };
 
-    public static string GetMimeType(this string? extension)
+    public static string GetContentType(this string? extension)
     {
         if (extension == null)
             return "N/A";

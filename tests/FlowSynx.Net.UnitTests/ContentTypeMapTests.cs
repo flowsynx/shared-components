@@ -1,6 +1,6 @@
 namespace FlowSynx.Net.UnitTests;
 
-public class MimeTypeMapTests
+public class ContentTypeMapTests
 {
     [Theory]
     [InlineData(null, "N/A")]
@@ -566,9 +566,9 @@ public class MimeTypeMapTests
     [InlineData(".z", "application/x-compress")]
     [InlineData(".zip", "application/x-zip-compressed")]
     [InlineData(".amin", "N/A")]
-    public void GivenAnExtensionString_WhenGetExtensionIsCalled_ThenCorrectExtensionIsReturned(string input, string expected)
+    public void GivenAnExtensionString_WhenGetContentTypeIsCalled_ThenCorrectContentTypeIsReturned(string input, string expected)
     {
-        Assert.Equal(expected, input.GetMimeType());
+        Assert.Equal(expected, input.GetContentType());
     }
 
     [Theory]
@@ -577,7 +577,7 @@ public class MimeTypeMapTests
     [InlineData("video/3gpp", ".3gp")]
     [InlineData("application/x-7z-compressed", ".7z")]
     [InlineData("application/x-zip-compressed", ".zip")]
-    public void GivenAMimeTypeString_WhenGetMimeTypeIsCalled_ThenCorrectMimeTypeIsReturned(string input, string expected)
+    public void GivenAContentTypeString_WhenGetExtensionIsCalled_ThenCorrectExtensionIsReturned(string input, string expected)
     {
         Assert.Equal(expected, input.GetExtension());
     }

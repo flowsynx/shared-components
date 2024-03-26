@@ -27,7 +27,7 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
     public long? Size { get; set; }
 
     [SortMember]
-    public string? MimeType => IsFile ? GetExtension().GetMimeType() : "";
+    public string? ContentType => IsFile ? GetExtension().GetContentType() : "";
 
     public string? Md5 { get; set; }
 
