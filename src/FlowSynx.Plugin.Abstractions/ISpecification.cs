@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Plugin.Abstractions;
 
-public interface ISpecifications
+public interface ISpecifications: IDictionary<string, object?>
 {
 
 }
