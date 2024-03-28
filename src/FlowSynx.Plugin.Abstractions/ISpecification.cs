@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Plugin.Abstractions;
 
-public interface ISpecification
+public interface ISpecifications
 {
 
 }
