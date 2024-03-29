@@ -3,8 +3,16 @@
 public interface IPlugin
 {
     Guid Id { get; }
+
     string Name { get; }
+
     PluginNamespace Namespace { get; }
+
     string Type => $"FlowSynx.{Namespace}/{Name}";
+
     string? Description { get; }
+
+    Dictionary<string, object?>? Specifications { get; set; }
+
+    Type SpecificationsType { get; }
 }

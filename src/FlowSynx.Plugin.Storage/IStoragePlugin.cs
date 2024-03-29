@@ -4,10 +4,6 @@ namespace FlowSynx.Plugin.Storage;
 
 public interface IStoragePlugin : IPlugin, IDisposable
 {
-    Dictionary<string, object?>? Specifications { get; set; }
-
-    Type SpecificationsType { get; }
-    
     Task<StorageUsage> About(CancellationToken cancellationToken = default);
 
     Task<IEnumerable<StorageEntity>> ListAsync(string path, StorageSearchOptions searchOptions, 
