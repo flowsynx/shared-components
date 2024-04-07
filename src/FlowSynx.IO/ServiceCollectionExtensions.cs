@@ -1,4 +1,5 @@
 ﻿using FlowSynx.IO.Compression;
+using FlowSynx.IO.Exceptions;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,12 +26,25 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddCompression(this IServiceCollection services)
+    public static IServiceCollection AddCompressions(this IServiceCollection services)
     {
-        services
-            .AddTransient<IZipFile, ZipFile>()
-            .AddTransient<IGZipFile, GZipFile>();
+        services.AddScoped<ZipCompression>();
+        services.AddScoped<GZipCompression>();
+        services.AddScoped<TarCompression>();
 
+        services.AddTransient<Func<CompressType, ICompression>>(compressionProvider => key =>
+        {
+            return key switch
+            {
+                CompressType.Zip => compressionProvider.GetService<ZipCompression>() 
+                                    ?? throw new CompressionException(Resources.CompressTypeNotFound),
+                CompressType.GZip => compressionProvider.GetService<GZipCompression>() 
+                                     ?? throw new CompressionException(Resources.CompressTypeNotFound),
+                CompressType.Tar => compressionProvider.GetService<TarCompression>() 
+                                    ?? throw new CompressionException(Resources.CompressTypeNotFound),
+                _ => throw new CompressionException(Resources.CompressTypeNotSupported)
+            };
+        });
         return services;
     }
 }

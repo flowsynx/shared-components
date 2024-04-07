@@ -61,6 +61,24 @@ namespace FlowSynx.IO {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Compress Type is not found!.
+        /// </summary>
+        internal static string CompressTypeNotFound {
+            get {
+                return ResourceManager.GetString("CompressTypeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Compress Type is not supported!.
+        /// </summary>
+        internal static string CompressTypeNotSupported {
+            get {
+                return ResourceManager.GetString("CompressTypeNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Input value can&apos;t be empty or null..
         /// </summary>
         internal static string JsonDeserializerValueCanNotBeEmpty {
