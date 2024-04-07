@@ -109,8 +109,8 @@ public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<Stora
 
     public override string ToString()
     {
-        var k = Kind == StorageEntityItemKind.File ? "file" : "directory";
-        return $"{k}: {Name}@{DirectoryPath}";
+        var kind = Kind == StorageEntityItemKind.File ? "file" : "directory";
+        return $"{kind}:{Name}";
     }
 
     public static implicit operator StorageEntity(string fullPath)
