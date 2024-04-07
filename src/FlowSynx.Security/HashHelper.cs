@@ -20,12 +20,12 @@ public class HashHelper
         }
     }
 
-    public static string GetMd5HashFile(string path)
+    public static string GetMd5Hash(FileInfo fileInfo)
     {
         try
         {
-            using var stream = System.IO.File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
-            return GetMd5HashFile(stream);
+            using var stream = fileInfo.OpenRead();
+            return GetMd5Hash(stream);
         }
         catch
         {
@@ -33,7 +33,7 @@ public class HashHelper
         }
     }
 
-    public static string GetMd5HashFile(Stream stream)
+    public static string GetMd5Hash(Stream stream)
     {
         try
         {
