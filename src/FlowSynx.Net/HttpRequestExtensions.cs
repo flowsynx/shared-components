@@ -3,7 +3,7 @@
 public static class HttpRequestExtensions
 {
     #region Get
-    public static async Task<TResult?> GetRequestAsync<TResult>(this IHttpRequestService httpRequestService, string uri, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> GetRequestAsync<TResult>(this IHttpRequestService httpRequestService, string uri, CancellationToken cancellationToken = default)
     {
         var message = new Request
         {
@@ -14,7 +14,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> GetRequestAsync<TResult>(this IHttpRequestService httpRequestService, string uri, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> GetRequestAsync<TResult>(this IHttpRequestService httpRequestService, string uri, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request
         {
@@ -26,7 +26,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> GetRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> GetRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -38,7 +38,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> GetRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> GetRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -51,7 +51,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TResult>(message, cancellationToken);
     }
 
-    public static async Task<Stream> GetRequestAsync(this IHttpRequestService httpRequestService, string uri, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> GetRequestAsync(this IHttpRequestService httpRequestService, string uri, CancellationToken cancellationToken = default)
     {
         var message = new Request
         {
@@ -62,7 +62,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync(message, cancellationToken);
     }
 
-    public static async Task<Stream> GetRequestAsync(this IHttpRequestService httpRequestService, string uri, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> GetRequestAsync(this IHttpRequestService httpRequestService, string uri, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request
         {
@@ -74,7 +74,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync(message, cancellationToken);
     }
 
-    public static async Task<Stream> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -86,7 +86,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
     }
 
-    public static async Task<Stream> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> GetRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -101,7 +101,7 @@ public static class HttpRequestExtensions
     #endregion
 
     #region Post
-    public static async Task<TResult?> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -113,7 +113,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> PostRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -126,7 +126,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    public static async Task<Stream> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -138,7 +138,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest>(message, cancellationToken);
     }
 
-    public static async Task<Stream> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<Stream>> PostRequestAsync<TRequest>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -153,7 +153,7 @@ public static class HttpRequestExtensions
     #endregion
 
     #region Put
-    public static async Task<TResult?> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -165,7 +165,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> PutRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -180,7 +180,7 @@ public static class HttpRequestExtensions
     #endregion
 
     #region Delete
-    public static async Task<TResult?> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
@@ -192,7 +192,7 @@ public static class HttpRequestExtensions
         return await httpRequestService.SendRequestAsync<TRequest, TResult>(message, cancellationToken);
     }
 
-    public static async Task<TResult?> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
+    public static async Task<HttpResult<TResult?>> DeleteRequestAsync<TRequest, TResult>(this IHttpRequestService httpRequestService, string uri, TRequest request, IDictionary<string, string> headers, CancellationToken cancellationToken = default)
     {
         var message = new Request<TRequest>
         {
