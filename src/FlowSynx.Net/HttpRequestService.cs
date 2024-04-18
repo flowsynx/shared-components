@@ -141,7 +141,7 @@ public class HttpRequestService : IHttpRequestService
         {
             var response = await CreateHttpRequestAsync(request, cancellationToken).ConfigureAwait(false);
             var headers = response.Headers.Concat(response.Content.Headers);
-            var responseStream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
+            var responseStream = await response.Content.ReadAsStreamAsync(cancellationToken);
             
             return new HttpResult<Stream>()
             {
