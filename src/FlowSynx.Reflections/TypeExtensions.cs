@@ -34,7 +34,7 @@ public static class TypeExtensions
         return abstraction.IsAssignableFrom(concretion);
     }
 
-    public static T DictionaryToObject<T>(this Dictionary<string, object?>? source,
+    public static T DictionaryToObject<T>(this Dictionary<string, string?>? source,
         BindingFlags bindingAttr = BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase) 
         where T : class, new()
     {

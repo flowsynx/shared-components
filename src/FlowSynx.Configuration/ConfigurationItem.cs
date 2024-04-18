@@ -5,7 +5,7 @@ public class ConfigurationItem: IEquatable<ConfigurationItem>
     public required Guid Id { get; set; }
     public required string Name { get; set; }
     public required string Type { get; set; }
-    public Dictionary<string, object?>? Specifications { get; set; }
+    public Dictionary<string, string?>? Specifications { get; set; }
 
     public bool Equals(ConfigurationItem? other)
     {

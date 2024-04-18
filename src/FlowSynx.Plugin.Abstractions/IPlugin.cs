@@ -12,7 +12,7 @@ public interface IPlugin
 
     string? Description { get; }
 
-    Dictionary<string, object?>? Specifications { get; set; }
+    Dictionary<string, string?>? Specifications { get; set; }
 
     Type SpecificationsType { get; }
 }
