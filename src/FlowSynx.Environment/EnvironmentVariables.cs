@@ -2,7 +2,7 @@
 
 public static class EnvironmentVariables
 {
-    public const string FlowsynxPath = "FLOWSYNX";
-    public const string FlowsynxHttpPort = "FLOWSYNX_HTTP_PORT";
-    public const int FlowsynxDefaultPort = 5860;
+    public const string FlowSynxPath = "FLOWSYNX";
+    public const int FlowSynxHttpPort = 5860;
+    public const int FlowSynxDashboardHttpPort = 5861;
 }

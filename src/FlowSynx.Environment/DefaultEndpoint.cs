@@ -10,7 +10,9 @@ public class DefaultEndpoint : IEndpoint
     {
         _logger = logger;
     }
-
-    public int GetDefaultHttpPort() => EnvironmentVariables.FlowsynxDefaultPort;
-    public string GetDefaultHttpEndpoint() => $"http://localhost:{GetDefaultHttpPort()}";
+    
+    public int FlowSynxHttpPort() => EnvironmentVariables.FlowSynxHttpPort;
+    public int FlowSynxDashboardHttpPort() => EnvironmentVariables.FlowSynxDashboardHttpPort;
+    public string FlowSynxHttpEndpoint() => $"http://localhost:{FlowSynxHttpPort()}";
+    public string FlowSynxDashboardHttpEndpoint() => $"http://localhost:{FlowSynxDashboardHttpPort()}";
 }

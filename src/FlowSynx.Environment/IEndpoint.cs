@@ -2,6 +2,8 @@
 
 public interface IEndpoint
 {
-    int GetDefaultHttpPort();
-    string GetDefaultHttpEndpoint();
+    int FlowSynxHttpPort();
+    int FlowSynxDashboardHttpPort();
+    string FlowSynxHttpEndpoint();
+    string FlowSynxDashboardHttpEndpoint();
 }
