@@ -1,4 +1,6 @@
-﻿namespace FlowSynx.IO;
+﻿using System.Runtime.InteropServices;
+
+namespace FlowSynx.IO;
 
 /// <summary>
 /// Path utilities
@@ -138,5 +140,35 @@ public static class PathHelper
     public static bool ComparePath(string path1, string path2)
     {
         return Normalize(path1) == Normalize(path2);
+    }
+
+    public static void CopyFilesRecursively(string sourcePath, string targetPath, CancellationToken cancellationToken)
+    {
+        foreach (var dirPath in Directory.GetDirectories(sourcePath, "*", SearchOption.AllDirectories))
+        {
+            if (cancellationToken.IsCancellationRequested)
+                break;
+
+            Directory.CreateDirectory(dirPath.Replace(sourcePath, targetPath));
+        }
+
+        foreach (var newPath in Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories))
+        {
+            if (cancellationToken.IsCancellationRequested)
+                break;
+
+            File.Copy(newPath, newPath.Replace(sourcePath, targetPath), true);
+        }
+    }
+
+    public static void MakeExecutable(string path)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
+
+        const UnixFileMode ownershipPermissions = UnixFileMode.UserRead | UnixFileMode.UserWrite | UnixFileMode.UserExecute |
+                                                  UnixFileMode.GroupRead | UnixFileMode.GroupWrite | UnixFileMode.GroupExecute |
+                                                  UnixFileMode.OtherRead | UnixFileMode.OtherWrite | UnixFileMode.OtherExecute;
+
+        File.SetUnixFileMode(path, ownershipPermissions);
     }
 }
