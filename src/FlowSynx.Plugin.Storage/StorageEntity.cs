@@ -9,7 +9,7 @@ namespace FlowSynx.Plugin.Storage;
 public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
 {
     [SortMember]
-    public string Id => HashHelper.GetMd5Hash(this.ToString());
+    public string Id => HashHelper.Md5.GetHash(this.ToString());
 
     [SortMember]
     public StorageEntityItemKind Kind { get; }
