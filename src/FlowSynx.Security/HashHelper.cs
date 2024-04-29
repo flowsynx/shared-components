@@ -4,46 +4,95 @@ namespace FlowSynx.Security;
 
 public class HashHelper
 {
-    public static string GetMd5Hash(string input)
+    public class Md5
     {
-        try
+        public static string GetHash(string input)
         {
-            using var hasher = MD5.Create();
-            var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            var hashBytes = hasher.ComputeHash(inputBytes);
+            try
+            {
+                using var hasher = MD5.Create();
+                var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+                var hashBytes = hasher.ComputeHash(inputBytes);
 
-            return Convert.ToHexString(hashBytes);
+                return Convert.ToHexString(hashBytes);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
-        catch
+
+        public static string GetHash(FileInfo fileInfo)
         {
-            return string.Empty;
+            try
+            {
+                using var stream = fileInfo.OpenRead();
+                return GetHash(stream);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string GetHash(Stream stream)
+        {
+            try
+            {
+                using var hasher = MD5.Create();
+                var hashBytes = hasher.ComputeHash(stream);
+                return Convert.ToHexString(hashBytes);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 
-    public static string GetMd5Hash(FileInfo fileInfo)
+    public class Sha256
     {
-        try
+        public static string GetHash(string input)
         {
-            using var stream = fileInfo.OpenRead();
-            return GetMd5Hash(stream);
-        }
-        catch
-        {
-            return string.Empty;
-        }
-    }
+            try
+            {
+                using var hasher = SHA256.Create();
+                var inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+                var hashBytes = hasher.ComputeHash(inputBytes);
 
-    public static string GetMd5Hash(Stream stream)
-    {
-        try
-        {
-            using var hasher = MD5.Create();
-            var hashBytes = hasher.ComputeHash(stream);
-            return Convert.ToHexString(hashBytes);
+                return Convert.ToHexString(hashBytes);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
-        catch
+
+        public static string GetHash(FileInfo fileInfo)
         {
-            return string.Empty;
+            try
+            {
+                using var stream = fileInfo.OpenRead();
+                return GetHash(stream);
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        public static string GetHash(Stream stream)
+        {
+            try
+            {
+                using var hasher = SHA256.Create();
+                var hashBytes = hasher.ComputeHash(stream);
+                return Convert.ToHexString(hashBytes);
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
     }
 }
