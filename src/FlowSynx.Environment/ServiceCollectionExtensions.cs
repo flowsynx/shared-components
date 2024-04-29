@@ -27,4 +27,10 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ISystemClock, SystemClock>();
         return services;
     }
+
+    public static IServiceCollection AddProcessHandler(this IServiceCollection services)
+    {
+        services.AddTransient<IProcessHandler, ProcessHandler>();
+        return services;
+    }
 }
