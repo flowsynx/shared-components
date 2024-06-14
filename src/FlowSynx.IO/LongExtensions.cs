@@ -1,6 +1,6 @@
-﻿namespace FlowSynx.Formatting;
+﻿namespace FlowSynx.IO;
 
-public static class ByteFormatExtensions
+public static class LongExtensions
 {
     public static string ToString(this long? size, bool? applyFormat = true)
     {

@@ -1,6 +1,6 @@
-namespace FlowSynx.Formatting.UnitTests;
+namespace FlowSynx.IO.UnitTests;
 
-public class ByteFormatExtensionsTests
+public class LongExtensionsTests
 {
     [Theory]
     [InlineData(1, "1 B")]
