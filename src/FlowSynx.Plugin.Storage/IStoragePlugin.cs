@@ -7,7 +7,8 @@ public interface IStoragePlugin : IPlugin, IDisposable
     Task<StorageUsage> About(CancellationToken cancellationToken = default);
 
     Task<IEnumerable<StorageEntity>> ListAsync(string path, StorageSearchOptions searchOptions, 
-        StorageListOptions listOptions, StorageHashOptions hashOptions, CancellationToken cancellationToken = default);
+        StorageListOptions listOptions, StorageHashOptions hashOptions, StorageMetadataOptions metadataOptions, 
+        CancellationToken cancellationToken = default);
 
     Task WriteAsync(string path, StorageStream storageStream, StorageWriteOptions writeOptions, 
         CancellationToken cancellationToken = default);
