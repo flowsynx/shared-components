@@ -42,6 +42,16 @@ public static class PathHelper
     }
 
     /// <summary>
+    /// Combines parts of path
+    /// </summary>
+    /// <param name="parts"></param>
+    /// <returns></returns>
+    public static string Combine(params string[] parts)
+    {
+        return Combine((IEnumerable<string>)parts);
+    }
+
+    /// <summary>
     /// Gets parent path of this item.
     /// </summary>
     public static string GetParent(string path)
@@ -57,17 +67,7 @@ public static class PathHelper
            ? Combine(parts.Take(parts.Length - 1))
            : PathSeparatorString;
     }
-
-    /// <summary>
-    /// Combines parts of path
-    /// </summary>
-    /// <param name="parts"></param>
-    /// <returns></returns>
-    public static string Combine(params string[] parts)
-    {
-        return Combine((IEnumerable<string>)parts);
-    }
-
+    
     /// <summary>
     /// Normalizes path. Normalization makes sure that:
     /// - When path is null or empty returns root path '/'
@@ -100,9 +100,6 @@ public static class PathHelper
         path = string.Join(PathSeparatorString, r);
 
         return path;
-        //return removeTrailingSlash
-        //   ? path
-        //   : PathSeparatorString + path;
     }
 
     /// <summary>
