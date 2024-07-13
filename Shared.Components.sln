@@ -43,7 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Parsers.UnitTests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Net.UnitTests", "tests\FlowSynx.Net.UnitTests\FlowSynx.Net.UnitTests.csproj", "{DA264801-A270-4922-8D3D-23C801CA32EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.IO.UnitTests", "tests\FlowSynx.IO.UnitTests\FlowSynx.IO.UnitTests.csproj", "{47835B76-CC33-4589-80A9-84B5C526F8DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.IO.UnitTests", "tests\FlowSynx.IO.UnitTests\FlowSynx.IO.UnitTests.csproj", "{47835B76-CC33-4589-80A9-84B5C526F8DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Plugin.Storage.UnitTests", "tests\FlowSynx.Plugin.Storage.UnitTests\FlowSynx.Plugin.Storage.UnitTests.csproj", "{0C63C6E3-5036-42D1-BFC0-AAED546A3561}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -127,6 +129,10 @@ Global
 		{47835B76-CC33-4589-80A9-84B5C526F8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47835B76-CC33-4589-80A9-84B5C526F8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47835B76-CC33-4589-80A9-84B5C526F8DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C63C6E3-5036-42D1-BFC0-AAED546A3561}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C63C6E3-5036-42D1-BFC0-AAED546A3561}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C63C6E3-5036-42D1-BFC0-AAED546A3561}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C63C6E3-5036-42D1-BFC0-AAED546A3561}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -151,6 +157,7 @@ Global
 		{FE77BBC8-45C5-48FF-8949-B298500E11B2} = {C313F549-78C2-4F43-8330-84207ED48F80}
 		{DA264801-A270-4922-8D3D-23C801CA32EB} = {C313F549-78C2-4F43-8330-84207ED48F80}
 		{47835B76-CC33-4589-80A9-84B5C526F8DE} = {C313F549-78C2-4F43-8330-84207ED48F80}
+		{0C63C6E3-5036-42D1-BFC0-AAED546A3561} = {C313F549-78C2-4F43-8330-84207ED48F80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCFB0D8B-22C3-475A-A061-40F4FA14F8B3}
