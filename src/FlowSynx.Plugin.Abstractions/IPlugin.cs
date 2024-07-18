@@ -2,6 +2,8 @@
 
 public interface IPlugin
 {
+    Task Initialize();
+
     Guid Id { get; }
 
     string Name { get; }
