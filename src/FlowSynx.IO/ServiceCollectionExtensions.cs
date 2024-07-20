@@ -1,8 +1,10 @@
-﻿using FlowSynx.IO.Compression;
+﻿using FlowSynx.IO.Cache;
+using FlowSynx.IO.Compression;
 using FlowSynx.IO.Exceptions;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 
 namespace FlowSynx.IO;
 
@@ -22,7 +24,14 @@ public static class ServiceCollectionExtensions
         services
             .AddTransient<IFileReader, FileReader>()
             .AddTransient<IFileWriter, FileWriter>();
+        return services;
+    }
 
+    public static IServiceCollection AddMultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>(this IServiceCollection services) 
+        where TPrimaryKey : notnull where TSecondaryKey : notnull
+    {
+        services.AddSingleton(typeof(IMultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>), 
+            typeof(MultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>));
         return services;
     }
 
