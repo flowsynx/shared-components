@@ -1,5 +1,6 @@
 ﻿using FlowSynx.Logging.ConsoleLogger;
 using FlowSynx.Logging.FileLogger;
+using FlowSynx.Logging.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -77,6 +78,44 @@ public static class LoggerExtensions
                 var options = new ConsoleLoggerOptions();
                 configure(options);
                 return new ConsoleLoggerProvider(options);
+            }
+        ));
+
+        return builder;
+    }
+
+    public static ILoggingBuilder AddInMemoryLogger(this ILoggingBuilder builder)
+    {
+        if (builder is null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+
+        builder.AddInMemoryLogger(configure =>
+        {
+            configure.OutputTemplate = "[time={timestamp} | level={level}] message=\"{message}\"";
+            configure.MinLevel = LogLevel.Information;
+        });
+        return builder;
+    }
+
+    public static ILoggingBuilder AddInMemoryLogger(this ILoggingBuilder builder, Action<InMemoryLoggerOptions> configure)
+    {
+        if (builder is null)
+        {
+            throw new ArgumentNullException(nameof(builder));
+        }
+
+        if (configure == null)
+        {
+            throw new ArgumentNullException(nameof(configure));
+        }
+
+        builder.Services.Add(ServiceDescriptor.Singleton<ILoggerProvider, InMemoryLoggerProvider>(
+            (provider) => {
+                var options = new InMemoryLoggerOptions();
+                configure(options);
+                return new InMemoryLoggerProvider(options);
             }
         ));
 
