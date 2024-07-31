@@ -23,13 +23,30 @@ internal class PercentParser : IPercentParser
 
             double? result = 0;
             if (value.Contains("%"))
+            {
+                var isNumber = double.TryParse(value.Replace("%", ""), out var number);
+                if (!isNumber)
+                    throw new Exception(string.Format(Resources.TheEnteredValueShouldBeNumber, value));
+                
+                if (number is < 1 or > 100)
+                    throw new Exception(Resources.TheValueInPercentageMustBeBetweenOneAndHundred);
+
                 result = (double.Parse(value.Replace("%", "")) / 100) * total;
+            }
             else
             {
-                result = double.Parse(value);
+                var isNumber = double.TryParse(value, out var number);
+                if (!isNumber)
+                    throw new Exception(string.Format(Resources.TheEnteredValueShouldBeNumber, value));
+
+                result = number;
             }
 
             return result is > 0 ? (int)Math.Ceiling(result.Value) : 0;
+        }
+        catch (FormatException ex)
+        {
+
         }
         catch (Exception ex)
         {

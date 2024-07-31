@@ -140,5 +140,23 @@ namespace FlowSynx.Parsers {
                 return ResourceManager.GetString("SortParserInvalidSortingTerm", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The entered value &apos;{0}&apos; should be a number..
+        /// </summary>
+        internal static string TheEnteredValueShouldBeNumber {
+            get {
+                return ResourceManager.GetString("TheEnteredValueShouldBeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value in percentage must be between 1 and 100..
+        /// </summary>
+        internal static string TheValueInPercentageMustBeBetweenOneAndHundred {
+            get {
+                return ResourceManager.GetString("TheValueInPercentageMustBeBetweenOneAndHundred", resourceCulture);
+            }
+        }
     }
 }
