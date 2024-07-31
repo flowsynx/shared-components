@@ -1,4 +1,5 @@
 ﻿using FlowSynx.Parsers.Date;
+using FlowSynx.Parsers.Percent;
 using FlowSynx.Parsers.Size;
 using FlowSynx.Parsers.Sort;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDateParser, DateParser>();
         services.AddScoped<ISizeParser, SizeParser>();
         services.AddScoped<ISortParser, SortParser>();
+        services.AddScoped<IPercentParser, PercentParser>();
         return services;
     }
 }
