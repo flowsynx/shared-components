@@ -23,7 +23,7 @@ internal class PercentParser : IPercentParser
 
             double? result = 0;
             if (value.Contains("%"))
-                result = double.Parse(value.Replace("%", "")) / (total * 100);
+                result = (double.Parse(value.Replace("%", "")) / 100) * total;
             else
             {
                 result = double.Parse(value);
