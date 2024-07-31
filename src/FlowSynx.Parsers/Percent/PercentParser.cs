@@ -44,10 +44,6 @@ internal class PercentParser : IPercentParser
 
             return result is > 0 ? (int)Math.Ceiling(result.Value) : 0;
         }
-        catch (FormatException ex)
-        {
-
-        }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message);
