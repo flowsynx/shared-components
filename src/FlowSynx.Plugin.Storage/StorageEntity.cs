@@ -6,7 +6,7 @@ using FlowSynx.Security;
 
 namespace FlowSynx.Plugin.Storage;
 
-public sealed class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
+public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
 {
     [SortMember]
     public string Id => HashHelper.Md5.GetHash(this.ToString());
