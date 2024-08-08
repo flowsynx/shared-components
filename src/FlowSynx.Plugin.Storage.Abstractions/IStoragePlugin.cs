@@ -1,6 +1,6 @@
 ﻿using FlowSynx.Plugin.Abstractions;
 
-namespace FlowSynx.Plugin.Storage;
+namespace FlowSynx.Plugin.Storage.Abstractions;
 
 public interface IStoragePlugin : IPlugin, IDisposable
 {

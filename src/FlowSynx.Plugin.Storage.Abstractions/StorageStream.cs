@@ -1,6 +1,6 @@
 ﻿using EnsureThat;
 
-namespace FlowSynx.Plugin.Storage;
+namespace FlowSynx.Plugin.Storage.Abstractions;
 
 public class StorageStream: Stream
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace FlowSynx.Plugin.Storage;
+namespace FlowSynx.Plugin.Storage.Abstractions;
 
 public enum StorageFilterItemKind
 {

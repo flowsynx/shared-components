@@ -1,10 +1,10 @@
 ﻿using EnsureThat;
+using FlowSynx.Abstractions.Attributes;
 using FlowSynx.IO;
 using FlowSynx.Net;
-using FlowSynx.Plugin.Abstractions;
 using FlowSynx.Security;
 
-namespace FlowSynx.Plugin.Storage;
+namespace FlowSynx.Plugin.Storage.Abstractions;
 
 public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
 {
