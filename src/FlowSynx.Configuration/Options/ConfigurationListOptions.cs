@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Configuration;
+﻿namespace FlowSynx.Configuration.Options;
 
 public class ConfigurationListOptions
 {

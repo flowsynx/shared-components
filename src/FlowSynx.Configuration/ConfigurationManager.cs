@@ -1,4 +1,7 @@
 ﻿using EnsureThat;
+using FlowSynx.Configuration.Exceptions;
+using FlowSynx.Configuration.Filters;
+using FlowSynx.Configuration.Options;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
@@ -13,10 +16,11 @@ public class ConfigurationManager : IConfigurationManager
     private readonly IFileWriter _fileWriter;
     private readonly ISerializer _serializer;
     private readonly IDeserializer _deserializer;
+    private readonly IConfigurationFilter _configurationFilter;
 
     public ConfigurationManager(ILogger<ConfigurationManager> logger, ConfigurationPath options, 
         IFileReader fileReader, IFileWriter fileWriter, ISerializer serializer, 
-        IDeserializer deserializer)
+        IDeserializer deserializer, IConfigurationFilter configurationFilter)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(options, nameof(options));
@@ -30,95 +34,102 @@ public class ConfigurationManager : IConfigurationManager
         _fileWriter = fileWriter;
         _serializer = serializer;
         _deserializer = deserializer;
+        _configurationFilter = configurationFilter;
     }
 
-    public ConfigurationStatus AddSetting(ConfigurationItem configuration)
+    public IEnumerable<ConfigurationItem> List(ConfigurationSearchOptions searchOptions,
+        ConfigurationListOptions listOptions)
     {
+        var result = new List<ConfigurationItem>();
         var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
+        var deserializeResult = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
 
-        var convertedData = data?.Configurations;
-        var findItems = convertedData?.Where(x => 
-            string.Equals(x.Name, configuration.Name, StringComparison.CurrentCultureIgnoreCase));
+        return _configurationFilter.FilterConfigurationList(deserializeResult.Configurations, searchOptions, listOptions);
+    }
 
-        if (findItems != null && findItems.Any())
-        {
-            _logger.LogWarning($"{0} is already exist.", configuration.Name);
-            return ConfigurationStatus.Exist;
-        }
+    public ConfigurationResult Add(ConfigurationItem configuration)
+    {
+        var configurations = Configurations.Configurations;
+        configurations.Add(configuration);
 
-        convertedData?.Add(configuration);
-
-        var newSetting = new Configuration()
-        {
-            Configurations = convertedData!
-        };
-
+        var newSetting = new Configuration() { Configurations = configurations! };
         var dataToWrite = _serializer.Serialize(newSetting);
         _fileWriter.Write(_options.Path, dataToWrite);
-        return ConfigurationStatus.Added;
+        return new ConfigurationResult(configuration.Id);
     }
 
-    public void DeleteSetting(string name)
+    public ConfigurationResult Delete(string name)
     {
-        var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
+        var configurations = Configurations.Configurations;
 
-        if (data is null)
+        if (configurations is null)
         {
             _logger.LogWarning($"No setting found!");
             throw new ConfigurationException(Resources.ConfigurationManagerNotSettingFoumd);
         }
 
-        var convertedData = data.Configurations.ToList();
-        var item = convertedData.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
-
-        if (item == null)
-        {
-            _logger.LogWarning($"{0} is not found.", name);
-            throw new ConfigurationException(string.Format(Resources.ConfigurationManagerItemNotFoumd, name));
-        }
-
-        convertedData.Remove(item);
-
+        var item = Get(name);
+        configurations.Remove(item);
         var newSetting = new Configuration()
         {
-            Configurations = convertedData!
+            Configurations = configurations!
         };
 
         var dataToWrite = _serializer.Serialize(newSetting);
         _fileWriter.Write(_options.Path, dataToWrite);
+        return new ConfigurationResult(item.Id);
     }
 
-    public ConfigurationItem GetSetting(string name)
+    public IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions,
+        ConfigurationListOptions listOptions)
     {
-        var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration(){NameCaseInsensitive = false});
+        var result = new List<ConfigurationResult>();
+        var filteredList = List(searchOptions, listOptions);
+        foreach (var item in filteredList)
+        {
+            Delete(item.Name);
+            result.Add(new ConfigurationResult(item.Id));
+        }
+        return result;
+    }
 
-        var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+    public ConfigurationItem Get(string name)
+    {
+        var configurations = Configurations;
+        var result = configurations.Configurations
+            .FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
         if (result != null) return result;
-        _logger.LogWarning($"{0} is not found.", name);
+        _logger.LogWarning($"{name} is not found.");
         throw new ConfigurationException(string.Format(Resources.ConfigurationManagerItemNotFoumd, name));
     }
-
-    public IEnumerable<ConfigurationItem> GetSettings()
-    {
-        var result = new List<ConfigurationItem>();
-        var contents = _fileReader.Read(_options.Path);
-        var deserializeResult = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
-        return deserializeResult == null ? result : deserializeResult.Configurations;
-    }
-
+    
     public bool IsExist(string name)
     {
-        var contents = _fileReader.Read(_options.Path);
-        var data = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
+        try
+        {
+            Get(name);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
 
-        var result = data?.Configurations.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase));
+    private Configuration Configurations
+    {
+        get
+        {
+            var contents = _fileReader.Read(_options.Path);
 
-        if (result != null) return true;
-        _logger.LogWarning($"{0} is not found.", name);
-        return false;
+            var data = _deserializer.Deserialize<Configuration>(contents,
+                new JsonSerializationConfiguration
+                {
+                    NameCaseInsensitive = false
+                });
+
+            return data ?? new Configuration();
+        }
     }
 }

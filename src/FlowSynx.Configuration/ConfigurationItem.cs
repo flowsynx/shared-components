@@ -13,7 +13,7 @@ public class ConfigurationItem: IEquatable<ConfigurationItem>
     [SortMember]
     public required string Type { get; set; }
     
-    public DateTimeOffset? CreatedTime { get; set; }
+    public required DateTimeOffset CreatedTime { get; set; }
 
     [SortMember]
     public DateTimeOffset? ModifiedTime { get; set; }

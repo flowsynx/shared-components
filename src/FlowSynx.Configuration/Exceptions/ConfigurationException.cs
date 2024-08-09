@@ -1,6 +1,6 @@
 ﻿using FlowSynx.Abstractions.Exceptions;
 
-namespace FlowSynx.Configuration;
+namespace FlowSynx.Configuration.Exceptions;
 
 public class ConfigurationException : FlowSynxException
 {
