@@ -1,7 +1,6 @@
-﻿using FlowSynx.Plugin.Storage.Abstractions;
-using FlowSynx.Plugin.Storage.Abstractions.Options;
+﻿using FlowSynx.Plugin.Storage.Abstractions.Options;
 
-namespace FlowSynx.Plugin.Storage.Filter;
+namespace FlowSynx.Plugin.Storage.Abstractions;
 
 public interface IStorageFilter
 {
