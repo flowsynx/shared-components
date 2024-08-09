@@ -11,7 +11,7 @@ using FlowSynx.Plugin.Storage.Move;
 
 namespace FlowSynx.Plugin.Storage.Services;
 
-internal class StorageService : IStorageService
+public class StorageService : IStorageService
 {
     private readonly ILogger<StorageService> _logger;
     private readonly IStorageEntityCopier _storageEntityCopier;

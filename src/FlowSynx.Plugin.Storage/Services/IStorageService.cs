@@ -8,7 +8,7 @@ using FlowSynx.Plugin.Storage.Move;
 
 namespace FlowSynx.Plugin.Storage.Services;
 
-internal interface IStorageService
+public interface IStorageService
 {
     Task<StorageUsage> About(StoragePluginNorms storagePluginNorms, CancellationToken cancellationToken = default);
 
