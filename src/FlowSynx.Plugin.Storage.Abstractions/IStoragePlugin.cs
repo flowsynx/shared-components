@@ -1,4 +1,6 @@
 ﻿using FlowSynx.Plugin.Abstractions;
+using FlowSynx.Plugin.Storage.Abstractions.Models;
+using FlowSynx.Plugin.Storage.Abstractions.Options;
 
 namespace FlowSynx.Plugin.Storage.Abstractions;
 

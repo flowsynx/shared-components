@@ -2,6 +2,7 @@
 using FlowSynx.Abstractions.Attributes;
 using FlowSynx.IO;
 using FlowSynx.Net;
+using FlowSynx.Plugin.Storage.Abstractions.Exceptions;
 using FlowSynx.Security;
 
 namespace FlowSynx.Plugin.Storage.Abstractions;

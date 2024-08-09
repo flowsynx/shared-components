@@ -1,8 +1,8 @@
 ﻿using EnsureThat;
 
-namespace FlowSynx.Plugin.Storage.Abstractions;
+namespace FlowSynx.Plugin.Storage.Abstractions.Models;
 
-public class StorageStream: Stream
+public class StorageStream : Stream
 {
     private readonly Stream _stream;
     private bool _noRead = true;

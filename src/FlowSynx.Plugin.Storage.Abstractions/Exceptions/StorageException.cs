@@ -1,6 +1,6 @@
 ﻿using FlowSynx.Abstractions.Exceptions;
 
-namespace FlowSynx.Plugin.Storage.Abstractions;
+namespace FlowSynx.Plugin.Storage.Abstractions.Exceptions;
 
 public class StorageException : FlowSynxException
 {

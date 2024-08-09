@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Plugin.Storage.Abstractions;
+﻿namespace FlowSynx.Plugin.Storage.Abstractions.Options;
 
 public class StorageHashOptions
 {
