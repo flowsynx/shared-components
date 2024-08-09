@@ -12,7 +12,7 @@ using FlowSynx.Plugin.Storage.Abstractions.Options;
 
 namespace FlowSynx.Plugin.Storage.Filter;
 
-internal class StorageFilter: IStorageFilter
+public class StorageFilter: IStorageFilter
 {
     private readonly ILogger<StorageFilter> _logger;
     private readonly IDateParser _dateParser;
