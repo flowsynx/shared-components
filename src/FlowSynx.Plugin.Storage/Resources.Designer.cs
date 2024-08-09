@@ -61,6 +61,33 @@ namespace FlowSynx.Plugin.Storage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The specified destination-path is of a different type than the source-path..
+        /// </summary>
+        internal static string CopyDestinationPathIsDifferentThanSourcePath {
+            get {
+                return ResourceManager.GetString("CopyDestinationPathIsDifferentThanSourcePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified destination-path is of a different type than the source-path..
+        /// </summary>
+        internal static string MoveDestinationPathIsDifferentThanSourcePath {
+            get {
+                return ResourceManager.GetString("MoveDestinationPathIsDifferentThanSourcePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source and destination path are identical and overlap..
+        /// </summary>
+        internal static string MoveTheSourceAndDestinationPathAreIdenticalAndOverlap {
+            get {
+                return ResourceManager.GetString("MoveTheSourceAndDestinationPathAreIdenticalAndOverlap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified Path is not a file..
         /// </summary>
         internal static string StorageEntityGetExtensionTheSpecifiedPathIsNotAFile {
