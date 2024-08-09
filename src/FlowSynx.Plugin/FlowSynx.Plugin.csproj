@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FlowSynx.Abstractions\FlowSynx.Abstractions.csproj" />
+    <ProjectReference Include="..\FlowSynx.Parsers\FlowSynx.Parsers.csproj" />
     <ProjectReference Include="..\FlowSynx.Plugin.Abstractions\FlowSynx.Plugin.Abstractions.csproj" />
   </ItemGroup>
 

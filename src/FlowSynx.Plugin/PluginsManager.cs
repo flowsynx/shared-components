@@ -1,5 +1,7 @@
 ﻿using EnsureThat;
 using FlowSynx.Plugin.Abstractions;
+using FlowSynx.Plugin.Filters;
+using FlowSynx.Plugin.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -9,16 +11,24 @@ public class PluginsManager : IPluginsManager
 {
     private readonly ILogger<PluginsManager> _logger;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IPluginFilter _pluginFilter;
 
-    public PluginsManager(ILogger<PluginsManager> logger, IServiceProvider serviceProvider)
+    public PluginsManager(ILogger<PluginsManager> logger, IServiceProvider serviceProvider,
+        IPluginFilter pluginFilter)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(serviceProvider, nameof(serviceProvider));
         _logger = logger;
         _serviceProvider = serviceProvider;
+        _pluginFilter = pluginFilter;
     }
 
-    public IPlugin GetPlugin(string type)
+    public IEnumerable<IPlugin> List(PluginSearchOptions searchOptions, PluginListOptions listOptions)
+    {
+        return _pluginFilter.FilterPluginsList(Plugins(), searchOptions, listOptions);
+    }
+
+    public IPlugin Get(string type)
     {
         var result = Plugins().FirstOrDefault(x => x.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
 
@@ -31,14 +41,16 @@ public class PluginsManager : IPluginsManager
     
     public bool IsExist(string type)
     {
-        var result = Plugins().FirstOrDefault(x => x.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
-        if (result != null) return true;
-
-        _logger.LogError($"The specified plugin '{type}' not found!");
-        return false;
+        try
+        {
+            Get(type);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
     }
 
-    public IEnumerable<IPlugin> Plugins() => _serviceProvider.GetServices<IPlugin>();
-
-    public IEnumerable<IPlugin> Plugins(PluginNamespace @namespace) => Plugins().Where(x => x.Namespace == @namespace);
+    private IEnumerable<IPlugin> Plugins() => _serviceProvider.GetServices<IPlugin>();
 }
