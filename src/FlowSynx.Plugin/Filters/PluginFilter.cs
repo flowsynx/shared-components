@@ -38,12 +38,12 @@ public class PluginFilter : IPluginFilter
         if (!string.IsNullOrEmpty(searchOptions.Include))
         {
             var myRegex = new Regex(searchOptions.Include, searchOptions.CaseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase);
-            predicate = predicate.And(d => myRegex.IsMatch(d.Namespace.ToString()));
+            predicate = predicate.And(d => myRegex.IsMatch(d.Type.ToString()));
         }
         if (!string.IsNullOrEmpty(searchOptions.Exclude) && string.IsNullOrEmpty(searchOptions.Include))
         {
             var myRegex = new Regex(searchOptions.Exclude, searchOptions.CaseSensitive ? RegexOptions.None : RegexOptions.IgnoreCase);
-            predicate = predicate.And(d => !myRegex.IsMatch(d.Namespace.ToString()));
+            predicate = predicate.And(d => !myRegex.IsMatch(d.Type.ToString()));
         }
 
         var result = pluginsList.Where(predicate.Compile());
