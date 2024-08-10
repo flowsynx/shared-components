@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FlowSynx.Logging.Extensions;
 
-internal static class LogExtensions
+public static class LogExtensions
 {
     public static LogLevel ToStandardLogLevel(this string logLevel)
     {
