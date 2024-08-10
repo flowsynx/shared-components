@@ -4,7 +4,7 @@ using FlowSynx.Logging.InMemory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace FlowSynx.Logging;
+namespace FlowSynx.Logging.Extensions;
 
 public static class LoggerExtensions
 {
