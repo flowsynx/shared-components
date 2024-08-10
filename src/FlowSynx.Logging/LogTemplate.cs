@@ -22,7 +22,7 @@ internal static class LogTemplate
                 string? valueToAppend;
                 if (sbCurrentTerm.ToString() == "NewLine")
                 {
-                    valueToAppend = Environment.NewLine;
+                    valueToAppend = System.Environment.NewLine;
                 }
                 else
                 {
