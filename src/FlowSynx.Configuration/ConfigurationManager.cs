@@ -5,6 +5,7 @@ using FlowSynx.Configuration.Options;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
+using System.Xml.Linq;
 
 namespace FlowSynx.Configuration;
 
@@ -62,12 +63,6 @@ public class ConfigurationManager : IConfigurationManager
     {
         var configurations = Configurations.Configurations;
 
-        if (configurations is null)
-        {
-            _logger.LogWarning($"No setting found!");
-            throw new ConfigurationException(Resources.ConfigurationManagerNotSettingFoumd);
-        }
-
         var item = Get(name);
         configurations.Remove(item);
         var newSetting = new Configuration()
@@ -80,17 +75,18 @@ public class ConfigurationManager : IConfigurationManager
         return new ConfigurationResult(item.Id);
     }
 
-    public IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions,
-        ConfigurationListOptions listOptions)
+    public IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions)
     {
-        var result = new List<ConfigurationResult>();
+        var listOptions = new ConfigurationListOptions();
         var filteredList = List(searchOptions, listOptions);
-        foreach (var item in filteredList)
-        {
-            Delete(item.Name);
-            result.Add(new ConfigurationResult(item.Id));
-        }
-        return result;
+        var configurationItems = filteredList.ToList();
+
+        if (configurationItems.Any())
+            return configurationItems.Select(configurationItem => Delete(configurationItem.Name));
+
+        _logger.LogWarning($"No setting found!");
+        throw new ConfigurationException(Resources.ConfigurationManagerNotSettingFoumd);
+
     }
 
     public ConfigurationItem Get(string name)

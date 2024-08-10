@@ -15,5 +15,5 @@ public interface IConfigurationManager
 
     ConfigurationResult Delete(string name);
 
-    IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions, ConfigurationListOptions listOptions);
+    IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions);
 }
