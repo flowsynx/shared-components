@@ -5,7 +5,6 @@ using FlowSynx.Configuration.Options;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
-using System.Xml.Linq;
 
 namespace FlowSynx.Configuration;
 
@@ -41,11 +40,8 @@ public class ConfigurationManager : IConfigurationManager
     public IEnumerable<ConfigurationItem> List(ConfigurationSearchOptions searchOptions,
         ConfigurationListOptions listOptions)
     {
-        var result = new List<ConfigurationItem>();
-        var contents = _fileReader.Read(_options.Path);
-        var deserializeResult = _deserializer.Deserialize<Configuration>(contents, new JsonSerializationConfiguration() { NameCaseInsensitive = false });
-
-        return _configurationFilter.FilterConfigurationList(deserializeResult.Configurations, searchOptions, listOptions);
+        var configurations = Configurations.Configurations;
+        return _configurationFilter.FilterConfigurationList(configurations, searchOptions, listOptions);
     }
 
     public ConfigurationResult Add(ConfigurationItem configuration)
@@ -77,12 +73,31 @@ public class ConfigurationManager : IConfigurationManager
 
     public IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions)
     {
+        var result = new List<ConfigurationResult>();
         var listOptions = new ConfigurationListOptions();
         var filteredList = List(searchOptions, listOptions);
         var configurationItems = filteredList.ToList();
 
+        var configurations = Configurations.Configurations;
+
         if (configurationItems.Any())
-            return configurationItems.Select(configurationItem => Delete(configurationItem.Name));
+        {
+            foreach (var configurationItem in configurationItems)
+            {
+                configurations.Remove(configurationItem);
+                result.Add(new ConfigurationResult(configurationItem.Id));
+            }
+
+            var newSetting = new Configuration()
+            {
+                Configurations = configurations!
+            };
+
+            var dataToWrite = _serializer.Serialize(newSetting);
+            _fileWriter.Write(_options.Path, dataToWrite);
+
+            return result;
+        }
 
         _logger.LogWarning($"No setting found!");
         throw new ConfigurationException(Resources.ConfigurationManagerNotSettingFoumd);
