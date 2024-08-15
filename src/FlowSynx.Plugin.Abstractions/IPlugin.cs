@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Plugin.Abstractions;
 
-public interface IPlugin
+public interface IPlugin: IDisposable
 {
     Task Initialize();
 
@@ -20,21 +20,21 @@ public interface IPlugin
 
     Task<object> About(string entity, CancellationToken cancellationToken = default);
 
-    Task<object> CreateAsync(string entity, Dictionary<string, object>? options,
+    Task<object> CreateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<object> WriteAsync(string entity, Dictionary<string, object>? options, object dataOptions,
+    Task<object> WriteAsync(string entity, PluginOptions? options, object dataOptions,
         CancellationToken cancellationToken = default);
 
-    Task<object> ReadAsync(string entity, Dictionary<string, object>? options,
+    Task<object> ReadAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<object> UpdateAsync(string entity, Dictionary<string, object>? options,
+    Task<object> UpdateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> DeleteAsync(string entity, Dictionary<string, object>? options,
+    Task<IEnumerable<object>> DeleteAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> ListAsync(string entity, Dictionary<string, object>? options,
+    Task<IEnumerable<object>> ListAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 }
