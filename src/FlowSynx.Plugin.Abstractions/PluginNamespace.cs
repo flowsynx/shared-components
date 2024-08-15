@@ -2,7 +2,8 @@
 
 public enum PluginNamespace
 {
-    Storage = 0,
+    Database = 0,
     Messaging,
-    KeyValue
+    Storage,
+    Stream
 }
