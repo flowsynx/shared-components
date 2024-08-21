@@ -28,11 +28,13 @@ public interface IPluginService
     Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
-        PluginFilters? filters, CancellationToken cancellationToken = default);
+    Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginFilters? sourceFilters,
+        PluginInstance destinationInstance, PluginFilters? destinationFilters, 
+        CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
-        PluginFilters? filters, CancellationToken cancellationToken = default);
+    Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginFilters? sourceFilters, 
+        PluginInstance destinationInstance, PluginFilters? destinationFilters, 
+        CancellationToken cancellationToken = default);
 
     Task<IEnumerable<CheckResult>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginFilters? filters, CancellationToken cancellationToken = default);

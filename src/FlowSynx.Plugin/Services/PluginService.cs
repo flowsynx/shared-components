@@ -119,17 +119,20 @@ public class PluginService: IPluginService
         }
     }
 
-    public Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance, 
-        PluginFilters? options, CancellationToken cancellationToken = default)
+    public Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginFilters? sourceFilters, 
+        PluginInstance destinationInstance, PluginFilters? destinationFilters, 
+        CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance, 
-        PluginFilters? options, CancellationToken cancellationToken = default)
+    public Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginFilters? sourceFilters, 
+        PluginInstance destinationInstance, PluginFilters? destinationFilters, 
+        CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
+
 
     public Task<IEnumerable<CheckResult>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance, 
         PluginFilters? options, CancellationToken cancellationToken = default)
