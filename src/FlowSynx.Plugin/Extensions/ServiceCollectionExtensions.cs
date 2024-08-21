@@ -12,8 +12,14 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddScoped<IPluginFilter, PluginFilter>()
-            .AddScoped<IPluginsManager, PluginsManager>()
-            .AddScoped<IPluginService, PluginService>();
+            .AddScoped<IPluginsManager, PluginsManager>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddPluginService(this IServiceCollection services)
+    {
+        services.AddScoped<IPluginService, PluginService>();
 
         return services;
     }
