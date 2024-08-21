@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Plugin.Storage;
 
-internal class StorageList
+public class StorageList
 {
     public string? Id { get; set; }
     public string? Kind { get; set; }
