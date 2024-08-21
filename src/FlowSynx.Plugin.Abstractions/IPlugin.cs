@@ -14,27 +14,31 @@ public interface IPlugin: IDisposable
 
     string? Description { get; }
 
-    Dictionary<string, string?>? Specifications { get; set; }
+    PluginSpecifications? Specifications { get; set; }
 
     Type SpecificationsType { get; }
 
-    Task<object> About(string entity, CancellationToken cancellationToken = default);
-
-    Task<object> CreateAsync(string entity, PluginOptions? options,
+    Task<object> About(PluginFilters? filters, 
         CancellationToken cancellationToken = default);
 
-    Task<object> WriteAsync(string entity, PluginOptions? options, object dataOptions,
+    Task<object> CreateAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<object> ReadAsync(string entity, PluginOptions? options,
+    Task<object> WriteAsync(string entity, PluginFilters? filters, object dataOptions,
         CancellationToken cancellationToken = default);
 
-    Task<object> UpdateAsync(string entity, PluginOptions? options,
+    Task<object> ReadAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> DeleteAsync(string entity, PluginOptions? options,
+    Task<object> UpdateAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> ListAsync(string entity, PluginOptions? options,
+    Task<IEnumerable<object>> DeleteAsync(string entity, PluginFilters? filters,
+        CancellationToken cancellationToken = default);
+
+    Task<bool> ExistAsync(string entity, PluginFilters? filters,
+        CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<object>> ListAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 }

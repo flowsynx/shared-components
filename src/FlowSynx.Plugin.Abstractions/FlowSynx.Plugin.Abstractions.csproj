@@ -8,4 +8,8 @@
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FlowSynx.Reflections\FlowSynx.Reflections.csproj" />
+  </ItemGroup>
+
 </Project>
