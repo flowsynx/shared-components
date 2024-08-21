@@ -1,8 +1,8 @@
-﻿//using FlowSynx.Plugin.Abstractions;
+﻿using FlowSynx.Plugin.Abstractions;
 
-//namespace FlowSynx.Plugin.Storage;
+namespace FlowSynx.Plugin.Storage;
 
-//public interface IStorageFilter
-//{
-//    IEnumerable<StorageEntity> Filter(IEnumerable<StorageEntity> entities, PluginFilters options);
-//}
+public interface IStorageFilter
+{
+    IEnumerable<StorageEntity> Filter(IEnumerable<StorageEntity> entities, PluginFilters? filters);
+}
