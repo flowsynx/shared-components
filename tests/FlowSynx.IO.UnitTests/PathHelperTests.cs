@@ -59,4 +59,13 @@ public class PathHelperTests
     {
         Assert.Equal(expected, PathHelper.IsRootPath(path));
     }
+
+    [Theory]
+    [InlineData("/", "\\")]
+    [InlineData("/one/", "\\one\\")]
+    [InlineData("/one/two/", "\\one\\two\\")]
+    public void GivenStringArray_WhenToUnixPathIsCalled_ThenCorrectAnswerReturned(string expected, string path)
+    {
+        Assert.Equal(expected, PathHelper.ToUnixPath(path));
+    }
 }

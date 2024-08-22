@@ -158,6 +158,13 @@ public static class PathHelper
         }
     }
 
+    public static string ToUnixPath(string? path)
+    {
+        return path == null
+            ? string.Empty
+            : path.Replace("\\", "/");
+    }
+
     public static void MakeExecutable(string path)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
