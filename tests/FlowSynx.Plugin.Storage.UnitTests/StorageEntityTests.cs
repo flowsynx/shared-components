@@ -16,7 +16,7 @@ public class StorageEntityTests
 
     [Theory]
     [InlineData("/", null, "/")]
-    [InlineData("f0/f1/f2", "f0/f1", "f2")]
+    [InlineData("f0/f1/f2/", "f0/f1/", "f2")]
     public void GivenStringArray_WhenStorageEntityInitialized_ThenCorrectFullPathIsReturned(string expected, string basePath, string relativePath)
     {
         var entity = new StorageEntity(basePath, relativePath, StorageEntityItemKind.Directory);
