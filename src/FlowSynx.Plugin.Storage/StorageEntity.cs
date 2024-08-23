@@ -37,7 +37,9 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
     [SortMember]
     public DateTimeOffset? ModifiedTime { get; set; }
 
-    public string FullPath => PathHelper.Combine(DirectoryPath, Name);
+    public string FullPath => Kind == StorageEntityItemKind.Directory 
+        ? PathHelper.Combine(DirectoryPath, Name) + PathHelper.PathSeparator 
+        : PathHelper.Combine(DirectoryPath, Name);
 
     public bool IsRootFolder => Kind == StorageEntityItemKind.Directory && PathHelper.IsRootPath(FullPath);
 
