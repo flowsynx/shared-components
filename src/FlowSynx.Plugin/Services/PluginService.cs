@@ -29,10 +29,18 @@ public class PluginService: IPluginService
         }
     }
 
-    public Task<object> CreateAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<object> CreateAsync(PluginInstance instance, PluginFilters? options, 
         CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await instance.Plugin.CreateAsync(instance.Entity, options, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"Create entity. Message: {ex.Message}");
+            throw new StorageException(ex.Message);
+        }
     }
 
     public async Task<object> WriteAsync(PluginInstance instance, PluginFilters? options, 
