@@ -41,4 +41,7 @@ public interface IPlugin: IDisposable
 
     Task<IEnumerable<object>> ListAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
+
+    Task<object> CompressAsync(string entity, PluginFilters? filters,
+        CancellationToken cancellationToken = default);
 }
