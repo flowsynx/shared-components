@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Plugin.Services;
+﻿namespace FlowSynx.Plugin;
 
 public enum CheckState
 {

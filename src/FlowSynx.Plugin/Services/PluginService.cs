@@ -29,12 +29,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<object> CreateAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<object> CreateAsync(PluginInstance instance, PluginFilters? filters, 
         CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.CreateAsync(instance.Entity, options, cancellationToken);
+            return await instance.Plugin.CreateAsync(instance.Entity, filters, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -43,12 +43,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<object> WriteAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<object> WriteAsync(PluginInstance instance, PluginFilters? filters, 
         object dataOptions, CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.WriteAsync(instance.Entity, options, dataOptions, cancellationToken);
+            return await instance.Plugin.WriteAsync(instance.Entity, filters, dataOptions, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -57,12 +57,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<object> ReadAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<object> ReadAsync(PluginInstance instance, PluginFilters? filters, 
         CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.ReadAsync(instance.Entity, options, cancellationToken);
+            return await instance.Plugin.ReadAsync(instance.Entity, filters, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -85,12 +85,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<IEnumerable<object>> DeleteAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<IEnumerable<object>> DeleteAsync(PluginInstance instance, PluginFilters? filters, 
         CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.DeleteAsync(instance.Entity, options, cancellationToken);
+            return await instance.Plugin.DeleteAsync(instance.Entity, filters, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -99,12 +99,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<bool> ExistAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<bool> ExistAsync(PluginInstance instance, PluginFilters? filters, 
         CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.ExistAsync(instance.Entity, options, cancellationToken);
+            return await instance.Plugin.ExistAsync(instance.Entity, filters, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -113,12 +113,12 @@ public class PluginService: IPluginService
         }
     }
 
-    public async Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginFilters? options,
+    public async Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginFilters? filters,
         CancellationToken cancellationToken = default)
     {
         try
         {
-            return await instance.Plugin.ListAsync(instance.Entity, options, cancellationToken);
+            return await instance.Plugin.ListAsync(instance.Entity, filters, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -140,17 +140,24 @@ public class PluginService: IPluginService
     {
         throw new NotImplementedException();
     }
-
-
-    public Task<IEnumerable<CheckResult>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance, 
-        PluginFilters? options, CancellationToken cancellationToken = default)
+    
+    public Task<IEnumerable<object>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance, 
+        PluginFilters? filters, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public Task<CompressResult> CompressAsync(PluginInstance instance, PluginFilters? options, 
+    public async Task<object> CompressAsync(PluginInstance instance, PluginFilters? filters,
         CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        try
+        {
+            return await instance.Plugin.CompressAsync(instance.Entity, filters, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"CompressAsync error. Message: {ex.Message}");
+            throw new StorageException(ex.Message);
+        }
     }
 }

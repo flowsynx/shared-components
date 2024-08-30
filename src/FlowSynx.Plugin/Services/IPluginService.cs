@@ -36,9 +36,9 @@ public interface IPluginService
         PluginInstance destinationInstance, PluginFilters? destinationFilters, 
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<CheckResult>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    Task<IEnumerable<object>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginFilters? filters, CancellationToken cancellationToken = default);
 
-    Task<CompressResult> CompressAsync(PluginInstance instance, PluginFilters? filters,
+    Task<object> CompressAsync(PluginInstance instance, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 }
