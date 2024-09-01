@@ -1,4 +1,6 @@
-﻿namespace FlowSynx.Plugin.Abstractions;
+﻿using FlowSynx.IO.Compression;
+
+namespace FlowSynx.Plugin.Abstractions;
 
 public interface IPlugin: IDisposable
 {
@@ -42,6 +44,12 @@ public interface IPlugin: IDisposable
     Task<IEnumerable<object>> ListAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<object> CompressAsync(string entity, PluginFilters? filters,
+    Task<IEnumerable<TransmissionData>> PrepareCopyAsync(string entity, PluginFilters? filters,
+        CancellationToken cancellationToken = default);
+
+    Task<object> CopyAsync(string entity, PluginFilters? filters, 
+        IEnumerable<TransmissionData> transmissionData, CancellationToken cancellationToken = default);
+
+    Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 }
