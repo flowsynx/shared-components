@@ -2,6 +2,6 @@
 
 public interface ICompression
 {
-    Task<CompressEntry> Compress(List<CompressEntry> compressEntries);
+    Task<CompressEntry> Compress(IEnumerable<CompressEntry> compressEntries);
     Task Decompress(CompressEntry compressEntry, string destinationPath);
 }

@@ -6,7 +6,7 @@ namespace FlowSynx.IO.Compression;
 
 public class GZipCompression : ICompression
 {
-    public Task<CompressEntry> Compress(List<CompressEntry> entries)
+    public Task<CompressEntry> Compress(IEnumerable<CompressEntry> entries)
     {
         var outputMemStream = new MemoryStream();
         var tarOutputMemStream = new MemoryStream();

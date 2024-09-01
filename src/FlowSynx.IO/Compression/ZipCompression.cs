@@ -6,7 +6,7 @@ namespace FlowSynx.IO.Compression;
 
 public class ZipCompression : ICompression
 {
-    public Task<CompressEntry> Compress(List<CompressEntry> compressEntries)
+    public Task<CompressEntry> Compress(IEnumerable<CompressEntry> compressEntries)
     {
         var outputMemStream = new MemoryStream();
         using (var writer = WriterFactory.Open(outputMemStream, ArchiveType.Zip, SharpCompress.Common.CompressionType.Deflate))

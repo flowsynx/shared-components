@@ -6,7 +6,7 @@ namespace FlowSynx.IO.Compression;
 
 public class TarCompression : ICompression
 {
-    public Task<CompressEntry> Compress(List<CompressEntry> entries)
+    public Task<CompressEntry> Compress(IEnumerable<CompressEntry> entries)
     {
         var outputMemStream = new MemoryStream();
         using (var writer = WriterFactory.Open(outputMemStream, ArchiveType.Tar, SharpCompress.Common.CompressionType.None))
