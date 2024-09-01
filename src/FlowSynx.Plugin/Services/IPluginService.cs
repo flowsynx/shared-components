@@ -1,4 +1,5 @@
-﻿using FlowSynx.Plugin.Abstractions;
+﻿using FlowSynx.IO.Compression;
+using FlowSynx.Plugin.Abstractions;
 
 namespace FlowSynx.Plugin.Services;
 
@@ -35,10 +36,7 @@ public interface IPluginService
     Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginFilters? sourceFilters, 
         PluginInstance destinationInstance, PluginFilters? destinationFilters, 
         CancellationToken cancellationToken = default);
-
-    Task<IEnumerable<object>> CheckAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
-        PluginFilters? filters, CancellationToken cancellationToken = default);
-
-    Task<object> CompressAsync(PluginInstance instance, PluginFilters? filters,
+    
+    Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 }

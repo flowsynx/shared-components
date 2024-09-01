@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Plugin;
+﻿namespace FlowSynx.Plugin.Abstractions;
 
 public class CompressResult
 {
