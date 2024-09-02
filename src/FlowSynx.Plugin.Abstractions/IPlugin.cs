@@ -47,7 +47,7 @@ public interface IPlugin: IDisposable
     Task<IEnumerable<TransmissionData>> PrepareCopyAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<object> CopyAsync(string entity, PluginFilters? filters, 
+    Task<IEnumerable<object>> CopyAsync(string entity, PluginFilters? filters, 
         IEnumerable<TransmissionData> transmissionData, CancellationToken cancellationToken = default);
 
     Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginFilters? filters,
