@@ -31,6 +31,16 @@ public static class PathHelper
 
     public static bool IsFile(string path) => !IsDirectory(path);
 
+    public static string AddTrailingPathSeparator(string path)
+    {
+        return AddPathSeparator(path, path.Length);
+    }
+
+    public static string AddPathSeparator(string path, int index)
+    {
+        return !path.EndsWith("/") ? path.Insert(index, PathSeparatorString) : path;
+    }
+
     /// <summary>
     /// Combines parts of path
     /// </summary>
@@ -64,18 +74,17 @@ public static class PathHelper
         if (parts.Length == 0) return string.Empty;
 
         return parts.Length > 1
-           ? Combine(parts.Take(parts.Length - 1))
+           ? AddTrailingPathSeparator(Combine(parts.Take(parts.Length - 1)))
            : PathSeparatorString;
     }
-    
+
     /// <summary>
     /// Normalizes path. Normalization makes sure that:
     /// - When path is null or empty returns root path '/'
     /// - path separators are trimmed from both ends
     /// </summary>
     /// <param name="path"></param>
-    /// <param name="removeTrailingSlash"></param>
-    public static string Normalize(string path, bool removeTrailingSlash = false)
+    public static string Normalize(string path)
     {
         if (IsRootPath(path)) return RootDirectoryPath;
 
@@ -98,7 +107,6 @@ public static class PathHelper
 
         }
         path = string.Join(PathSeparatorString, r);
-
         return path;
     }
 

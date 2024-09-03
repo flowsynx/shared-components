@@ -41,7 +41,7 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
         Kind == StorageEntityItemKind.Directory
             ? PathHelper.IsRootPath(Name)
                 ? PathHelper.Combine(DirectoryPath, Name)
-                : PathHelper.Combine(DirectoryPath, Name) + PathHelper.PathSeparator
+                : PathHelper.AddTrailingPathSeparator(PathHelper.Combine(DirectoryPath, Name))
             : PathHelper.Combine(DirectoryPath, Name);
 
     public bool IsRootFolder => Kind == StorageEntityItemKind.Directory && PathHelper.IsRootPath(FullPath);
