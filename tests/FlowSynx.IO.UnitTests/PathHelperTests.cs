@@ -41,10 +41,10 @@ public class PathHelperTests
     }
 
     [Theory]
-    [InlineData("one/two", "one/two/three")]
-    [InlineData("one", "one/two")]
-    [InlineData("two", "one/../two/three")]
-    [InlineData("two", "one/../two/three/four/..")]
+    [InlineData("one/two/", "one/two/three")]
+    [InlineData("one/", "one/two")]
+    [InlineData("two/", "one/../two/three")]
+    [InlineData("two/", "one/../two/three/four/..")]
     public void GivenStringArray_WhenGetParentIsCalled_ThenCorrectParentPathIsReturned(string expected, string path)
     {
         Assert.Equal(expected, PathHelper.GetParent(path));
