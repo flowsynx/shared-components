@@ -66,7 +66,7 @@ public class PluginService: IPluginService
     public async Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginFilters? filters, CancellationToken cancellationToken = default)
     {
-        var result = await sourceInstance.Plugin.PrepareCopyAsync(sourceInstance.Entity, 
+        var result = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
             filters, cancellationToken);
 
         var transmissionData = result.ToList();
@@ -76,14 +76,30 @@ public class PluginService: IPluginService
             data.Key = replace;
         }
 
-        return await destinationInstance.Plugin.CopyAsync(destinationInstance.Entity, filters, transmissionData,
+        return await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, filters,
+            transmissionData,
             cancellationToken);
     }
 
-    public Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    public async Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginFilters? filters, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var result = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
+            filters, cancellationToken);
+
+        var transmissionData = result.ToList();
+        foreach (var data in transmissionData)
+        {
+            var replace = data.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
+            data.Key = replace;
+        }
+
+        var response = await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, filters, transmissionData,
+            cancellationToken);
+
+        await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, filters, cancellationToken);
+
+        return response;
     }
     
     public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginFilters? filters,
