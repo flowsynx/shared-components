@@ -44,12 +44,12 @@ public interface IPlugin: IDisposable
     Task<IEnumerable<object>> ListAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<TransmissionData>> PrepareCopyAsync(string entity, PluginFilters? filters,
+    Task<IEnumerable<TransmissionData>> PrepareTransmissionData(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> CopyAsync(string entity, PluginFilters? filters, 
+    Task<IEnumerable<object>> TransmitDataAsync(string entity, PluginFilters? filters, 
         IEnumerable<TransmissionData> transmissionData, CancellationToken cancellationToken = default);
-
+    
     Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginFilters? filters,
         CancellationToken cancellationToken = default);
 }
