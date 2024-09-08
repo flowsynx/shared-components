@@ -38,6 +38,10 @@ public class JsonDeserializer : IDeserializer
                 Formatting = configuration.Indented ? Formatting.Indented : Formatting.None,
                 ContractResolver = configuration.NameCaseInsensitive ? new DefaultContractResolver() : new CamelCasePropertyNamesContractResolver()
             };
+
+            if (configuration.Converters is not null)
+                settings.Converters = configuration.Converters.ConvertAll(item => (JsonConverter)item);
+            
             return JsonConvert.DeserializeObject<T>(input, settings);
         }
         catch (Exception ex)
