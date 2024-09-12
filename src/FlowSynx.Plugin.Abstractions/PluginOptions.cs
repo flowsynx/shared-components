@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Plugin.Abstractions;
 
-public class PluginFilters : Dictionary<string, object?>
+public class PluginOptions : Dictionary<string, object?>
 {
     public void ChangeProperty(string propertyName, object propertyValue)
     {

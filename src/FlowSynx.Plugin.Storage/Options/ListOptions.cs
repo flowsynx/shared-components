@@ -1,6 +1,6 @@
-﻿namespace FlowSynx.Plugin.Storage.Filters;
+﻿namespace FlowSynx.Plugin.Storage.Options;
 
-public class ListFilters
+public class ListOptions
 {
     public string? Kind { get; set; }
     public string? Include { get; set; }

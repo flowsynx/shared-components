@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using FlowSynx.Reflections;
 
 namespace FlowSynx.Plugin.Abstractions.Extensions;
 
-public static class PluginFiltersExtensions
+public static class PluginOptionsExtensions
 {
-    public static PluginFilters ToPluginFilters(this Dictionary<string, object?>? source)
+    public static PluginOptions ToPluginFilters(this Dictionary<string, object?>? source)
     {
-        var pluginFilters = new PluginFilters();
+        var pluginFilters = new PluginOptions();
         if (source is null)
             return pluginFilters;
 
@@ -21,7 +20,7 @@ public static class PluginFiltersExtensions
         return pluginFilters;
     }
 
-    public static T ToObject<T>(this PluginFilters? source) where T : class, new()
+    public static T ToObject<T>(this PluginOptions? source) where T : class, new()
     {
         var newInstance = new T();
         if (source is null) return newInstance;

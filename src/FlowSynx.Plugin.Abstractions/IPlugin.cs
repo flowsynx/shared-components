@@ -20,36 +20,36 @@ public interface IPlugin: IDisposable
 
     Type SpecificationsType { get; }
 
-    Task<object> About(PluginFilters? filters, 
+    Task<object> About(PluginOptions? options, 
         CancellationToken cancellationToken = default);
 
-    Task<object> CreateAsync(string entity, PluginFilters? filters,
+    Task<object> CreateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<object> WriteAsync(string entity, PluginFilters? filters, object dataOptions,
+    Task<object> WriteAsync(string entity, PluginOptions? options, object dataOptions,
         CancellationToken cancellationToken = default);
 
-    Task<object> ReadAsync(string entity, PluginFilters? filters,
+    Task<object> ReadAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<object> UpdateAsync(string entity, PluginFilters? filters,
+    Task<object> UpdateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> DeleteAsync(string entity, PluginFilters? filters,
+    Task<IEnumerable<object>> DeleteAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<bool> ExistAsync(string entity, PluginFilters? filters,
+    Task<bool> ExistAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> ListAsync(string entity, PluginFilters? filters,
+    Task<IEnumerable<object>> ListAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<TransmissionData>> PrepareTransmissionData(string entity, PluginFilters? filters,
+    Task<IEnumerable<TransmissionData>> PrepareTransmissionData(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> TransmitDataAsync(string entity, PluginFilters? filters, 
+    Task<IEnumerable<object>> TransmitDataAsync(string entity, PluginOptions? options, 
         IEnumerable<TransmissionData> transmissionData, CancellationToken cancellationToken = default);
     
-    Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginFilters? filters,
+    Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 }

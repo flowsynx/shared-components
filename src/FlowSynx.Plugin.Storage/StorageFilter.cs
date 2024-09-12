@@ -9,7 +9,7 @@ using FlowSynx.Parsers.Percent;
 using FlowSynx.Parsers.Size;
 using FlowSynx.Parsers.Sort;
 using FlowSynx.Plugin.Abstractions.Extensions;
-using FlowSynx.Plugin.Storage.Filters;
+using FlowSynx.Plugin.Storage.Options;
 
 namespace FlowSynx.Plugin.Storage;
 
@@ -36,14 +36,14 @@ public class StorageFilter : IStorageFilter
         _percentParser = percentParser;
     }
 
-    public IEnumerable<StorageEntity> Filter(IEnumerable<StorageEntity> entities, PluginFilters? filters)
+    public IEnumerable<StorageEntity> Filter(IEnumerable<StorageEntity> entities, PluginOptions? options)
     {
         var storageEntities = entities.ToList();
         if (!storageEntities.Any())
             return storageEntities;
 
         var predicate = PredicateBuilder.True<StorageEntity>();
-        var listFilters = filters.ToObject<ListFilters>();
+        var listFilters = options.ToObject<ListOptions>();
 
         predicate = listFilters.Kind?.ToLower() switch
         {
