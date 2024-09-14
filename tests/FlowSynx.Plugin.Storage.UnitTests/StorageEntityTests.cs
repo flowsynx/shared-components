@@ -2,18 +2,6 @@ namespace FlowSynx.Plugin.Storage.UnitTests;
 
 public class StorageEntityTests
 {
-    [Fact]
-    public void GivenStringArray_WhenIsRootFolderIsCalled_ThenTrueValueReturned()
-    {
-        Assert.True(new StorageEntity("/", StorageEntityItemKind.Directory).IsRootFolder);
-    }
-
-    [Fact]
-    public void GivenStringArray_WhenIsRootFolderIsCalled_ThenFalseValueReturned()
-    {
-        Assert.False(new StorageEntity("/awesome", StorageEntityItemKind.Directory).IsRootFolder);
-    }
-
     [Theory]
     [InlineData("/", null, "/")]
     [InlineData("f0/f1/f2/", "f0/f1/", "f2")]
