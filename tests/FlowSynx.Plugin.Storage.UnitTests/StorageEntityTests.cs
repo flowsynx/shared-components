@@ -31,9 +31,9 @@ public class StorageEntityTests
     }
 
     [Theory]
-    [InlineData("file:readme.txt", StorageEntityItemKind.File, "/test1/readme.txt")]
-    [InlineData("directory:image", StorageEntityItemKind.Directory, "/test1/image/")]
-    public void GivenStringArray_WhenToStringIsCalled_ThenCorrectToStringIsReturned(string expected, StorageEntityItemKind kind, string path)
+    [InlineData("file:readme.txt", "File", "/test1/readme.txt")]
+    [InlineData("directory:image", "Directory", "/test1/image/")]
+    public void GivenStringArray_WhenToStringIsCalled_ThenCorrectToStringIsReturned(string expected, string kind, string path)
     {
         var entity = new StorageEntity(path, kind);
         var actualValue = $"{kind.ToString().ToLower()}:{entity.Name}";
