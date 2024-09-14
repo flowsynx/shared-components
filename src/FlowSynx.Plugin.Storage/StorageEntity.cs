@@ -10,7 +10,7 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
 {
     public string Id => HashHelper.Md5.GetHash(this.ToString());
 
-    public StorageEntityItemKind Kind { get; }
+    public string Kind { get; }
 
     private bool IsFile => Kind == StorageEntityItemKind.File;
 
@@ -74,13 +74,13 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
         }
     }
 
-    public StorageEntity(string fullPath, StorageEntityItemKind kind)
+    public StorageEntity(string fullPath, string kind)
     {
         SetFullPath(fullPath);
         Kind = kind;
     }
 
-    public StorageEntity(string folderPath, string name, StorageEntityItemKind kind)
+    public StorageEntity(string folderPath, string name, string kind)
     {
         EnsureArg.IsNotNullOrEmpty(name, nameof(name));
         Name = name;

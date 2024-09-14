@@ -1,7 +1,7 @@
 ﻿namespace FlowSynx.Plugin.Storage;
 
-public enum StorageEntityItemKind
+public static class StorageEntityItemKind
 {
-    File,
-    Directory
+    public static string File = "File";
+    public static string Directory = "Directory";
 }
