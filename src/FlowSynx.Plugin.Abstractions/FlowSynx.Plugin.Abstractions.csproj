@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FlowSynx.IO\FlowSynx.IO.csproj" />
+    <ProjectReference Include="..\FlowSynx.Parsers\FlowSynx.Parsers.csproj" />
     <ProjectReference Include="..\FlowSynx.Reflections\FlowSynx.Reflections.csproj" />
   </ItemGroup>
 
