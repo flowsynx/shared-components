@@ -1,5 +1,4 @@
 ﻿using EnsureThat;
-using FlowSynx.Abstractions.Attributes;
 using FlowSynx.IO;
 using FlowSynx.Net;
 using FlowSynx.Plugin.Storage.Abstractions.Exceptions;
@@ -9,32 +8,24 @@ namespace FlowSynx.Plugin.Storage;
 
 public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntity>, ICloneable
 {
-    [SortMember]
     public string Id => HashHelper.Md5.GetHash(this.ToString());
 
-    [SortMember]
     public StorageEntityItemKind Kind { get; }
 
-    public bool IsDirectory => Kind == StorageEntityItemKind.Directory;
-
-    public bool IsFile => Kind == StorageEntityItemKind.File;
+    private bool IsFile => Kind == StorageEntityItemKind.File;
 
     public string DirectoryPath { get; private set; } = null!;
 
-    [SortMember]
     public string Name { get; private set; } = null!;
 
-    [SortMember]
     public long? Size { get; set; }
 
-    [SortMember]
     public string? ContentType => IsFile ? GetExtension().GetContentType() : "";
 
     public string? Md5 { get; set; }
 
     public DateTimeOffset? CreatedTime { get; set; }
 
-    [SortMember]
     public DateTimeOffset? ModifiedTime { get; set; }
 
     public string FullPath =>
@@ -44,7 +35,7 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
                 : PathHelper.AddTrailingPathSeparator(PathHelper.Combine(DirectoryPath, Name))
             : PathHelper.Combine(DirectoryPath, Name);
 
-    public bool IsRootFolder => Kind == StorageEntityItemKind.Directory && PathHelper.IsRootPath(FullPath);
+    protected bool IsRootFolder => Kind == StorageEntityItemKind.Directory && PathHelper.IsRootPath(FullPath);
 
     public Dictionary<string, object> Metadata { get; private set; } = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
