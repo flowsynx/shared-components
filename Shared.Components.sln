@@ -47,7 +47,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Plugin.Storage.Uni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Plugin.Storage", "src\FlowSynx.Plugin.Storage\FlowSynx.Plugin.Storage.csproj", "{A678CFE9-54C6-4FB0-8B2D-83241A58BC37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Plugin.Stream", "src\FlowSynx.Plugin.Stream\FlowSynx.Plugin.Stream.csproj", "{7D162A38-E45D-4044-B7AF-FF6E260CC1F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Plugin.Stream", "src\FlowSynx.Plugin.Stream\FlowSynx.Plugin.Stream.csproj", "{7D162A38-E45D-4044-B7AF-FF6E260CC1F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Data", "src\FlowSynx.Data\FlowSynx.Data.csproj", "{0BC76562-7CC5-4227-BC73-78E940467E6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +141,10 @@ Global
 		{7D162A38-E45D-4044-B7AF-FF6E260CC1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D162A38-E45D-4044-B7AF-FF6E260CC1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D162A38-E45D-4044-B7AF-FF6E260CC1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BC76562-7CC5-4227-BC73-78E940467E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BC76562-7CC5-4227-BC73-78E940467E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BC76562-7CC5-4227-BC73-78E940467E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BC76562-7CC5-4227-BC73-78E940467E6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{0C63C6E3-5036-42D1-BFC0-AAED546A3561} = {C313F549-78C2-4F43-8330-84207ED48F80}
 		{A678CFE9-54C6-4FB0-8B2D-83241A58BC37} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
 		{7D162A38-E45D-4044-B7AF-FF6E260CC1F9} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
+		{0BC76562-7CC5-4227-BC73-78E940467E6E} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCFB0D8B-22C3-475A-A061-40F4FA14F8B3}
