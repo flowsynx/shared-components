@@ -1,13 +1,12 @@
-﻿using FlowSynx.Logging.Filters;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace FlowSynx.Logging.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddLoggerFilter(this IServiceCollection services)
+    public static IServiceCollection AddLoggerManager(this IServiceCollection services)
     {
-        services.AddScoped<ILogFilter, LogFilter>();
+        services.AddScoped<ILogManager, LogManager>();
         return services;
     }
 }
