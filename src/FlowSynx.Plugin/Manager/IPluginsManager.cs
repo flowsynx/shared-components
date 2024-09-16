@@ -5,9 +5,7 @@ namespace FlowSynx.Plugin.Manager;
 
 public interface IPluginsManager
 {
-    IEnumerable<IPlugin> List(PluginSearchOptions searchOptions, PluginListOptions listOptions);
-
+    IEnumerable<object> List(PluginListOptions listOptions);
     IPlugin Get(string type);
-
     bool IsExist(string type);
 }

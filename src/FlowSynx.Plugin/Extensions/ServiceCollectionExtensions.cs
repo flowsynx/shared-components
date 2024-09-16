@@ -1,6 +1,4 @@
-﻿using FlowSynx.Plugin.Abstractions;
-using FlowSynx.Plugin.Manager;
-using FlowSynx.Plugin.Manager.Filters;
+﻿using FlowSynx.Plugin.Manager;
 using FlowSynx.Plugin.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,10 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddPluginManager(this IServiceCollection services)
     {
-        services
-            .AddScoped<IPluginFilter, PluginFilter>()
-            .AddScoped<IPluginsManager, PluginsManager>();
-
+        services.AddScoped<IPluginsManager, PluginsManager>();
         return services;
     }
 

@@ -1,7 +1,9 @@
 ﻿using EnsureThat;
+using FlowSynx.Data.Extensions;
+using FlowSynx.Data.Filter;
+using FlowSynx.IO.Serialization;
 using FlowSynx.Plugin.Abstractions;
 using FlowSynx.Plugin.Exceptions;
-using FlowSynx.Plugin.Manager.Filters;
 using FlowSynx.Plugin.Manager.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,21 +14,44 @@ public class PluginsManager : IPluginsManager
 {
     private readonly ILogger<PluginsManager> _logger;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IPluginFilter _pluginFilter;
+    private readonly IDeserializer _deserializer;
+    private readonly IDataFilter _dataFilter;
 
     public PluginsManager(ILogger<PluginsManager> logger, IServiceProvider serviceProvider,
-        IPluginFilter pluginFilter)
+        IDeserializer deserializer, IDataFilter dataFilter)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(serviceProvider, nameof(serviceProvider));
+        EnsureArg.IsNotNull(deserializer, nameof(deserializer));
+        EnsureArg.IsNotNull(dataFilter, nameof(dataFilter));
         _logger = logger;
         _serviceProvider = serviceProvider;
-        _pluginFilter = pluginFilter;
+        _deserializer = deserializer;
+        _dataFilter = dataFilter;
     }
 
-    public IEnumerable<IPlugin> List(PluginSearchOptions searchOptions, PluginListOptions listOptions)
+    public IEnumerable<object> List(PluginListOptions listOptions)
     {
-        return _pluginFilter.FilterPluginsList(Plugins(), searchOptions, listOptions);
+        var plugins = Plugins().Select(plg => new PluginResponse
+        {
+            Id = plg.Id,
+            Name = plg.Name,
+            Type = plg.Type,
+            Description = plg.Description
+        });
+
+        var dataFilterOptions = new DataFilterOptions
+        {
+            Fields = listOptions.Fields,
+            FilterExpression = listOptions.Filter,
+            SortExpression = listOptions.Sort,
+            CaseSensetive = listOptions.CaseSensitive,
+            Limit = listOptions.Limit,
+        };
+
+        var dataTable = plugins.ToDataTable();
+        var filteredData = _dataFilter.Filter(dataTable, dataFilterOptions);
+        return filteredData.CreateListFromTable();
     }
 
     public IPlugin Get(string type)
