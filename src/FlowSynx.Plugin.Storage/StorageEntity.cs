@@ -22,8 +22,6 @@ public class StorageEntity : IEquatable<StorageEntity>, IComparable<StorageEntit
 
     public string? ContentType => IsFile ? GetExtension().GetContentType() : "";
 
-    public string? Md5 { get; set; }
-
     public DateTimeOffset? CreatedTime { get; set; }
 
     public DateTimeOffset? ModifiedTime { get; set; }
