@@ -2,5 +2,5 @@
 
 public class AboutOptions
 {
-    public bool? Full { get; set; } = true;
+
 }
