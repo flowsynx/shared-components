@@ -4,16 +4,10 @@ namespace FlowSynx.Configuration;
 
 public interface IConfigurationManager
 {
-    IEnumerable<ConfigurationItem> List(ConfigurationSearchOptions searchOptions,
-        ConfigurationListOptions listOptions);
-
+    IEnumerable<object> List(ConfigurationListOptions listOptions);
     ConfigurationItem Get(string name);
-    
     bool IsExist(string name);
-
     ConfigurationResult Add(ConfigurationItem configuration);
-
     ConfigurationResult Delete(string name);
-
-    IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions);
+    IEnumerable<ConfigurationResult> Delete(ConfigurationListOptions searchOptions);
 }

@@ -4,18 +4,10 @@ namespace FlowSynx.Configuration;
 
 public class ConfigurationItem: IEquatable<ConfigurationItem>
 {
-    [SortMember]
     public required Guid Id { get; set; }
-
-    [SortMember]
     public required string Name { get; set; }
-
-    [SortMember]
     public required string Type { get; set; }
-    
-    public required DateTimeOffset CreatedTime { get; set; }
-
-    [SortMember]
+    public DateTimeOffset? CreatedTime { get; set; }
     public DateTimeOffset? ModifiedTime { get; set; }
 
     public Dictionary<string, string?>? Specifications { get; set; }

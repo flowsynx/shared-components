@@ -1,10 +1,14 @@
 ﻿using EnsureThat;
 using FlowSynx.Configuration.Exceptions;
-using FlowSynx.Configuration.Filters;
 using FlowSynx.Configuration.Options;
+using FlowSynx.Data;
+using FlowSynx.Data.Extensions;
+using FlowSynx.Data.Filter;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
+using System.Dynamic;
+using System.Xml.Linq;
 
 namespace FlowSynx.Configuration;
 
@@ -16,11 +20,11 @@ public class ConfigurationManager : IConfigurationManager
     private readonly IFileWriter _fileWriter;
     private readonly ISerializer _serializer;
     private readonly IDeserializer _deserializer;
-    private readonly IConfigurationFilter _configurationFilter;
+    private readonly IDataFilter _dataFilter;
 
     public ConfigurationManager(ILogger<ConfigurationManager> logger, ConfigurationPath options, 
         IFileReader fileReader, IFileWriter fileWriter, ISerializer serializer, 
-        IDeserializer deserializer, IConfigurationFilter configurationFilter)
+        IDeserializer deserializer, IDataFilter dataFilter)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(options, nameof(options));
@@ -28,20 +32,38 @@ public class ConfigurationManager : IConfigurationManager
         EnsureArg.IsNotNull(fileWriter, nameof(fileWriter));
         EnsureArg.IsNotNull(serializer, nameof(serializer));
         EnsureArg.IsNotNull(deserializer, nameof(deserializer));
+        EnsureArg.IsNotNull(dataFilter, nameof(dataFilter));
         _logger = logger;
         _options = options;
         _fileReader = fileReader;
         _fileWriter = fileWriter;
         _serializer = serializer;
         _deserializer = deserializer;
-        _configurationFilter = configurationFilter;
+        _dataFilter = dataFilter;
     }
 
-    public IEnumerable<ConfigurationItem> List(ConfigurationSearchOptions searchOptions,
-        ConfigurationListOptions listOptions)
+    public IEnumerable<object> List(ConfigurationListOptions listOptions)
     {
-        var configurations = Configurations.Configurations;
-        return _configurationFilter.FilterConfigurationList(configurations, searchOptions, listOptions);
+        var configurations = Configurations.Configurations.Select(x=>new ConfigListResponse
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Type = x.Type,
+            ModifiedTime = x.ModifiedTime,
+        });
+
+        var dataFilterOptions = new DataFilterOptions
+        {
+            Fields = listOptions.Fields,
+            FilterExpression = listOptions.Filter,
+            SortExpression = listOptions.Sort,
+            CaseSensetive = listOptions.CaseSensitive,
+            Limit = listOptions.Limit,
+        };
+
+        var dataTable = configurations.ToDataTable();
+        var filteredData = _dataFilter.Filter(dataTable, dataFilterOptions);
+        return filteredData.CreateListFromTable();
     }
 
     public ConfigurationResult Add(ConfigurationItem configuration)
@@ -71,11 +93,11 @@ public class ConfigurationManager : IConfigurationManager
         return new ConfigurationResult(item.Id);
     }
 
-    public IEnumerable<ConfigurationResult> Delete(ConfigurationSearchOptions searchOptions)
+    public IEnumerable<ConfigurationResult> Delete(ConfigurationListOptions listOptions)
     {
         var result = new List<ConfigurationResult>();
-        var listOptions = new ConfigurationListOptions();
-        var filteredList = List(searchOptions, listOptions);
+        listOptions.Fields = [];
+        var filteredList = List(listOptions);
         var configurationItems = filteredList.ToList();
 
         var configurations = Configurations.Configurations;
@@ -84,8 +106,18 @@ public class ConfigurationManager : IConfigurationManager
         {
             foreach (var configurationItem in configurationItems)
             {
-                configurations.Remove(configurationItem);
-                result.Add(new ConfigurationResult(configurationItem.Id));
+                var objExpando = configurationItem as ExpandoObject;
+                var obj = objExpando as IDictionary<string, object>;
+
+                var configItem = new ConfigurationItem
+                {
+                    Id = (Guid)obj["Id"],
+                    Name = (string)obj["Name"],
+                    Type = (string)obj["Type"],
+                };
+
+                configurations.Remove(configItem);
+                result.Add(new ConfigurationResult(configItem.Id));
             }
 
             var newSetting = new Configuration()
