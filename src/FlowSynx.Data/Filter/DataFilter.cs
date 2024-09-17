@@ -26,9 +26,7 @@ public class DataFilter : IDataFilter
         if (dataFilterOptions.FilterExpression is null && dataFilterOptions.SortExpression is null)
             return dataTable;
 
-        dataTable.CaseSensitive = dataFilterOptions.CaseSensetive.HasValue 
-                                ? dataFilterOptions.CaseSensetive.Value 
-                                : false;
+        dataTable.CaseSensitive = dataFilterOptions.CaseSensitive ?? false;
 
         var view = dataTable.DefaultView;
 

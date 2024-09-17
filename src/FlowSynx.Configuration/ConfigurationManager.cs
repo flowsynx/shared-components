@@ -54,11 +54,11 @@ public class ConfigurationManager : IConfigurationManager
 
         var dataFilterOptions = new DataFilterOptions
         {
-            Fields = listOptions.Fields,
-            FilterExpression = listOptions.Filter,
-            SortExpression = listOptions.Sort,
-            CaseSensetive = listOptions.CaseSensitive,
-            Limit = listOptions.Limit,
+            Fields = listOptions.Fields ?? Array.Empty<string>(),
+            FilterExpression = listOptions.Filter ?? string.Empty,
+            SortExpression = listOptions.Sort ?? string.Empty,
+            CaseSensitive = listOptions.CaseSensitive ?? false,
+            Limit = listOptions.Limit ?? string.Empty,
         };
 
         var dataTable = configurations.ToDataTable();
@@ -96,7 +96,7 @@ public class ConfigurationManager : IConfigurationManager
     public IEnumerable<ConfigurationResult> Delete(ConfigurationListOptions listOptions)
     {
         var result = new List<ConfigurationResult>();
-        listOptions.Fields = [];
+        listOptions.Fields = Array.Empty<string>();
         var filteredList = List(listOptions);
         var configurationItems = filteredList.ToList();
 

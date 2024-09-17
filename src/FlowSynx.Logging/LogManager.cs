@@ -39,11 +39,11 @@ public class LogManager : ILogManager
         var plugins = Logs();
         var dataFilterOptions = new DataFilterOptions
         {
-            Fields = listOptions.Fields,
-            FilterExpression = listOptions.Filter,
-            SortExpression = listOptions.Sort,
-            CaseSensetive = listOptions.CaseSensitive,
-            Limit = listOptions.Limit,
+            Fields = listOptions.Fields ?? Array.Empty<string>(),
+            FilterExpression = listOptions.Filter ?? string.Empty,
+            SortExpression = listOptions.Sort ?? string.Empty,
+            CaseSensitive = listOptions.CaseSensitive ?? false,
+            Limit = listOptions.Limit ?? string.Empty,
         };
 
         var pluginsList = plugins.ToList();
