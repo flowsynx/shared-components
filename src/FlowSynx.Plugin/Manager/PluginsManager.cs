@@ -54,12 +54,12 @@ public class PluginsManager : IPluginsManager
         return filteredData.CreateListFromTable();
     }
 
-    public IPlugin Get(string type)
+    public PluginBase Get(string type)
     {
         var result = Plugins().FirstOrDefault(x => x.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
 
         if (result != null)
-            return (IPlugin)ActivatorUtilities.CreateInstance(_serviceProvider, result.GetType());
+            return (PluginBase)ActivatorUtilities.CreateInstance(_serviceProvider, result.GetType());
 
         _logger.LogError($"Plugin {type} could not found!");
         throw new PluginManagerException(string.Format(Resources.PluginsManagerCouldNotFoumd, type));
@@ -78,5 +78,5 @@ public class PluginsManager : IPluginsManager
         }
     }
 
-    private IEnumerable<IPlugin> Plugins() => _serviceProvider.GetServices<IPlugin>();
+    private IEnumerable<PluginBase> Plugins() => _serviceProvider.GetServices<PluginBase>();
 }

@@ -6,6 +6,6 @@ namespace FlowSynx.Plugin.Manager;
 public interface IPluginsManager
 {
     IEnumerable<object> List(PluginListOptions listOptions);
-    IPlugin Get(string type);
+    PluginBase Get(string type);
     bool IsExist(string type);
 }

@@ -5,7 +5,7 @@ namespace FlowSynx.Plugin.Services;
 
 public class PluginInstance
 {
-    public PluginInstance(IPlugin plugin, string entity, PluginSpecifications? specifications)
+    public PluginInstance(PluginBase plugin, string entity, PluginSpecifications? specifications)
     {
         EnsureArg.IsNotNull(plugin, nameof(plugin));
         Plugin = plugin;
@@ -15,7 +15,7 @@ public class PluginInstance
     }
 
     public string Entity { get; set; }
-    public IPlugin Plugin { get; }
+    public PluginBase Plugin { get; }
     public PluginSpecifications? Specifications { get; }
 
     public Task Initialize()

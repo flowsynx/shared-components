@@ -2,6 +2,7 @@
 using FlowSynx.IO.Compression;
 using FlowSynx.Plugin.Abstractions;
 using Microsoft.Extensions.Logging;
+using System.Data;
 
 namespace FlowSynx.Plugin.Services;
 
@@ -66,36 +67,36 @@ public class PluginService: IPluginService
     public async Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
-        var result = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
+        var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
             options, cancellationToken);
 
-        var transmissionData = result.ToList();
-        foreach (var data in transmissionData)
-        {
-            var replace = data.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
-            data.Key = replace;
-        }
-
+        //if (transmissionData != null && transmissionData.Namespace == PluginNamespace.Storage)
+        //{
+        //    foreach (DataRow row in transmissionData.Data.Rows)
+        //    {
+        //        var replace = row["FullPath"].ToString().Replace(sourceInstance.Entity, destinationInstance.Entity);
+        //        data.Key = replace;
+        //    }
+        //}
         return await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options,
-            transmissionData,
-            cancellationToken);
+            transmissionData, cancellationToken);
     }
 
     public async Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
-        var result = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
+        var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
             options, cancellationToken);
 
-        var transmissionData = result.ToList();
-        foreach (var data in transmissionData)
-        {
-            var replace = data.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
-            data.Key = replace;
-        }
+        //var transmissionData = result.ToList();
+        //foreach (var data in transmissionData)
+        //{
+        //    var replace = data.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
+        //    data.Key = replace;
+        //}
 
-        var response = await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options, transmissionData,
-            cancellationToken);
+        var response = await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options, 
+            transmissionData, cancellationToken);
 
         await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
 
