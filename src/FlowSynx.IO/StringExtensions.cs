@@ -55,4 +55,10 @@ public static class StringExtensions
         var bytes = Convert.FromBase64String(value);
         return new MemoryStream(bytes);
     }
+
+    public static string ToBase64String(this string value)
+    {
+        var bytes = Encoding.UTF8.GetBytes(value);
+        return Convert.ToBase64String(bytes);
+    }
 }
