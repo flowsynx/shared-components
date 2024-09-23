@@ -2,7 +2,6 @@
 using FlowSynx.IO.Compression;
 using FlowSynx.Plugin.Abstractions;
 using Microsoft.Extensions.Logging;
-using System.Data;
 
 namespace FlowSynx.Plugin.Services;
 
@@ -22,16 +21,16 @@ public class PluginService: IPluginService
         return await instance.Plugin.About(options, cancellationToken);
     }
 
-    public async Task<object> CreateAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task CreateAsync(PluginInstance instance, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.CreateAsync(instance.Entity, options, cancellationToken);
+        await instance.Plugin.CreateAsync(instance.Entity, options, cancellationToken);
     }
 
-    public async Task<object> WriteAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task WriteAsync(PluginInstance instance, PluginOptions? options, 
         object dataOptions, CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.WriteAsync(instance.Entity, options, dataOptions, cancellationToken);
+        await instance.Plugin.WriteAsync(instance.Entity, options, dataOptions, cancellationToken);
     }
 
     public async Task<object> ReadAsync(PluginInstance instance, PluginOptions? options, 
@@ -40,16 +39,16 @@ public class PluginService: IPluginService
         return await instance.Plugin.ReadAsync(instance.Entity, options, cancellationToken);
     }
 
-    public async Task<object> UpdateAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task UpdateAsync(PluginInstance instance, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.UpdateAsync(instance.Entity, options, cancellationToken);
+        await instance.Plugin.UpdateAsync(instance.Entity, options, cancellationToken);
     }
 
-    public async Task<IEnumerable<object>> DeleteAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task DeleteAsync(PluginInstance instance, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.DeleteAsync(instance.Entity, options, cancellationToken);
+        await instance.Plugin.DeleteAsync(instance.Entity, options, cancellationToken);
     }
 
     public async Task<bool> ExistAsync(PluginInstance instance, PluginOptions? options, 
@@ -64,43 +63,44 @@ public class PluginService: IPluginService
         return await instance.Plugin.ListAsync(instance.Entity, options, cancellationToken);
     }
 
-    public async Task<IEnumerable<object>> CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    public async Task CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
         var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
             options, cancellationToken);
 
-        //if (transmissionData != null && transmissionData.Namespace == PluginNamespace.Storage)
-        //{
-        //    foreach (DataRow row in transmissionData.Data.Rows)
-        //    {
-        //        var replace = row["FullPath"].ToString().Replace(sourceInstance.Entity, destinationInstance.Entity);
-        //        data.Key = replace;
-        //    }
-        //}
-        return await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options,
+        if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
+        {
+            foreach (var row in transmissionData.Rows)
+            {
+                var replace = row.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
+                row.Key = replace;
+            }
+        }
+
+        await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options,
             transmissionData, cancellationToken);
     }
 
-    public async Task<IEnumerable<object>> MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    public async Task MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
         var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
             options, cancellationToken);
 
-        //var transmissionData = result.ToList();
-        //foreach (var data in transmissionData)
-        //{
-        //    var replace = data.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
-        //    data.Key = replace;
-        //}
+        if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
+        {
+            foreach (var row in transmissionData.Rows)
+            {
+                var replace = row.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
+                row.Key = replace;
+            }
+        }
 
-        var response = await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options, 
+        await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options, 
             transmissionData, cancellationToken);
 
         await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
-
-        return response;
     }
     
     public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,

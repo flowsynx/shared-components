@@ -17,19 +17,19 @@ public abstract class PluginBase
     public abstract Task<object> About(PluginOptions? options, 
         CancellationToken cancellationToken = default);
 
-    public abstract Task<object> CreateAsync(string entity, PluginOptions? options,
+    public abstract Task CreateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task<object> WriteAsync(string entity, PluginOptions? options, object dataOptions,
+    public abstract Task WriteAsync(string entity, PluginOptions? options, object dataOptions,
         CancellationToken cancellationToken = default);
 
     public abstract Task<object> ReadAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task<object> UpdateAsync(string entity, PluginOptions? options,
+    public abstract Task UpdateAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task<IEnumerable<object>> DeleteAsync(string entity, PluginOptions? options,
+    public abstract Task DeleteAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
     public abstract Task<bool> ExistAsync(string entity, PluginOptions? options,
@@ -41,7 +41,7 @@ public abstract class PluginBase
     public abstract Task<TransmissionData> PrepareTransmissionData(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task<IEnumerable<object>> TransmitDataAsync(string entity, PluginOptions? options, 
+    public abstract Task TransmitDataAsync(string entity, PluginOptions? options, 
         TransmissionData transmissionData, CancellationToken cancellationToken = default);
 
     public abstract Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginOptions? options,
