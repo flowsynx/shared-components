@@ -2,16 +2,18 @@
 
 public class TransmissionData
 {
-    public required PluginNamespace Namespace { get; set; }
-    public required string Type { get; set; }
+    public required PluginNamespace PluginNamespace { get; set; }
+    public required string PluginType { get; set; }
+    public string? ContentType { get; set; }
+    public string? Content { get; set; }
     public required IEnumerable<string> Columns { get; set; }
     public required IEnumerable<TransmissionDataRow> Rows { get; set; }
 }
 
 public class TransmissionDataRow
 {
-    public string? Key { get; set; }
+    public required string Key { get; set; }
     public string? ContentType { get; set; }
-    public Stream? Content { get; set; }
-    public object[]? Data { get; set; }
+    public string? Content { get; set; }
+    public object?[]? Items { get; set; }
 }
