@@ -29,12 +29,9 @@ public interface IPluginService
     Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    Task TransferAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default);
 
-    Task MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
-        PluginOptions? options, CancellationToken cancellationToken = default);
-    
     Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,
         CancellationToken cancellationToken = default);
 }

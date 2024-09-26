@@ -63,10 +63,10 @@ public class PluginService: IPluginService
         return await instance.Plugin.ListAsync(instance.Entity, options, cancellationToken);
     }
 
-    public async Task CopyAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    public async Task TransferAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
-        var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
+        var transmissionData = await sourceInstance.Plugin.PrepareTransferData(sourceInstance.Entity,
             options, cancellationToken);
 
         if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
@@ -78,29 +78,10 @@ public class PluginService: IPluginService
             }
         }
 
-        await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options,
-            transmissionData, cancellationToken);
-    }
-
-    public async Task MoveAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
-        PluginOptions? options, CancellationToken cancellationToken = default)
-    {
-        var transmissionData = await sourceInstance.Plugin.PrepareTransmissionData(sourceInstance.Entity,
-            options, cancellationToken);
-
-        if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
-        {
-            foreach (var row in transmissionData.Rows)
-            {
-                var replace = row.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
-                row.Key = replace;
-            }
-        }
-
-        await destinationInstance.Plugin.TransmitDataAsync(destinationInstance.Entity, options, 
+        await destinationInstance.Plugin.TransferDataAsync(destinationInstance.Entity, options,
             transmissionData, cancellationToken);
 
-        await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
+        //await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
     }
     
     public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,
