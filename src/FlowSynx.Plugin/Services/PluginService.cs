@@ -66,7 +66,7 @@ public class PluginService: IPluginService
     public async Task TransferAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
-        var transmissionData = await sourceInstance.Plugin.PrepareTransferData(sourceInstance.Entity,
+        var transmissionData = await sourceInstance.Plugin.PrepareTransferring(sourceInstance.Entity,
             options, cancellationToken);
 
         if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
@@ -78,10 +78,11 @@ public class PluginService: IPluginService
             }
         }
 
-        await destinationInstance.Plugin.TransferDataAsync(destinationInstance.Entity, options,
+        await destinationInstance.Plugin.TransferAsync(destinationInstance.Entity, options,
             transmissionData, cancellationToken);
 
-        //await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
+        if (transmissionData.State == TransferState.Move)
+            await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
     }
     
     public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,

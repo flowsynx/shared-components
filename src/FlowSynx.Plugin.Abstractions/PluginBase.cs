@@ -38,11 +38,11 @@ public abstract class PluginBase
     public abstract Task<IEnumerable<object>> ListAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task<TransmissionData> PrepareTransferData(string entity, PluginOptions? options,
+    public abstract Task<TransferData> PrepareTransferring(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    public abstract Task TransferDataAsync(string entity, PluginOptions? options, 
-        TransmissionData transmissionData, CancellationToken cancellationToken = default);
+    public abstract Task TransferAsync(string entity, PluginOptions? options,
+        TransferData transferData, CancellationToken cancellationToken = default);
 
     public abstract Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginOptions? options,
         CancellationToken cancellationToken = default);
