@@ -81,7 +81,7 @@ public class PluginService: IPluginService
         await destinationInstance.Plugin.TransferAsync(destinationInstance.Entity, options,
             transmissionData, cancellationToken);
 
-        if (transmissionData.State == TransferState.Move)
+        if (transmissionData.Kind == TransferKind.Move)
             await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
     }
     
