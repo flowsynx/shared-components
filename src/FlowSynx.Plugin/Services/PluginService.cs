@@ -15,79 +15,79 @@ public class PluginService: IPluginService
         _logger = logger;
     }
 
-    public async Task<object> About(PluginInstance instance, PluginOptions? options, 
+    public async Task<object> About(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.About(options, cancellationToken);
+        return await contenx.Plugin.About(options, cancellationToken);
     }
 
-    public async Task CreateAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task CreateAsync(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        await instance.Plugin.CreateAsync(instance.Entity, options, cancellationToken);
+        await contenx.Plugin.CreateAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task WriteAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task WriteAsync(PluginContex contenx, PluginOptions? options, 
         object dataOptions, CancellationToken cancellationToken = default)
     {
-        await instance.Plugin.WriteAsync(instance.Entity, options, dataOptions, cancellationToken);
+        await contenx.Plugin.WriteAsync(contenx.Entity, options, dataOptions, cancellationToken);
     }
 
-    public async Task<object> ReadAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task<object> ReadAsync(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.ReadAsync(instance.Entity, options, cancellationToken);
+        return await contenx.Plugin.ReadAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task UpdateAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task UpdateAsync(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        await instance.Plugin.UpdateAsync(instance.Entity, options, cancellationToken);
+        await contenx.Plugin.UpdateAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task DeleteAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task DeleteAsync(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        await instance.Plugin.DeleteAsync(instance.Entity, options, cancellationToken);
+        await contenx.Plugin.DeleteAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task<bool> ExistAsync(PluginInstance instance, PluginOptions? options, 
+    public async Task<bool> ExistAsync(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.ExistAsync(instance.Entity, options, cancellationToken);
+        return await contenx.Plugin.ExistAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginOptions? options,
+    public async Task<IEnumerable<object>> ListAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.ListAsync(instance.Entity, options, cancellationToken);
+        return await contenx.Plugin.ListAsync(contenx.Entity, options, cancellationToken);
     }
 
-    public async Task TransferAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    public async Task TransferAsync(PluginContex sourceContenx, PluginContex destinationContenx,
         PluginOptions? options, CancellationToken cancellationToken = default)
     {
-        var transmissionData = await sourceInstance.Plugin.PrepareTransferring(sourceInstance.Entity,
+        var transmissionData = await sourceContenx.Plugin.PrepareTransferring(sourceContenx.Entity,
             options, cancellationToken);
 
         if (transmissionData is { PluginNamespace: PluginNamespace.Storage })
         {
             foreach (var row in transmissionData.Rows)
             {
-                var replace = row.Key.Replace(sourceInstance.Entity, destinationInstance.Entity);
+                var replace = row.Key.Replace(sourceContenx.Entity, destinationContenx.Entity);
                 row.Key = replace;
             }
         }
 
-        await destinationInstance.Plugin.TransferAsync(destinationInstance.Entity, options,
+        await destinationContenx.Plugin.TransferAsync(destinationContenx.Entity, options,
             transmissionData, cancellationToken);
 
         if (transmissionData.Kind == TransferKind.Move)
-            await sourceInstance.Plugin.DeleteAsync(sourceInstance.Entity, options, cancellationToken);
+            await sourceContenx.Plugin.DeleteAsync(sourceContenx.Entity, options, cancellationToken);
     }
     
-    public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,
+    public async Task<IEnumerable<CompressEntry>> CompressAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default)
     {
-        return await instance.Plugin.CompressAsync(instance.Entity, options, cancellationToken);
+        return await contenx.Plugin.CompressAsync(contenx.Entity, options, cancellationToken);
     }
 }

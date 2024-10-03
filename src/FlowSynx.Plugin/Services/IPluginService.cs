@@ -5,33 +5,33 @@ namespace FlowSynx.Plugin.Services;
 
 public interface IPluginService
 {
-    Task<object> About(PluginInstance instance, PluginOptions? options, 
+    Task<object> About(PluginContex contenx, PluginOptions? options, 
         CancellationToken cancellationToken = default);
 
-    Task CreateAsync(PluginInstance instance, PluginOptions? options,
+    Task CreateAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task WriteAsync(PluginInstance instance, PluginOptions? options, 
+    Task WriteAsync(PluginContex contenx, PluginOptions? options, 
         object dataOptions, CancellationToken cancellationToken = default);
 
-    Task<object> ReadAsync(PluginInstance instance, PluginOptions? options,
+    Task<object> ReadAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task UpdateAsync(PluginInstance instance, PluginOptions? options,
+    Task UpdateAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task DeleteAsync(PluginInstance instance, PluginOptions? options,
+    Task DeleteAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<bool> ExistAsync(PluginInstance instance, PluginOptions? options,
+    Task<bool> ExistAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<object>> ListAsync(PluginInstance instance, PluginOptions? options,
+    Task<IEnumerable<object>> ListAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 
-    Task TransferAsync(PluginInstance sourceInstance, PluginInstance destinationInstance,
+    Task TransferAsync(PluginContex sourceContenx, PluginContex destinationContenx,
         PluginOptions? options, CancellationToken cancellationToken = default);
 
-    Task<IEnumerable<CompressEntry>> CompressAsync(PluginInstance instance, PluginOptions? options,
+    Task<IEnumerable<CompressEntry>> CompressAsync(PluginContex contenx, PluginOptions? options,
         CancellationToken cancellationToken = default);
 }

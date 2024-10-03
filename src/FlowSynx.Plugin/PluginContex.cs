@@ -1,11 +1,11 @@
 ﻿using EnsureThat;
 using FlowSynx.Plugin.Abstractions;
 
-namespace FlowSynx.Plugin.Services;
+namespace FlowSynx.Plugin;
 
-public class PluginInstance
+public class PluginContex
 {
-    public PluginInstance(PluginBase plugin, string entity, PluginSpecifications? specifications)
+    public PluginContex(PluginBase plugin, string entity, PluginSpecifications? specifications)
     {
         EnsureArg.IsNotNull(plugin, nameof(plugin));
         Plugin = plugin;
