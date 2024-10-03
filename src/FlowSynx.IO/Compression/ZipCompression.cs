@@ -13,7 +13,7 @@ public class ZipCompression : ICompression
         {
             foreach (var entry in compressEntries)
             {
-                writer.Write(entry.Name, entry.Stream);
+                writer.Write(entry.Name, entry.Content.ToStream());
             }
         }
 
@@ -23,13 +23,13 @@ public class ZipCompression : ICompression
         {
             Name = Guid.NewGuid().ToString(),
             ContentType = "application/octet-stream",
-            Stream = outputMemStream
+            Content = outputMemStream.ToArray()
         });
     }
 
     public Task Decompress(CompressEntry compressEntry, string destinationPath)
     {
-        using (var archive = ArchiveFactory.Open(compressEntry.Stream))
+        using (var archive = ArchiveFactory.Open(compressEntry.Content.ToStream()))
         {
             foreach (var entry in archive.Entries.Where(e => !e.IsDirectory))
             {

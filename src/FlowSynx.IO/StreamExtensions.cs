@@ -21,4 +21,13 @@ public static class StreamExtensions
             stream.CopyTo(fileStream);
         }
     }
+
+    public static byte[] StreamToByteArray(this Stream input)
+    {
+        using (MemoryStream ms = new MemoryStream())
+        {
+            input.CopyTo(ms);
+            return ms.ToArray();
+        }
+    }
 }

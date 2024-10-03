@@ -15,7 +15,7 @@ public class GZipCompression : ICompression
         {
             foreach (var entry in entries)
             {
-                writer.Write(entry.Name, entry.Stream);
+                writer.Write(entry.Name, entry.Content.ToStream());
             }
         }
 
@@ -31,14 +31,14 @@ public class GZipCompression : ICompression
         {
             Name = Guid.NewGuid().ToString(),
             ContentType = "application/octet-stream",
-            Stream = outputMemStream
+            Content = outputMemStream.ToArray(),
         });
     }
 
     public Task Decompress(CompressEntry compressEntry, string destinationPath)
     {
         var tarEntities = new List<string>();
-        using (var archive = ArchiveFactory.Open(compressEntry.Stream))
+        using (var archive = ArchiveFactory.Open(compressEntry.Content.ToStream()))
         {
             foreach (var entry in archive.Entries.Where(e => !e.IsDirectory))
             {

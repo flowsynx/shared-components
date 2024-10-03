@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace FlowSynx.IO;
 
@@ -40,6 +41,11 @@ public static class StringExtensions
         }
     }
 
+    public static byte[] ToByteArray(this string value)
+    {
+        return Encoding.UTF8.GetBytes(value);
+    }
+
     public static Stream ToStream(this string value)
     {
         return value.ToStream(Encoding.UTF8);
@@ -54,6 +60,11 @@ public static class StringExtensions
     {
         var bytes = Convert.FromBase64String(value);
         return new MemoryStream(bytes);
+    }
+
+    public static byte[] Base64ToByteArray(this string value)
+    {
+        return Convert.FromBase64String(value);
     }
 
     public static string ToBase64String(this string value)
