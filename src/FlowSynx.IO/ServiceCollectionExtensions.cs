@@ -27,11 +27,10 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddMultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>(this IServiceCollection services) 
-        where TPrimaryKey : notnull where TSecondaryKey : notnull
+    public static IServiceCollection AddCache<TKey, TValue>(this IServiceCollection services) 
+        where TKey : notnull
     {
-        services.AddSingleton(typeof(IMultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>), 
-            typeof(MultiKeyCache<TPrimaryKey, TSecondaryKey, TValue>));
+        services.AddSingleton(typeof(ICache<TKey, TValue>), typeof(FlowSynxCache<TKey, TValue>));
         return services;
     }
 
