@@ -3,9 +3,9 @@ using FlowSynx.Plugin.Abstractions;
 
 namespace FlowSynx.Plugin;
 
-public class PluginContex
+public class PluginContext
 {
-    public PluginContex(PluginBase plugin, string entity, PluginSpecifications? specifications)
+    public PluginContext(PluginBase plugin, string entity, PluginSpecifications? specifications)
     {
         EnsureArg.IsNotNull(plugin, nameof(plugin));
         Plugin = plugin;
