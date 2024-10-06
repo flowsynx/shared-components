@@ -14,36 +14,37 @@ public abstract class PluginBase
 
     public abstract Task Initialize();
 
-    public abstract Task<object> About(PluginOptions? options, 
+    public abstract Task<object> About(PluginBase? inferiorPlugin, 
+        PluginOptions? options, CancellationToken cancellationToken = default);
+
+    public abstract Task CreateAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, CancellationToken cancellationToken = default);
+
+    public abstract Task WriteAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, object dataOptions, 
         CancellationToken cancellationToken = default);
 
-    public abstract Task CreateAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task<ReadResult> ReadAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task WriteAsync(string entity, PluginOptions? options, object dataOptions,
-        CancellationToken cancellationToken = default);
+    public abstract Task UpdateAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task<object> ReadAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task DeleteAsync(string entity, PluginBase? inferiorPlugin, 
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task UpdateAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task<bool> ExistAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task DeleteAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task<IEnumerable<object>> ListAsync(string entity, PluginBase? inferiorPlugin, 
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task<bool> ExistAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task<TransferData> PrepareTransferring(string entity, PluginBase? inferiorPlugin, 
+        PluginOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task<IEnumerable<object>> ListAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task TransferAsync(string entity, PluginBase? inferiorPlugin,
+        PluginOptions? options, TransferData transferData, CancellationToken cancellationToken = default);
 
-    public abstract Task<TransferData> PrepareTransferring(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
-
-    public abstract Task TransferAsync(string entity, PluginOptions? options,
-        TransferData transferData, CancellationToken cancellationToken = default);
-
-    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginOptions? options,
-        CancellationToken cancellationToken = default);
+    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(string entity, PluginBase? inferiorPlugin, 
+        PluginOptions? options, CancellationToken cancellationToken = default);
 }
