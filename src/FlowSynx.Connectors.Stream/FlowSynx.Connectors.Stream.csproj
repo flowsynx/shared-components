@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FlowSynx.Parsers\FlowSynx.Parsers.csproj" />
+    <ProjectReference Include="..\FlowSynx.Connectors.Abstractions\FlowSynx.Connectors.Abstractions.csproj" />
+    <ProjectReference Include="..\FlowSynx.Security\FlowSynx.Security.csproj" />
+  </ItemGroup>
+
+</Project>
