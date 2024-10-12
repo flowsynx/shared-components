@@ -36,7 +36,7 @@ public class LogManager : ILogManager
 
     public IEnumerable<object> List(LogListOptions listOptions)
     {
-        var plugins = Logs();
+        var logs = Logs();
         var dataFilterOptions = new DataFilterOptions
         {
             Fields = listOptions.Fields ?? Array.Empty<string>(),
@@ -46,8 +46,8 @@ public class LogManager : ILogManager
             Limit = listOptions.Limit ?? string.Empty,
         };
 
-        var pluginsList = plugins.ToList();
-        var dataTable = pluginsList.ToDataTable();
+        var logsList = logs.ToList();
+        var dataTable = logsList.ToDataTable();
         var filteredData = _dataFilter.Filter(dataTable, dataFilterOptions);
         return filteredData.CreateListFromTable();
     }

@@ -61,11 +61,11 @@ namespace FlowSynx.Connectors {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugin {0} could not found!.
+        ///   Looks up a localized string similar to Connector {0} could not found!.
         /// </summary>
-        internal static string PluginsManagerCouldNotFoumd {
+        internal static string ConnectorsManagerCouldNotFoumd {
             get {
-                return ResourceManager.GetString("PluginsManagerCouldNotFoumd", resourceCulture);
+                return ResourceManager.GetString("ConnectorsManagerCouldNotFoumd", resourceCulture);
             }
         }
     }

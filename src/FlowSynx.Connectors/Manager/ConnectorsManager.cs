@@ -4,7 +4,7 @@ using FlowSynx.Data.Extensions;
 using FlowSynx.Data.Filter;
 using FlowSynx.IO.Serialization;
 using FlowSynx.Connectors.Exceptions;
-using FlowSynx.Plugin.Manager.Options;
+using FlowSynx.Connectors.Manager.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -32,7 +32,7 @@ public class ConnectorsManager : IConnectorsManager
 
     public IEnumerable<object> List(ConnectorListOptions listOptions)
     {
-        var plugins = Plugins().Select(plg => new ConnectorResponse
+        var connectors = Connectors().Select(plg => new ConnectorResponse
         {
             Id = plg.Id,
             Name = plg.Name,
@@ -49,20 +49,20 @@ public class ConnectorsManager : IConnectorsManager
             Limit = listOptions.Limit ?? string.Empty,
         };
 
-        var dataTable = plugins.ToDataTable();
+        var dataTable = connectors.ToDataTable();
         var filteredData = _dataFilter.Filter(dataTable, dataFilterOptions);
         return filteredData.CreateListFromTable();
     }
 
     public Connector Get(string type)
     {
-        var result = Plugins().FirstOrDefault(x => x.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
+        var result = Connectors().FirstOrDefault(x => x.Type.Equals(type, StringComparison.OrdinalIgnoreCase));
 
         if (result != null)
             return (Connector)ActivatorUtilities.CreateInstance(_serviceProvider, result.GetType());
 
-        _logger.LogError($"Plugin {type} could not found!");
-        throw new ConnectorsManagerException(string.Format(Resources.PluginsManagerCouldNotFoumd, type));
+        _logger.LogError($"Connector {type} could not found!");
+        throw new ConnectorsManagerException(string.Format(Resources.ConnectorsManagerCouldNotFoumd, type));
     }
 
     public bool IsExist(string type)
@@ -78,5 +78,5 @@ public class ConnectorsManager : IConnectorsManager
         }
     }
 
-    private IEnumerable<Connector> Plugins() => _serviceProvider.GetServices<Connector>();
+    private IEnumerable<Connector> Connectors() => _serviceProvider.GetServices<Connector>();
 }

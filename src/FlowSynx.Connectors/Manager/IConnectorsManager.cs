@@ -1,5 +1,5 @@
 ﻿using FlowSynx.Connectors.Abstractions;
-using FlowSynx.Plugin.Manager.Options;
+using FlowSynx.Connectors.Manager.Options;
 
 namespace FlowSynx.Connectors.Manager;
 

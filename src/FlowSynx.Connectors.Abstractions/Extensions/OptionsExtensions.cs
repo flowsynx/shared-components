@@ -7,7 +7,7 @@ namespace FlowSynx.Connectors.Abstractions.Extensions;
 
 public static class OptionsExtensions
 {
-    public static Options ToPluginFilters(this Dictionary<string, object?>? source)
+    public static Options ToConnectorOptions(this Dictionary<string, object?>? source)
     {
         var options = new Options();
         if (source is null)
