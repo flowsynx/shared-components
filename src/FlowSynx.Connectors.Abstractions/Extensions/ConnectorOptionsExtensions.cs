@@ -5,11 +5,11 @@ using FlowSynx.Reflections;
 
 namespace FlowSynx.Connectors.Abstractions.Extensions;
 
-public static class OptionsExtensions
+public static class ConnectorOptionsExtensions
 {
-    public static Options ToConnectorOptions(this Dictionary<string, object?>? source)
+    public static ConnectorOptions ToConnectorOptions(this Dictionary<string, object?>? source)
     {
-        var options = new Options();
+        var options = new ConnectorOptions();
         if (source is null)
             return options;
 
@@ -20,7 +20,7 @@ public static class OptionsExtensions
         return options;
     }
 
-    public static T ToObject<T>(this Options? source) where T : class, new()
+    public static T ToObject<T>(this ConnectorOptions? source) where T : class, new()
     {
         var newInstance = new T();
         if (source is null) return newInstance;

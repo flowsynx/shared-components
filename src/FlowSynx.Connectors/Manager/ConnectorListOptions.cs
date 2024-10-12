@@ -1,4 +1,4 @@
-﻿namespace FlowSynx.Connectors.Manager.Options;
+﻿namespace FlowSynx.Connectors.Manager;
 
 public class ConnectorListOptions
 {

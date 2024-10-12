@@ -4,7 +4,6 @@ using FlowSynx.Data.Extensions;
 using FlowSynx.Data.Filter;
 using FlowSynx.IO.Serialization;
 using FlowSynx.Connectors.Exceptions;
-using FlowSynx.Connectors.Manager.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
