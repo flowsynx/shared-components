@@ -14,37 +14,36 @@ public abstract class Connector
 
     public abstract Task Initialize();
 
-    public abstract Task<object> About(Connector? connector,
+    public abstract Task<object> About(Context context,
         ConnectorOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task CreateAsync(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task WriteAsync(string entity, Connector? connector,
-        ConnectorOptions? options, object dataOptions, 
+    public abstract Task CreateAsync(Context context, ConnectorOptions? options, 
         CancellationToken cancellationToken = default);
 
-    public abstract Task<ReadResult> ReadAsync(string entity, Connector? connector,
+    public abstract Task WriteAsync(Context context, ConnectorOptions? options, 
+        object dataOptions, CancellationToken cancellationToken = default);
+
+    public abstract Task<ReadResult> ReadAsync(Context context, ConnectorOptions? options, 
+        CancellationToken cancellationToken = default);
+
+    public abstract Task UpdateAsync(Context context, ConnectorOptions? options, 
+        CancellationToken cancellationToken = default);
+
+    public abstract Task DeleteAsync(Context context, ConnectorOptions? options, 
+        CancellationToken cancellationToken = default);
+
+    public abstract Task<bool> ExistAsync(Context context, ConnectorOptions? options, 
+        CancellationToken cancellationToken = default);
+
+    public abstract Task<IEnumerable<object>> ListAsync(Context context, ConnectorOptions? options, 
+        CancellationToken cancellationToken = default);
+
+    public abstract Task TransferAsync(Context sourceContext, Connector? destinationConnector,
+        Context destinationContext, ConnectorOptions? options, CancellationToken cancellationToken = default);
+
+    public abstract Task ProcessTransferAsync(Context sourceContext, TransferData transferData,
         ConnectorOptions? options, CancellationToken cancellationToken = default);
 
-    public abstract Task UpdateAsync(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task DeleteAsync(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task<bool> ExistAsync(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task<IEnumerable<object>> ListAsync(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task<TransferData> PrepareTransferring(string entity, Connector? connector,
-        ConnectorOptions? options, CancellationToken cancellationToken = default);
-
-    public abstract Task TransferAsync(string entity, Connector? connector,
-        ConnectorOptions? options, TransferData transferData, CancellationToken cancellationToken = default);
-
-    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(string entity, Connector? connector,
+    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(Context context,
         ConnectorOptions? options, CancellationToken cancellationToken = default);
 }

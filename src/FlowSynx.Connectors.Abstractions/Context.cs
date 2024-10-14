@@ -2,14 +2,18 @@
 
 public class Context
 {
-    public Context(Connector currentConnector, Connector? nextConnector, string entity)
+    public Context(string entity)
     {
-        CurrentConnector = currentConnector;
-        NextConnector = nextConnector;
         Entity = entity;
+        Connector = null;
     }
 
-    public Connector CurrentConnector { get; }
-    public Connector? NextConnector { get; }
+    public Context(string entity, Connector connector)
+    {
+        Entity = entity;
+        Connector = connector;
+    }
+
     public string Entity { get; set; }
+    public Connector? Connector { get; }
 }
