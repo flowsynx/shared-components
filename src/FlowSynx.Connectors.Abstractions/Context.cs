@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Connectors.Abstractions;
 
-public class Context
+public class Context: ICloneable
 {
     public Context(string entity)
     {
@@ -8,7 +8,7 @@ public class Context
         Connector = null;
     }
 
-    public Context(string entity, Connector connector)
+    public Context(string entity, Connector? connector)
     {
         Entity = entity;
         Connector = connector;
@@ -16,4 +16,10 @@ public class Context
 
     public string Entity { get; set; }
     public Connector? Connector { get; }
+
+    public object Clone()
+    {
+        var clone = (Context)MemberwiseClone();
+        return clone;
+    }
 }
