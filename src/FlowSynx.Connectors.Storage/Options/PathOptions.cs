@@ -1,7 +1,6 @@
 ﻿namespace FlowSynx.Connectors.Storage.Options;
 
-public class CreateOptions
+public class PathOptions
 {
     public string Path { get; set; } = string.Empty;
-    public bool? Hidden { get; set; } = false;
 }

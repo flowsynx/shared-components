@@ -2,6 +2,6 @@
 
 public class ReadOptions
 {
-    public required string Path { get; set; }
+    public string Path { get; set; } = string.Empty;
     public bool? Hashing { get; set; } = false;
 }

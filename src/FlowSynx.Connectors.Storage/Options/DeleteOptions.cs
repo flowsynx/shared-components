@@ -2,6 +2,6 @@
 
 public class DeleteOptions
 {
-    public required string Path { get; set; }
+    public string Path { get; set; } = string.Empty;
     public bool? Purge { get; set; } = false;
 }

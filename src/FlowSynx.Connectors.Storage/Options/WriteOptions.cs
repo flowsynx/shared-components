@@ -2,6 +2,6 @@
 
 public class WriteOptions
 {
-    public required string Path { get; set; }
+    public string Path { get; set; } = string.Empty;
     public bool? Overwrite { get; set; } = false;
 }

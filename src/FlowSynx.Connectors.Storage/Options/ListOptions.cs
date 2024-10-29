@@ -2,7 +2,7 @@
 
 public class ListOptions
 {
-    public required string Path { get; set; }
+    public string Path { get; set; } = string.Empty;
     public string? Fields { get; set; }
     public string? Filter { get; set; }
     public bool CaseSensitive { get; set; } = false;
