@@ -2,12 +2,12 @@
 
 public class ConnectorContext
 {
-    public ConnectorContext(Connector connector, Context context)
-    {
-        Connector = connector;
-        Context = context;
-    }
+    public Connector Current { get; set; }
+    public ConnectorContext? Next { get; set; }
 
-    public Connector Connector { get; }
-    public Context Context { get; set; }
+    public ConnectorContext(Connector current)
+    {
+        Current = current;
+        Next = null;
+    }
 }

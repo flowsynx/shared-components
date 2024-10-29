@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Connectors.Abstractions;
 
-public class ConnectorOptions : Dictionary<string, object?>
+public class ConnectorOptions : Dictionary<string, object?>, ICloneable
 {
     public void ChangeProperty(string propertyName, object propertyValue)
     {
@@ -8,5 +8,11 @@ public class ConnectorOptions : Dictionary<string, object?>
         {
             this[propertyName] = propertyValue;
         }
+    }
+
+    public object Clone()
+    {
+        var clone = (ConnectorOptions)MemberwiseClone();
+        return clone;
     }
 }

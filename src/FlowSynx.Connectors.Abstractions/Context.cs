@@ -2,20 +2,26 @@
 
 public class Context: ICloneable
 {
-    public Context(string entity)
+    public Context()
     {
-        Entity = entity;
-        Connector = null;
+        Options = new ConnectorOptions();
+        ConnectorContext = null;
     }
 
-    public Context(string entity, Connector? connector)
+    public Context(ConnectorOptions options)
     {
-        Entity = entity;
-        Connector = connector;
+        Options = options;
+        ConnectorContext = null;
     }
 
-    public string Entity { get; set; }
-    public Connector? Connector { get; }
+    public Context(ConnectorOptions options, ConnectorContext? connector)
+    {
+        Options = options;
+        ConnectorContext = connector;
+    }
+
+    public ConnectorOptions? Options { get; set; }
+    public ConnectorContext? ConnectorContext { get; }
 
     public object Clone()
     {
