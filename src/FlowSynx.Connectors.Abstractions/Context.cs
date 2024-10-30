@@ -20,7 +20,7 @@ public class Context: ICloneable
         ConnectorContext = connector;
     }
 
-    public ConnectorOptions? Options { get; set; }
+    public ConnectorOptions Options { get; set; }
     public ConnectorContext? ConnectorContext { get; }
 
     public object Clone()
