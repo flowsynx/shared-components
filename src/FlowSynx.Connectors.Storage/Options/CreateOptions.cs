@@ -1,7 +1,12 @@
 ﻿namespace FlowSynx.Connectors.Storage.Options;
 
-public class CreateOptions
+public class CreateOptions: ICloneable
 {
-    public string Path { get; set; } = string.Empty;
     public bool? Hidden { get; set; } = false;
+
+    public object Clone()
+    {
+        var clone = (CreateOptions)MemberwiseClone();
+        return clone;
+    }
 }

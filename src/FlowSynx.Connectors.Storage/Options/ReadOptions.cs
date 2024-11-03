@@ -1,7 +1,12 @@
 ﻿namespace FlowSynx.Connectors.Storage.Options;
 
-public class ReadOptions
+public class ReadOptions: ICloneable
 {
-    public string Path { get; set; } = string.Empty;
     public bool? Hashing { get; set; } = false;
+
+    public object Clone()
+    {
+        var clone = (ReadOptions)MemberwiseClone();
+        return clone;
+    }
 }

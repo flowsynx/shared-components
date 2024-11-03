@@ -1,7 +1,15 @@
-﻿namespace FlowSynx.Connectors.Storage.Options;
+﻿using FlowSynx.Connectors.Abstractions;
 
-public class WriteOptions
+namespace FlowSynx.Connectors.Storage.Options;
+
+public class WriteOptions: ICloneable
 {
-    public string Path { get; set; } = string.Empty;
+    public object? Data { get; set; }
     public bool? Overwrite { get; set; } = false;
+
+    public object Clone()
+    {
+        var clone = (WriteOptions)MemberwiseClone();
+        return clone;
+    }
 }

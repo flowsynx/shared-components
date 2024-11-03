@@ -1,8 +1,7 @@
 ﻿namespace FlowSynx.Connectors.Storage.Options;
 
-public class ListOptions
+public class ListOptions: ICloneable
 {
-    public string Path { get; set; } = string.Empty;
     public string? Fields { get; set; }
     public string? Filter { get; set; }
     public bool CaseSensitive { get; set; } = false;
@@ -10,4 +9,10 @@ public class ListOptions
     public string? Sort { get; set; }
     public string? Limit { get; set; }
     public bool? IncludeMetadata { get; set; } = false;
+
+    public object Clone()
+    {
+        var clone = (ListOptions)MemberwiseClone();
+        return clone;
+    }
 }
