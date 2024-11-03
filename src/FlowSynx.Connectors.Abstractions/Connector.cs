@@ -14,36 +14,25 @@ public abstract class Connector
 
     public abstract Task Initialize();
 
-    public abstract Task<object> About(Context context,
-        CancellationToken cancellationToken = default);
+    public abstract Task<object> About(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task CreateAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task CreateAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task WriteAsync(Context context, object dataOptions, 
-        CancellationToken cancellationToken = default);
+    public abstract Task WriteAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task<ReadResult> ReadAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task<ReadResult> ReadAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task UpdateAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task UpdateAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task DeleteAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task DeleteAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task<bool> ExistAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task<bool> ExistAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task<IEnumerable<object>> ListAsync(Context context, 
-        CancellationToken cancellationToken = default);
+    public abstract Task<IEnumerable<object>> ListAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task TransferAsync(Context sourceContext, Context destinationContext, 
-        CancellationToken cancellationToken = default);
+    public abstract Task TransferAsync(Context sourceContext, Context destinationContext, CancellationToken cancellationToken = default);
 
-    public abstract Task ProcessTransferAsync(Context context, TransferData transferData,
-        CancellationToken cancellationToken = default);
+    public abstract Task ProcessTransferAsync(Context context, TransferData transferData, CancellationToken cancellationToken = default);
 
-    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(Context context,
-        CancellationToken cancellationToken = default);
+    public abstract Task<IEnumerable<CompressEntry>> CompressAsync(Context context, CancellationToken cancellationToken = default);
 }
