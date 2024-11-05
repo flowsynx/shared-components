@@ -41,7 +41,7 @@ public class LogManager : ILogManager
         {
             Fields = listOptions.Fields ?? Array.Empty<string>(),
             FilterExpression = listOptions.Filter ?? string.Empty,
-            SortExpression = listOptions.Sort ?? string.Empty,
+            Sort = listOptions.Sort ?? Array.Empty<Sort>(),
             CaseSensitive = listOptions.CaseSensitive ?? false,
             Limit = listOptions.Limit ?? string.Empty,
         };

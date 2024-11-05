@@ -23,7 +23,7 @@ public class DataFilter : IDataFilter
         if (dataFilterOptions == null) 
             return dataTable;
 
-        if (dataFilterOptions.FilterExpression is null && dataFilterOptions.SortExpression is null)
+        if (dataFilterOptions.FilterExpression is null && dataFilterOptions.Sort is null)
             return dataTable;
 
         dataTable.CaseSensitive = dataFilterOptions.CaseSensitive ?? false;
@@ -33,8 +33,8 @@ public class DataFilter : IDataFilter
         if (!string.IsNullOrEmpty(dataFilterOptions.FilterExpression))
             view.RowFilter = dataFilterOptions.FilterExpression;
 
-        if (!string.IsNullOrWhiteSpace(dataFilterOptions.SortExpression))
-            view.Sort = dataFilterOptions.SortExpression;
+        if (dataFilterOptions.Sort is not null)
+            view.Sort = string.Join(", ", Array.ConvertAll(dataFilterOptions.Sort, obj => obj.ToString()));
 
         var result = dataFilterOptions.Fields == null
                     ? view.ToTable(false) 
