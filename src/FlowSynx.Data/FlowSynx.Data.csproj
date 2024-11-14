@@ -15,4 +15,8 @@
     <ProjectReference Include="..\FlowSynx.Parsers\FlowSynx.Parsers.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NoSql\" />
+  </ItemGroup>
+
 </Project>
