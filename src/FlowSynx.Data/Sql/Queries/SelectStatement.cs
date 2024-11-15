@@ -61,6 +61,6 @@ public class SelectStatement
     
     public override string ToString()
     {
-        return this.GetSql();
+        return GetSql();
     }
 }

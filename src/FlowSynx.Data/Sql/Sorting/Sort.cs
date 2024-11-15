@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using FlowSynx.Data.Exceptions;
 using FlowSynx.Data.Extensions;
 
 namespace FlowSynx.Data.Sql.Sorting;
@@ -26,6 +27,6 @@ public class Sort
         if (Direction.Equals("DESC", StringComparison.OrdinalIgnoreCase))
             return "DESC";
 
-        throw new Exception("Sort direction is not supported. It should be ASC or DESC");
+        throw new DataSqlException(Resources.SortDirectionIsNotSupported);
     }
 }
