@@ -21,7 +21,7 @@ public class FiltersList: List<Filter>
         }
     }
     
-    public string GetSql(ISqlFormat format, string? tableAlias = "")
+    public string GetSql(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
         foreach (var filter in this)

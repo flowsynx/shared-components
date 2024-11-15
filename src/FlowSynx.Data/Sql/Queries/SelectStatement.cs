@@ -1,4 +1,5 @@
-﻿using FlowSynx.Data.Sql.Fields;
+﻿using FlowSynx.Data.Sql.Fetches;
+using FlowSynx.Data.Sql.Fields;
 using FlowSynx.Data.Sql.Filters;
 using FlowSynx.Data.Sql.Grouping;
 using FlowSynx.Data.Sql.Joins;
@@ -10,16 +11,16 @@ namespace FlowSynx.Data.Sql.Queries;
 
 public class SelectStatement
 {
-    public ISqlFormat Format { get; }
+    public Format Format { get; }
     public Table Table { get; }
     public FieldsList Fields { get; set; }
     public JoinsList? Joins { get; set; }
     public FiltersList? Filters { get; set; }
     public GroupByList? GroupBy { get; set; }
     public SortsList? Sorts { get; set; }
-    public string? Limit { get; set; }
+    public Fetch? Fetch { get; set; }
 
-    public SelectStatement(ISqlFormat format, Table table)
+    public SelectStatement(Format format, Table table)
     {
         Format = format;
         Table = table;
@@ -28,6 +29,7 @@ public class SelectStatement
         Filters = new FiltersList();
         GroupBy = new GroupByList();
         Sorts = new SortsList();
+        Fetch = new Fetch();
     }
 
     public string GetSql()
@@ -50,6 +52,9 @@ public class SelectStatement
 
         if (Sorts is { Count: > 0 })
             result.Append(SnippetLibrary.Sort(Sorts.GetSql(Format, Table.Alias)));
+
+        if (Fetch is not null)
+            result.Append(SnippetLibrary.Fetch(Fetch.GetSql(Format)));
 
         return result.GetSql(Format);
     }

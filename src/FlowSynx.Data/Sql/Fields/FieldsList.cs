@@ -8,7 +8,7 @@ namespace FlowSynx.Data.Sql.Fields;
 /// </summary>
 public class FieldsList: List<Field>
 {
-    public string GetSql(ISqlFormat format, string? tableAlias = "")
+    public string GetSql(Format format, string? tableAlias = "")
     {
         if (Count == 0)
         {

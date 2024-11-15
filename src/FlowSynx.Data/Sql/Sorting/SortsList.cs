@@ -7,7 +7,7 @@ namespace FlowSynx.Data.Sql.Sorting;
 /// </summary>
 public class SortsList : List<Sort>
 {
-    public string GetSql(ISqlFormat format, string? tableAlias = "")
+    public string GetSql(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
 

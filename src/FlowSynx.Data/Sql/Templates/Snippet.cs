@@ -30,10 +30,10 @@ public class Snippet
 
     public Snippet(string name, string code, string prefix = "", string postfix = "")
     {
-        this.Name = name;
-        this.Code = code;
-        this.Prefix = prefix;
-        this.Postfix = postfix;
+        Name = name;
+        Code = code;
+        Prefix = prefix;
+        Postfix = postfix;
     }
 
     private bool IsValid(string name)

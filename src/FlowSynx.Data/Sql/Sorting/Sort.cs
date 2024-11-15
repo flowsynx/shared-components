@@ -8,7 +8,7 @@ public class Sort
     public required string Name { get; set; }
     public string? Direction { get; set; }
 
-    public string GetSql(ISqlFormat format, string? tableAlias = "")
+    public string GetSql(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
         sb.Append(format.FormatField(Name, tableAlias) + " " + GetDirection());

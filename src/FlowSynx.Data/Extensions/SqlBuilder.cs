@@ -4,7 +4,7 @@ namespace FlowSynx.Data.Extensions;
 
 public static class SqlBuilder
 {
-    public static string FormatField(this ISqlFormat format, string field, string? tableAlias = "")
+    public static string FormatField(this Format format, string field, string? tableAlias = "")
     {
         if (!string.IsNullOrEmpty(tableAlias))
             tableAlias = FormatTableAlias(format, tableAlias) + '.';
@@ -16,14 +16,14 @@ public static class SqlBuilder
         return tableAlias + field;
     }
 
-    public static string FormatTable(this ISqlFormat format, string tableName)
+    public static string FormatTable(this Format format, string tableName)
     {
         return format.EscapeEnabled
             ? format.TableEscapeLeft + tableName + format.TableEscapeRight
             : tableName;
     }
 
-    public static string FormatTableAlias(this ISqlFormat format, string value)
+    public static string FormatTableAlias(this Format format, string value)
     {
         return format.TableEscapeLeft + value + format.TableEscapeRight;
     }

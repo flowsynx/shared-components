@@ -12,7 +12,7 @@ public static class SnippetLibrary
         return new Snippet("END", value);
     }
     
-    public static Snippet Table(ISqlFormat format, string table, string? tableAlias = "")
+    public static Snippet Table(Format format, string table, string? tableAlias = "")
     {
         table = format.FormatTable(table);
         if (!string.IsNullOrEmpty(tableAlias))
@@ -38,13 +38,18 @@ public static class SnippetLibrary
         return new Snippet("FILTERS", value, " WHERE ");
     }
 
+    public static Snippet GroupBy(string value)
+    {
+        return new Snippet("GROUPBY", value, " GROUP BY ");
+    }
+
     public static Snippet Sort(string value)
     {
         return new Snippet("ORDERBY", value, " ORDER BY ");
     }
 
-    public static Snippet GroupBy(string value)
+    public static Snippet Fetch(string value)
     {
-        return new Snippet("GROUPBY", value, " GROUP BY ");
+        return new Snippet("FETCHES", ' ' + value);
     }
 }

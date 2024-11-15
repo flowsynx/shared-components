@@ -33,7 +33,7 @@ public class Template
         return this;
     }
 
-    public string GetSql(ISqlFormat format)
+    public string GetSql(Format format)
     {
         var pattern = Pattern;
 

@@ -7,7 +7,7 @@ namespace FlowSynx.Data.Sql.Joins;
 /// </summary>
 public class JoinsList: List<Join>
 {
-    public string GetSql(ISqlFormat format, string sourceTable)
+    public string GetSql(Format format, string sourceTable)
     {
         var sb = new StringBuilder();
         foreach (var join in this)
