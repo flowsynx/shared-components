@@ -2,7 +2,7 @@
 using FlowSynx.Configuration.Exceptions;
 using FlowSynx.Configuration.Options;
 using FlowSynx.Data;
-using FlowSynx.Data.Extensions;
+using FlowSynx.Data.DataTableQuery.Extensions;
 using FlowSynx.Data.Filter;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;

@@ -1,5 +1,5 @@
 ﻿using EnsureThat;
-using FlowSynx.Data.Extensions;
+using FlowSynx.Data.DataTableQuery.Extensions;
 using FlowSynx.Data.Filter;
 using FlowSynx.IO.Serialization;
 using FlowSynx.Logging.Extensions;

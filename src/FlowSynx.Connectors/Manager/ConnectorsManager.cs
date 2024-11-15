@@ -1,11 +1,11 @@
 ﻿using EnsureThat;
 using FlowSynx.Connectors.Abstractions;
-using FlowSynx.Data.Extensions;
 using FlowSynx.Data.Filter;
 using FlowSynx.IO.Serialization;
 using FlowSynx.Connectors.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FlowSynx.Data.DataTableQuery.Extensions;
 
 namespace FlowSynx.Connectors.Manager;
 
