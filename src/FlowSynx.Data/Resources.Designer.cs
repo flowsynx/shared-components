@@ -61,15 +61,6 @@ namespace FlowSynx.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value entered for Limit must be equal or greater than zero..
-        /// </summary>
-        internal static string LimitCouldNotBeNagative {
-            get {
-                return ResourceManager.GetString("LimitCouldNotBeNagative", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The value entered for Offset must be equal or greater than zero..
         /// </summary>
         internal static string OffsetCouldNotBeNagative {
@@ -79,7 +70,16 @@ namespace FlowSynx.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort direction is not supported. It should be ASC or DESC.
+        ///   Looks up a localized string similar to The value entered for Size must be equal or greater than zero..
+        /// </summary>
+        internal static string SizeCouldNotBeNagative {
+            get {
+                return ResourceManager.GetString("SizeCouldNotBeNagative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string SortDirectionIsNotSupported {
             get {

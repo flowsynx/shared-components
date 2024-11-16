@@ -8,7 +8,7 @@ namespace FlowSynx.Data.SqlQuery.Templates;
 public class Snippet
 {
 
-    private string _name;
+    private string _name = string.Empty;
 
     public string Code { get; set; }
 

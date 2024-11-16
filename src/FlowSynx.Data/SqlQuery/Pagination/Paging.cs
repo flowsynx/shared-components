@@ -1,22 +1,22 @@
 ﻿using FlowSynx.Data.SqlQuery.Exceptions;
 using System.Text;
 
-namespace FlowSynx.Data.SqlQuery.Fetches;
+namespace FlowSynx.Data.SqlQuery.Pagination;
 
-public class Fetch
+public class Paging
 {
-    private int _limit = 0;
+    private int _size = 0;
     private int _offSet = 0;
 
-    public int? Limit
+    public int? Size
     {
-        get => _limit;
+        get => _size;
         set
         {
             if (value <= 0)
-                throw new DataSqlException(Resources.LimitCouldNotBeNagative);
+                throw new DataSqlException(Resources.SizeCouldNotBeNagative);
 
-            _limit = value ?? 0; ;
+            _size = value ?? 0; ;
         }
     }
 
@@ -43,17 +43,17 @@ public class Fetch
                 sb.Append($"OFFSET {_offSet} ROWS");
             }
 
-            if (_limit > 0 && sb.Length > 0)
+            if (_size > 0 && sb.Length > 0)
             {
                 sb.Append(" ");
-                sb.Append($"FETCH FIRST {_limit} ROWS ONLY");
+                sb.Append($"FETCH FIRST {_size} ROWS ONLY");
             }
         }
         else
         {
-            if (_limit > 0)
+            if (_size > 0)
             {
-                sb.Append($"LIMIT {_limit}");
+                sb.Append($"LIMIT {_size}");
             }
 
             if (_offSet > 0 && sb.Length > 0)

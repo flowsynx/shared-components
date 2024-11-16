@@ -46,7 +46,7 @@ public static class SnippetLibrary
         return new Snippet("ORDERBY", value, " ORDER BY ");
     }
 
-    public static Snippet Fetch(string value)
+    public static Snippet Paging(string value)
     {
         return new Snippet("FETCHES", ' ' + value);
     }

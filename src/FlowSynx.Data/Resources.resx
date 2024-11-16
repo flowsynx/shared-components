@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LimitCouldNotBeNagative" xml:space="preserve">
-    <value>The value entered for Limit must be equal or greater than zero.</value>
+  <data name="SizeCouldNotBeNagative" xml:space="preserve">
+    <value>The value entered for Size must be equal or greater than zero.</value>
   </data>
   <data name="OffsetCouldNotBeNagative" xml:space="preserve">
     <value>The value entered for Offset must be equal or greater than zero.</value>
   </data>
   <data name="SortDirectionIsNotSupported" xml:space="preserve">
-    <value>Sort direction is not supported. It should be ASC or DESC</value>
+    <value />
   </data>
 </root>

@@ -1,14 +1,17 @@
 ﻿using EnsureThat;
 using FlowSynx.Configuration.Exceptions;
 using FlowSynx.Configuration.Options;
-using FlowSynx.Data;
 using FlowSynx.Data.DataTableQuery.Extensions;
-using FlowSynx.Data.Filter;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
 using System.Dynamic;
-using System.Xml.Linq;
+using FlowSynx.Data.DataTableQuery.Fields;
+using FlowSynx.Data.DataTableQuery.Filters;
+using FlowSynx.Data.DataTableQuery.Pagination;
+using FlowSynx.Data.DataTableQuery.Queries;
+using FlowSynx.Data.DataTableQuery.Queries.Select;
+using FlowSynx.Data.DataTableQuery.Sorting;
 
 namespace FlowSynx.Configuration;
 
@@ -20,11 +23,11 @@ public class ConfigurationManager : IConfigurationManager
     private readonly IFileWriter _fileWriter;
     private readonly ISerializer _serializer;
     private readonly IDeserializer _deserializer;
-    private readonly IDataFilter _dataFilter;
+    private readonly IDataTableService _dataTableService;
 
     public ConfigurationManager(ILogger<ConfigurationManager> logger, ConfigurationPath options, 
         IFileReader fileReader, IFileWriter fileWriter, ISerializer serializer, 
-        IDeserializer deserializer, IDataFilter dataFilter)
+        IDeserializer deserializer, IDataTableService dataTableService)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(options, nameof(options));
@@ -32,14 +35,14 @@ public class ConfigurationManager : IConfigurationManager
         EnsureArg.IsNotNull(fileWriter, nameof(fileWriter));
         EnsureArg.IsNotNull(serializer, nameof(serializer));
         EnsureArg.IsNotNull(deserializer, nameof(deserializer));
-        EnsureArg.IsNotNull(dataFilter, nameof(dataFilter));
+        EnsureArg.IsNotNull(dataTableService, nameof(dataTableService));
         _logger = logger;
         _options = options;
         _fileReader = fileReader;
         _fileWriter = fileWriter;
         _serializer = serializer;
         _deserializer = deserializer;
-        _dataFilter = dataFilter;
+        _dataTableService = dataTableService;
     }
 
     public IEnumerable<object> List(ConfigurationListOptions listOptions)
@@ -52,17 +55,17 @@ public class ConfigurationManager : IConfigurationManager
             ModifiedTime = x.ModifiedTime,
         });
 
-        var dataFilterOptions = new DataFilterOptions
+        var dataTable = configurations.ToDataTable();
+        var selectDataTableOption = new SelectDataTableOption()
         {
-            Fields = listOptions.Fields ?? Array.Empty<string>(),
-            FilterExpression = listOptions.Filter ?? string.Empty,
-            Sort = listOptions.Sort ?? Array.Empty<Sort>(),
-            CaseSensitive = listOptions.CaseSensitive ?? false,
-            Limit = listOptions.Limit ?? string.Empty,
+            Fields = ParseFields(listOptions.Fields),
+            Filters = ParseFilters(listOptions.Filters),
+            Sorts = ParseSorts(listOptions.Sorts),
+            Paging = ParsePaging(listOptions.Paging),
+            CaseSensitive = listOptions.CaseSensitive,
         };
 
-        var dataTable = configurations.ToDataTable();
-        var filteredData = _dataFilter.Filter(dataTable, dataFilterOptions);
+        var filteredData = _dataTableService.Select(dataTable, selectDataTableOption);
         return filteredData.CreateListFromTable();
     }
 
@@ -96,7 +99,7 @@ public class ConfigurationManager : IConfigurationManager
     public IEnumerable<ConfigurationResult> Delete(ConfigurationListOptions listOptions)
     {
         var result = new List<ConfigurationResult>();
-        listOptions.Fields = Array.Empty<string>();
+        listOptions.Fields = string.Empty;
         var filteredList = List(listOptions);
         var configurationItems = filteredList.ToList();
 
@@ -154,7 +157,7 @@ public class ConfigurationManager : IConfigurationManager
             Get(name);
             return true;
         }
-        catch (Exception e)
+        catch (Exception)
         {
             return false;
         }
@@ -174,5 +177,49 @@ public class ConfigurationManager : IConfigurationManager
 
             return data ?? new Configuration();
         }
+    }
+
+    private FieldsList ParseFields(string? json)
+    {
+        var result = new FieldsList();
+        if (!string.IsNullOrEmpty(json))
+        {
+            result = _deserializer.Deserialize<FieldsList>(json);
+        }
+
+        return result;
+    }
+
+    private FiltersList ParseFilters(string? json)
+    {
+        var result = new FiltersList();
+        if (!string.IsNullOrEmpty(json))
+        {
+            result = _deserializer.Deserialize<FiltersList>(json);
+        }
+
+        return result;
+    }
+
+    private SortsList ParseSorts(string? json)
+    {
+        var result = new SortsList();
+        if (!string.IsNullOrEmpty(json))
+        {
+            result = _deserializer.Deserialize<SortsList>(json);
+        }
+
+        return result;
+    }
+
+    private Paging ParsePaging(string? json)
+    {
+        var result = new Paging();
+        if (!string.IsNullOrEmpty(json))
+        {
+            result = _deserializer.Deserialize<Paging>(json);
+        }
+
+        return result;
     }
 }

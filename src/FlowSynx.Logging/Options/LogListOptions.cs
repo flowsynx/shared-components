@@ -1,12 +1,10 @@
-﻿using FlowSynx.Data.Filter;
-
-namespace FlowSynx.Logging.Options;
+﻿namespace FlowSynx.Logging.Options;
 
 public class LogListOptions
 {
-    public string[]? Fields { get; set; }
-    public string? Filter { get; set; }
-    public Sort[]? Sort { get; set; }
-    public string? Limit { get; set; }
+    public string? Fields { get; set; }
+    public string? Filters { get; set; }
+    public string? Sorts { get; set; }
+    public string? Paging { get; set; }
     public bool? CaseSensitive { get; set; } = false;
 }
