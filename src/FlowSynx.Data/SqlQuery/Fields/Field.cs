@@ -10,7 +10,7 @@ public class Field
     public required string Name { get; set; }
     public string? Alias { get; set; }
 
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
         if (!string.IsNullOrEmpty(tableAlias))

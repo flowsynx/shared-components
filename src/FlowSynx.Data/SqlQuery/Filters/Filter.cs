@@ -14,7 +14,7 @@ public class Filter
     public string? ValueMax { get; set; }
     public List<Filter>? Filters { get; set; } = new List<Filter>();
 
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
 

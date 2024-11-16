@@ -11,7 +11,7 @@ public class Filter
     public string? ValueMax { get; set; }
     public List<Filter>? Filters { get; set; } = new List<Filter>();
 
-    public string GetSql()
+    public string GetQuery()
     {
         var sb = new StringBuilder();
 

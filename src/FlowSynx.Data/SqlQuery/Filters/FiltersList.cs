@@ -21,7 +21,7 @@ public class FiltersList : List<Filter>
         }
     }
 
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
         foreach (var filter in this)
@@ -33,7 +33,7 @@ public class FiltersList : List<Filter>
                 sb.Append(' ');
             }
 
-            sb.Append(filter.GetSql(format, tableAlias));
+            sb.Append(filter.GetQuery(format, tableAlias));
         }
 
         return sb.ToString();

@@ -7,7 +7,7 @@ namespace FlowSynx.Data.SqlQuery.Fields;
 /// </summary>
 public class FieldsList : List<Field>
 {
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         if (Count == 0)
         {
@@ -22,7 +22,7 @@ public class FieldsList : List<Field>
             if (sb.Length > 0)
                 sb.Append(", ");
 
-            sb.Append(field.GetSql(format, tableAlias));
+            sb.Append(field.GetQuery(format, tableAlias));
         }
 
         return sb.ToString();

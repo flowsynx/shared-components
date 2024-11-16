@@ -7,7 +7,7 @@ namespace FlowSynx.Data.SqlQuery.Grouping;
 /// </summary>
 public class GroupByList : List<GroupBy>
 {
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
 
@@ -18,7 +18,7 @@ public class GroupByList : List<GroupBy>
                 sb.Append(", ");
             else
                 sep = true;
-            sb.Append(groupBy.GetSql(format, tableAlias));
+            sb.Append(groupBy.GetQuery(format, tableAlias));
         }
 
         return sb.ToString();

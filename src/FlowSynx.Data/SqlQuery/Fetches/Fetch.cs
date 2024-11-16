@@ -10,11 +10,7 @@ public class Fetch
 
     public int? Limit
     {
-        get
-        {
-            return _limit;
-        }
-
+        get => _limit;
         set
         {
             if (value <= 0)
@@ -26,11 +22,7 @@ public class Fetch
 
     public int? OffSet
     {
-        get
-        {
-            return _offSet;
-        }
-
+        get => _offSet;
         set
         {
             if (value <= 0)
@@ -40,7 +32,7 @@ public class Fetch
         }
     }
 
-    public string GetSql(Format format)
+    public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
 

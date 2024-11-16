@@ -1,5 +1,4 @@
 ﻿using FlowSynx.Data.SqlQuery.Exceptions;
-using System.Text;
 
 namespace FlowSynx.Data.DataTableQuery.Fetches;
 
@@ -9,11 +8,7 @@ public class Fetch
 
     public int? Limit
     {
-        get
-        {
-            return _limit;
-        }
-
+        get => _limit;
         set
         {
             if (value <= 0)
@@ -23,7 +18,7 @@ public class Fetch
         }
     }
 
-    public int GetSql()
+    public int GetQuery()
     {
         return _limit;
     }

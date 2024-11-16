@@ -7,7 +7,7 @@ namespace FlowSynx.Data.SqlQuery.Sorting;
 /// </summary>
 public class SortsList : List<Sort>
 {
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
 
@@ -19,7 +19,7 @@ public class SortsList : List<Sort>
             else
                 sep = true;
 
-            sb.Append(sort.GetSql(format, tableAlias));
+            sb.Append(sort.GetQuery(format, tableAlias));
         }
 
         return sb.ToString();

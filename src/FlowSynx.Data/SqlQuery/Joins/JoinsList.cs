@@ -7,14 +7,14 @@ namespace FlowSynx.Data.SqlQuery.Joins;
 /// </summary>
 public class JoinsList : List<Join>
 {
-    public string GetSql(Format format, string sourceTable)
+    public string GetQuery(Format format, string sourceTable)
     {
         var sb = new StringBuilder();
         foreach (var join in this)
         {
             if (sb.Length > 0)
                 sb.Append(' ');
-            sb.Append(join.GetSql(format, sourceTable));
+            sb.Append(join.GetQuery(format, sourceTable));
         }
         return sb.ToString();
     }

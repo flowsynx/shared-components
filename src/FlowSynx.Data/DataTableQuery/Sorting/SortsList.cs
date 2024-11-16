@@ -4,7 +4,7 @@ namespace FlowSynx.Data.DataTableQuery.Sorting;
 
 public class SortsList : List<Sort>
 {
-    public string GetSql()
+    public string GetQuery()
     {
         var sb = new StringBuilder();
 
@@ -16,7 +16,7 @@ public class SortsList : List<Sort>
             else
                 sep = true;
 
-            sb.Append(sort.GetSql());
+            sb.Append(sort.GetQuery());
         }
 
         return sb.ToString();

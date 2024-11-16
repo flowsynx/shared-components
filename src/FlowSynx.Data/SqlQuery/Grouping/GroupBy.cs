@@ -9,7 +9,7 @@ public class GroupBy
 {
     public required string Name { get; set; }
 
-    public string GetSql(Format format, string? tableAlias = "")
+    public string GetQuery(Format format, string? tableAlias = "")
     {
         var sb = new StringBuilder();
         sb.Append(format.FormatField(Name, tableAlias));

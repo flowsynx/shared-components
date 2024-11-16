@@ -12,7 +12,7 @@ public class Join
     public string? TableAlias { get; set; }
     public List<JoinItem> Expressions { get; set; } = new List<JoinItem>();
 
-    public string GetSql(Format format, string sourceTable)
+    public string GetQuery(Format format, string sourceTable)
     {
         var sb = new StringBuilder();
         sb.Append(GetJoinType());

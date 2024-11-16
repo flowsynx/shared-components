@@ -6,7 +6,7 @@ public class Field
 {
     public required string Name { get; set; }
 
-    public string GetSql()
+    public string GetQuery()
     {
         var sb = new StringBuilder();
         sb.Append(Name);

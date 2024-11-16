@@ -18,7 +18,7 @@ public class FiltersList : List<Filter>
         }
     }
 
-    public string GetSql()
+    public string GetQuery()
     {
         var sb = new StringBuilder();
         foreach (var filter in this)
@@ -30,7 +30,7 @@ public class FiltersList : List<Filter>
                 sb.Append(' ');
             }
 
-            sb.Append(filter.GetSql());
+            sb.Append(filter.GetQuery());
         }
 
         return sb.ToString();

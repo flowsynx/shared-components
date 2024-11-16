@@ -5,7 +5,7 @@ public class Table
     public required string Name { get; set; }
     public string? Alias { get; set; }
 
-    public string GetSql(Format format)
+    public string GetQuery(Format format)
     {
         var tableAlias = "";
         var table = format.FormatTable(Name);

@@ -25,25 +25,23 @@ public class FilterDataTable
         _dataTable = dataTable;
     }
 
-    public DataTable GetSql()
+    public DataTable GetQuery()
     {
         _dataTable.CaseSensitive = CaseSensitive ?? false;
         var view = _dataTable.DefaultView;
 
         if (Filters is { Count: > 0 })
-            view.RowFilter = Filters.GetSql();
+            view.RowFilter = Filters.GetQuery();
 
         if (Sorts is { Count: > 0 })
-            view.Sort = Sorts.GetSql();
+            view.Sort = Sorts.GetQuery();
 
-        DataTable result;
-        if (Sorts is { Count: > 0 })
-            result = view.ToTable(false, Fields.GetSql());
-        else
-            result = view.ToTable(false);
+        var result = Sorts is { Count: > 0 } 
+            ? view.ToTable(false, Fields.GetQuery()) 
+            : view.ToTable(false);
 
         if (Fetch is not null)
-            result = result.AsEnumerable().Take(Fetch.GetSql()).CopyToDataTable();
+            result = result.AsEnumerable().Take(Fetch.GetQuery()).CopyToDataTable();
 
         return result;
     }

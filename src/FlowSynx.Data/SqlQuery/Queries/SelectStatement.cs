@@ -33,35 +33,35 @@ public class SelectStatement
         Fetch = new Fetch();
     }
 
-    public string GetSql()
+    public string GetQuery()
     {
         var result = TemplateLibrary.Select;
         result.Append(SnippetLibrary.Table(Format, Table.Name, Table.Alias));
-        result.Append(SnippetLibrary.Fields(Fields.GetSql(Format, Table.Alias)));
+        result.Append(SnippetLibrary.Fields(Fields.GetQuery(Format, Table.Alias)));
 
         if (Joins is { Count: > 0 })
         {
             var joinTable = string.IsNullOrEmpty(Table.Alias) ? Table.Name : Table.Alias;
-            result.Append(SnippetLibrary.Join(Joins.GetSql(Format, joinTable)));
+            result.Append(SnippetLibrary.Join(Joins.GetQuery(Format, joinTable)));
         }
 
         if (Filters is { Count: > 0 })
-            result.Append(SnippetLibrary.Filters(Filters.GetSql(Format, Table.Alias)));
+            result.Append(SnippetLibrary.Filters(Filters.GetQuery(Format, Table.Alias)));
 
         if (GroupBy is { Count: > 0 })
-            result.Append(SnippetLibrary.GroupBy(GroupBy.GetSql(Format, Table.Alias)));
+            result.Append(SnippetLibrary.GroupBy(GroupBy.GetQuery(Format, Table.Alias)));
 
         if (Sorts is { Count: > 0 })
-            result.Append(SnippetLibrary.Sort(Sorts.GetSql(Format, Table.Alias)));
+            result.Append(SnippetLibrary.Sort(Sorts.GetQuery(Format, Table.Alias)));
 
         if (Fetch is not null)
-            result.Append(SnippetLibrary.Fetch(Fetch.GetSql(Format)));
+            result.Append(SnippetLibrary.Fetch(Fetch.GetQuery(Format)));
 
-        return result.GetSql(Format);
+        return result.GetQuery(Format);
     }
 
     public override string ToString()
     {
-        return GetSql();
+        return GetQuery();
     }
 }
