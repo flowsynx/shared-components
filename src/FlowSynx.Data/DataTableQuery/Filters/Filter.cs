@@ -5,7 +5,7 @@ namespace FlowSynx.Data.DataTableQuery.Filters;
 public class Filter
 {
     public LogicOperator? Logic { get; set; } = LogicOperator.And;
-    public ComparisonOperator Comparison { get; set; }
+    public ComparisonOperator? Comparison { get; set; } = ComparisonOperator.Equals;
     public required string Name { get; set; }
     public string? Value { get; set; }
     public string? ValueMax { get; set; }
@@ -113,14 +113,14 @@ public class Filter
     {
         if (string.IsNullOrEmpty(value))
             value = string.Empty;
-        return $"{name} LIKE '{value}'";
+        return $"{name} LIKE {value}";
     }
 
     private string NotLike(string name, string? value)
     {
         if (string.IsNullOrEmpty(value))
             value = string.Empty;
-        return $"{name} NOT LIKE '{value}'";
+        return $"{name} NOT LIKE {value}";
     }
 
     private string In(string name, params string[]? rawSql)
@@ -173,7 +173,7 @@ public class Filter
             begin = string.Empty;
         if (string.IsNullOrEmpty(end))
             end = string.Empty;
-        return $" BETWEEN {begin} AND {end}";
+        return $"{name}>={begin} AND {name}<={end}";
     }
 
     private string NotBetween(string name, string? begin, string? end)
@@ -182,6 +182,6 @@ public class Filter
             begin = string.Empty;
         if (string.IsNullOrEmpty(end))
             end = string.Empty;
-        return $" NOT BETWEEN {begin} AND {end}";
+        return $"{name}<{begin} OR {name}>{end}";
     }
 }

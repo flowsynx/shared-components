@@ -124,6 +124,9 @@
     <value>The value entered for Offset must be equal or greater than zero.</value>
   </data>
   <data name="SortDirectionIsNotSupported" xml:space="preserve">
-    <value />
+    <value>Sort direction is not supported. Sort direction must be either ASC or DESC.</value>
+  </data>
+  <data name="OffsetCannotBeGreaterThanTheTotalNumberOfEntities" xml:space="preserve">
+    <value>Offset cannot be greater than or equal to the total number of entities. The total number of entities is {0}</value>
   </data>
 </root>

@@ -61,6 +61,15 @@ namespace FlowSynx.Data {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offset cannot be greater than or equal to the total number of entities. The total number of entities is {0}.
+        /// </summary>
+        internal static string OffsetCannotBeGreaterThanTheTotalNumberOfEntities {
+            get {
+                return ResourceManager.GetString("OffsetCannotBeGreaterThanTheTotalNumberOfEntities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value entered for Offset must be equal or greater than zero..
         /// </summary>
         internal static string OffsetCouldNotBeNagative {
@@ -79,7 +88,7 @@ namespace FlowSynx.Data {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Sort direction is not supported. Sort direction must be either ASC or DESC..
         /// </summary>
         internal static string SortDirectionIsNotSupported {
             get {

@@ -16,7 +16,7 @@ public class Paging
             if (value <= 0)
                 throw new DataSqlException(Resources.SizeCouldNotBeNagative);
 
-            _size = value ?? 0; ;
+            _size = value ?? 0;
         }
     }
 
@@ -28,7 +28,7 @@ public class Paging
             if (value <= 0)
                 throw new DataSqlException(Resources.OffsetCouldNotBeNagative);
 
-            _offSet = value ?? 0; ;
+            _offSet = value ?? 0;
         }
     }
 

@@ -1,10 +1,11 @@
-﻿using FlowSynx.Data.SqlQuery.Exceptions;
+﻿using FlowSynx.Data.DataTableQuery.Extensions.Exceptions;
 
 namespace FlowSynx.Data.DataTableQuery.Pagination;
 
 public class Paging
 {
     private int _size = 0;
+    private int _offSet = 0;
 
     public int? Size
     {
@@ -12,14 +13,21 @@ public class Paging
         set
         {
             if (value <= 0)
-                throw new DataSqlException(Resources.SizeCouldNotBeNagative);
+                throw new DataTableQueryException(Resources.SizeCouldNotBeNagative);
 
-            _size = value ?? 0; ;
+            _size = value ?? 0;
         }
     }
 
-    public int GetQuery()
+    public int? OffSet
     {
-        return _size;
+        get => _offSet;
+        set
+        {
+            if (value < 0)
+                throw new DataTableQueryException(Resources.OffsetCouldNotBeNagative);
+
+            _offSet = value ?? 0;
+        }
     }
 }

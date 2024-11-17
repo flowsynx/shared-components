@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using FlowSynx.Data.DataTableQuery.Extensions.Exceptions;
 using FlowSynx.Data.DataTableQuery.Queries.Select;
 
 namespace FlowSynx.Data.DataTableQuery.Queries;
@@ -16,12 +17,26 @@ public class DataTableService : IDataTableService
         if (option.Sorts is { Count: > 0 })
             view.Sort = option.Sorts.GetQuery();
 
-        var result = option.Sorts is { Count: > 0 }
+        var result = option.Fields is { Count: > 0 }
             ? view.ToTable(false, option.Fields.GetQuery())
             : view.ToTable(false);
 
         if (option.Paging is not null)
-            result = result.AsEnumerable().Take(option.Paging.GetQuery()).CopyToDataTable();
+        {
+            IEnumerable<DataRow> list = result.AsEnumerable();
+            if (option.Paging.OffSet.HasValue && option.Paging.OffSet > 0)
+            {
+                if (option.Paging.OffSet.Value >= list.Count())
+                    throw new DataTableQueryException(string.Format(Resources.OffsetCannotBeGreaterThanTheTotalNumberOfEntities, list.Count()));
+
+                list = list.Skip(option.Paging.OffSet.Value);
+            }
+
+            if (option.Paging.Size.HasValue && option.Paging.Size > 0)
+                list = list.Take(option.Paging.Size.Value);
+
+            result = list.CopyToDataTable();
+        }
 
         return result;
     }

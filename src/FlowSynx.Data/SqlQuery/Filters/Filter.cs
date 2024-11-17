@@ -8,7 +8,7 @@ namespace FlowSynx.Data.SqlQuery.Filters;
 public class Filter
 {
     public LogicOperator? Logic { get; set; } = LogicOperator.And;
-    public ComparisonOperator Comparison { get; set; }
+    public ComparisonOperator? Comparison { get; set; } = ComparisonOperator.Equals;
     public required string Name { get; set; }
     public string? Value { get; set; }
     public string? ValueMax { get; set; }

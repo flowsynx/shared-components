@@ -1,4 +1,4 @@
-﻿using FlowSynx.Data.SqlQuery.Exceptions;
+﻿using FlowSynx.Data.DataTableQuery.Extensions.Exceptions;
 using System.Text;
 
 namespace FlowSynx.Data.DataTableQuery.Sorting;
@@ -26,6 +26,6 @@ public class Sort
         if (Direction.Equals("DESC", StringComparison.OrdinalIgnoreCase))
             return "DESC";
 
-        throw new DataSqlException(Resources.SortDirectionIsNotSupported);
+        throw new DataTableQueryException(Resources.SortDirectionIsNotSupported);
     }
 }
