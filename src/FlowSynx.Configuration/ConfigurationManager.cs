@@ -6,12 +6,8 @@ using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
 using System.Dynamic;
-using FlowSynx.Data.DataTableQuery.Fields;
-using FlowSynx.Data.DataTableQuery.Filters;
-using FlowSynx.Data.DataTableQuery.Pagination;
 using FlowSynx.Data.DataTableQuery.Queries;
 using FlowSynx.Data.DataTableQuery.Queries.Select;
-using FlowSynx.Data.DataTableQuery.Sorting;
 
 namespace FlowSynx.Configuration;
 
@@ -58,10 +54,10 @@ public class ConfigurationManager : IConfigurationManager
         var dataTable = configurations.ToDataTable();
         var selectDataTableOption = new SelectDataTableOption()
         {
-            Fields = ParseFields(listOptions.Fields),
-            Filters = ParseFilters(listOptions.Filters),
-            Sorts = ParseSorts(listOptions.Sorts),
-            Paging = ParsePaging(listOptions.Paging),
+            Fields = listOptions.Fields,
+            Filters = listOptions.Filters,
+            Sorts = listOptions.Sorts,
+            Paging = listOptions.Paging,
             CaseSensitive = listOptions.CaseSensitive,
         };
 
@@ -99,7 +95,7 @@ public class ConfigurationManager : IConfigurationManager
     public IEnumerable<ConfigurationResult> Delete(ConfigurationListOptions listOptions)
     {
         var result = new List<ConfigurationResult>();
-        listOptions.Fields = string.Empty;
+        listOptions.Fields?.Clear();
         var filteredList = List(listOptions);
         var configurationItems = filteredList.ToList();
 
@@ -177,49 +173,5 @@ public class ConfigurationManager : IConfigurationManager
 
             return data ?? new Configuration();
         }
-    }
-
-    private FieldsList ParseFields(string? json)
-    {
-        var result = new FieldsList();
-        if (!string.IsNullOrEmpty(json))
-        {
-            result = _deserializer.Deserialize<FieldsList>(json);
-        }
-
-        return result;
-    }
-
-    private FiltersList ParseFilters(string? json)
-    {
-        var result = new FiltersList();
-        if (!string.IsNullOrEmpty(json))
-        {
-            result = _deserializer.Deserialize<FiltersList>(json);
-        }
-
-        return result;
-    }
-
-    private SortsList ParseSorts(string? json)
-    {
-        var result = new SortsList();
-        if (!string.IsNullOrEmpty(json))
-        {
-            result = _deserializer.Deserialize<SortsList>(json);
-        }
-
-        return result;
-    }
-
-    private Paging ParsePaging(string? json)
-    {
-        var result = new Paging();
-        if (!string.IsNullOrEmpty(json))
-        {
-            result = _deserializer.Deserialize<Paging>(json);
-        }
-
-        return result;
     }
 }
