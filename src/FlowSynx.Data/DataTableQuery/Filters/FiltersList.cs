@@ -6,16 +6,13 @@ public class FiltersList : List<Filter>
 {
     private string GetLogicOperator(LogicOperator? filterOperator)
     {
-        switch (filterOperator)
+        return filterOperator switch
         {
-            case LogicOperator.AndNot:
-                return "AND NOT";
-            case LogicOperator.Or:
-                return "OR";
-            case LogicOperator.And:
-            default:
-                return "AND";
-        }
+            LogicOperator.AndNot => "AND NOT",
+            LogicOperator.Or => "OR",
+            LogicOperator.And => "AND",
+            _ => "AND"
+        };
     }
 
     public string GetQuery()

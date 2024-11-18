@@ -4,8 +4,8 @@ namespace FlowSynx.Data.DataTableQuery.Pagination;
 
 public class Paging
 {
-    private int _size = 0;
-    private int _offSet = 0;
+    private int _size;
+    private int _offSet;
 
     public int? Size
     {

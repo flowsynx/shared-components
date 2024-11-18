@@ -13,25 +13,25 @@ public static class ListExtensions
 
     public static DataTable ToDataTable<T>(this List<T> items)
     {
-        DataTable dataTable = new DataTable(typeof(T).Name);
-        var Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-        foreach (PropertyInfo prop in Props)
+        var dataTable = new DataTable(typeof(T).Name);
+        var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        foreach (var prop in props)
         {
             var propType = prop.PropertyType;
-            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-            {
-                propType = Nullable.GetUnderlyingType(prop.PropertyType);
-            }
 
-            dataTable.Columns.Add(prop.Name, propType);
+            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                propType = Nullable.GetUnderlyingType(prop.PropertyType);
+            
+            if (propType != null) 
+                dataTable.Columns.Add(prop.Name, propType);
         }
 
-        foreach (T item in items)
+        foreach (var item in items)
         {
-            var values = new object?[Props.Length];
-            for (int i = 0; i < Props.Length; i++)
+            var values = new object?[props.Length];
+            for (var i = 0; i < props.Length; i++)
             {
-                values[i] = Props[i].GetValue(item);
+                values[i] = props[i].GetValue(item);
             }
             dataTable.Rows.Add(values);
         }

@@ -187,7 +187,7 @@ public class Filter
             begin = string.Empty;
         if (string.IsNullOrEmpty(end))
             end = string.Empty;
-        return $" BETWEEN {begin} AND {end}";
+        return $"{name} BETWEEN {begin} AND {end}";
     }
 
     private string NotBetween(string name, string? begin, string? end)
@@ -196,6 +196,6 @@ public class Filter
             begin = string.Empty;
         if (string.IsNullOrEmpty(end))
             end = string.Empty;
-        return $" NOT BETWEEN {begin} AND {end}";
+        return $"{name} NOT BETWEEN {begin} AND {end}";
     }
 }
