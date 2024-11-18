@@ -1,13 +1,12 @@
 ﻿using EnsureThat;
 using FlowSynx.Configuration.Exceptions;
 using FlowSynx.Configuration.Options;
-using FlowSynx.Data.DataTableQuery.Extensions;
 using FlowSynx.IO.FileSystem;
 using FlowSynx.IO.Serialization;
 using Microsoft.Extensions.Logging;
 using System.Dynamic;
-using FlowSynx.Data.DataTableQuery.Queries;
-using FlowSynx.Data.DataTableQuery.Queries.Select;
+using FlowSynx.Data.Queries;
+using FlowSynx.Data.Extensions;
 
 namespace FlowSynx.Configuration;
 
@@ -19,11 +18,11 @@ public class ConfigurationManager : IConfigurationManager
     private readonly IFileWriter _fileWriter;
     private readonly ISerializer _serializer;
     private readonly IDeserializer _deserializer;
-    private readonly IDataTableService _dataTableService;
+    private readonly IDataService _dataTableService;
 
     public ConfigurationManager(ILogger<ConfigurationManager> logger, ConfigurationPath options, 
         IFileReader fileReader, IFileWriter fileWriter, ISerializer serializer, 
-        IDeserializer deserializer, IDataTableService dataTableService)
+        IDeserializer deserializer, IDataService dataTableService)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(options, nameof(options));
@@ -52,7 +51,7 @@ public class ConfigurationManager : IConfigurationManager
         });
 
         var dataTable = configurations.ToDataTable();
-        var selectDataTableOption = new SelectDataTableOption()
+        var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
             Filters = listOptions.Filters,
@@ -61,7 +60,7 @@ public class ConfigurationManager : IConfigurationManager
             CaseSensitive = listOptions.CaseSensitive,
         };
 
-        var filteredData = _dataTableService.Select(dataTable, selectDataTableOption);
+        var filteredData = _dataTableService.Select(dataTable, selectDataOption);
         return filteredData.CreateListFromTable();
     }
 

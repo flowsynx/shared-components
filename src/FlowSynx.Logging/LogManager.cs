@@ -1,7 +1,6 @@
 ﻿using EnsureThat;
-using FlowSynx.Data.DataTableQuery.Extensions;
-using FlowSynx.Data.DataTableQuery.Queries;
-using FlowSynx.Data.DataTableQuery.Queries.Select;
+using FlowSynx.Data.Extensions;
+using FlowSynx.Data.Queries;
 using FlowSynx.IO.Serialization;
 using FlowSynx.Logging.Extensions;
 using FlowSynx.Logging.InMemory;
@@ -16,20 +15,20 @@ public class LogManager : ILogManager
     private readonly ILogger<LogManager> _logger;
     private readonly IServiceProvider _serviceProvider;
     private readonly IDeserializer _deserializer;
-    private readonly IDataTableService _dataTableService;
+    private readonly IDataService _dataService;
     private readonly InMemoryLoggerProvider? _inMemoryLogger;
 
     public LogManager(ILogger<LogManager> logger, IServiceProvider serviceProvider,
-        IDeserializer deserializer, IDataTableService dataTableService)
+        IDeserializer deserializer, IDataService dataService)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(serviceProvider, nameof(serviceProvider));
         EnsureArg.IsNotNull(deserializer, nameof(deserializer));
-        EnsureArg.IsNotNull(dataTableService, nameof(dataTableService));
+        EnsureArg.IsNotNull(dataService, nameof(dataService));
         _logger = logger;
         _serviceProvider = serviceProvider;
         _deserializer = deserializer;
-        _dataTableService = dataTableService;
+        _dataService = dataService;
 
         var loggerProviders = serviceProvider.GetServices<ILoggerProvider>();
         _inMemoryLogger = GeInMemoryLoggerProvider(loggerProviders);
@@ -38,7 +37,7 @@ public class LogManager : ILogManager
     public IEnumerable<object> List(LogListOptions listOptions)
     {
         var dataTable = Logs().ToDataTable();
-        var selectDataTableOption = new SelectDataTableOption()
+        var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
             Filters = listOptions.Filters,
@@ -47,7 +46,7 @@ public class LogManager : ILogManager
             CaseSensitive = listOptions.CaseSensitive,
         };
 
-        var filteredData = _dataTableService.Select(dataTable, selectDataTableOption);
+        var filteredData = _dataService.Select(dataTable, selectDataOption);
         return filteredData.CreateListFromTable();
     }
 

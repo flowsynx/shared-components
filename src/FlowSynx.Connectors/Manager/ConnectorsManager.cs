@@ -3,9 +3,8 @@ using FlowSynx.Connectors.Abstractions;
 using FlowSynx.Connectors.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using FlowSynx.Data.DataTableQuery.Extensions;
-using FlowSynx.Data.DataTableQuery.Queries;
-using FlowSynx.Data.DataTableQuery.Queries.Select;
+using FlowSynx.Data.Extensions;
+using FlowSynx.Data.Queries;
 
 namespace FlowSynx.Connectors.Manager;
 
@@ -13,17 +12,17 @@ public class ConnectorsManager : IConnectorsManager
 {
     private readonly ILogger<ConnectorsManager> _logger;
     private readonly IServiceProvider _serviceProvider;
-    private readonly IDataTableService _dataTableService;
+    private readonly IDataService _dataService;
 
     public ConnectorsManager(ILogger<ConnectorsManager> logger, IServiceProvider serviceProvider,
-        IDataTableService dataTableService)
+        IDataService dataService)
     {
         EnsureArg.IsNotNull(logger, nameof(logger));
         EnsureArg.IsNotNull(serviceProvider, nameof(serviceProvider));
-        EnsureArg.IsNotNull(dataTableService, nameof(dataTableService));
+        EnsureArg.IsNotNull(dataService, nameof(dataService));
         _logger = logger;
         _serviceProvider = serviceProvider;
-        _dataTableService = dataTableService;
+        _dataService = dataService;
     }
 
     public IEnumerable<object> List(ConnectorListOptions listOptions)
@@ -37,7 +36,7 @@ public class ConnectorsManager : IConnectorsManager
         });
 
         var dataTable = connectors.ToDataTable();
-        var selectDataTableOption = new SelectDataTableOption()
+        var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
             Filters = listOptions.Filters,
@@ -46,7 +45,7 @@ public class ConnectorsManager : IConnectorsManager
             CaseSensitive = listOptions.CaseSensitive,
         };
         
-        var filteredData = _dataTableService.Select(dataTable, selectDataTableOption);
+        var filteredData = _dataService.Select(dataTable, selectDataOption);
         return filteredData.CreateListFromTable();
     }
 

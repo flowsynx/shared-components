@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Data", "src\FlowSy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlowSynx.Connectors.Storage.UnitTests", "tests\FlowSynx.Connectors.Storage.UnitTests\FlowSynx.Connectors.Storage.UnitTests.csproj", "{F91C3C96-E3D5-4337-B91C-72FAD2F07D46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlowSynx.Data.Sql", "src\FlowSynx.Data.Sql\FlowSynx.Data.Sql.csproj", "{FBB16E05-F4B3-4D44-86C0-9824A58DA67C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,10 @@ Global
 		{F91C3C96-E3D5-4337-B91C-72FAD2F07D46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F91C3C96-E3D5-4337-B91C-72FAD2F07D46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F91C3C96-E3D5-4337-B91C-72FAD2F07D46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB16E05-F4B3-4D44-86C0-9824A58DA67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB16E05-F4B3-4D44-86C0-9824A58DA67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB16E05-F4B3-4D44-86C0-9824A58DA67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB16E05-F4B3-4D44-86C0-9824A58DA67C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +178,7 @@ Global
 		{7D162A38-E45D-4044-B7AF-FF6E260CC1F9} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
 		{0BC76562-7CC5-4227-BC73-78E940467E6E} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
 		{F91C3C96-E3D5-4337-B91C-72FAD2F07D46} = {C313F549-78C2-4F43-8330-84207ED48F80}
+		{FBB16E05-F4B3-4D44-86C0-9824A58DA67C} = {8A0358A8-C8A4-43EE-AC9D-DB887D61FE5B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCFB0D8B-22C3-475A-A061-40F4FA14F8B3}
