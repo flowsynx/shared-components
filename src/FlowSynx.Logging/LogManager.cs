@@ -36,7 +36,7 @@ public class LogManager : ILogManager
 
     public IEnumerable<object> List(LogListOptions listOptions)
     {
-        var dataTable = Logs().ToDataTable();
+        var dataTable = Logs().ListToDataTable();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
@@ -47,7 +47,7 @@ public class LogManager : ILogManager
         };
 
         var filteredData = _dataService.Select(dataTable, selectDataOption);
-        return filteredData.CreateListFromTable();
+        return filteredData.DataTableToList();
     }
 
     private IEnumerable<LogMessageResponse> Logs()

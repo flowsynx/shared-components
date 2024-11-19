@@ -50,7 +50,7 @@ public class ConfigurationManager : IConfigurationManager
             ModifiedTime = x.ModifiedTime,
         });
 
-        var dataTable = configurations.ToDataTable();
+        var dataTable = configurations.ListToDataTable();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
@@ -61,7 +61,7 @@ public class ConfigurationManager : IConfigurationManager
         };
 
         var filteredData = _dataTableService.Select(dataTable, selectDataOption);
-        return filteredData.CreateListFromTable();
+        return filteredData.DataTableToList();
     }
 
     public ConfigurationResult Add(ConfigurationItem configuration)

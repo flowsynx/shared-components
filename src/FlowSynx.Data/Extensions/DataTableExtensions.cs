@@ -4,7 +4,7 @@ namespace FlowSynx.Data.Extensions;
 
 public static class DataTableExtensions
 {
-    public static List<object> CreateListFromTable(this DataTable dataTable)
+    public static List<object> DataTableToList(this DataTable dataTable)
     {
         var result = new List<object>();
         var colCount = dataTable.Columns.Count;

@@ -35,7 +35,7 @@ public class ConnectorsManager : IConnectorsManager
             Description = plg.Description
         });
 
-        var dataTable = connectors.ToDataTable();
+        var dataTable = connectors.ListToDataTable();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
@@ -46,7 +46,7 @@ public class ConnectorsManager : IConnectorsManager
         };
         
         var filteredData = _dataService.Select(dataTable, selectDataOption);
-        return filteredData.CreateListFromTable();
+        return filteredData.DataTableToList();
     }
 
     public Connector Get(string type)

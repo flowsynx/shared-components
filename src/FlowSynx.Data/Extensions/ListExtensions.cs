@@ -5,13 +5,13 @@ namespace FlowSynx.Data.Extensions;
 
 public static class ListExtensions
 {
-    public static DataTable ToDataTable<T>(this IEnumerable<T> items)
+    public static DataTable ListToDataTable<T>(this IEnumerable<T> items)
     {
         var data = items.ToList();
-        return data.ToDataTable();
+        return data.ListToDataTable();
     }
 
-    public static DataTable ToDataTable<T>(this List<T> items)
+    public static DataTable ListToDataTable<T>(this List<T> items)
     {
         var dataTable = new DataTable(typeof(T).Name);
         var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
