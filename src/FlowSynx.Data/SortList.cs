@@ -2,7 +2,7 @@
 
 namespace FlowSynx.Data;
 
-public class SortsList : List<Sort>
+public class SortList : List<Sort>
 {
     public string GetQuery()
     {

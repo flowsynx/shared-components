@@ -5,7 +5,7 @@ namespace FlowSynx.Data.Sql;
 /// <summary>
 /// Inspired by SqlBuilder open source project (https://github.com/koshovyi/SqlBuilder/tree/master)
 /// </summary>
-public class FiltersList : List<Filter>
+public class FilterList : List<Filter>
 {
     private string GetLogicOperator(LogicOperator? filterOperator)
     {

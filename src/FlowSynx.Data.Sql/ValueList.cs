@@ -5,23 +5,18 @@ namespace FlowSynx.Data.Sql;
 /// <summary>
 /// Inspired by SqlBuilder open source project (https://github.com/koshovyi/SqlBuilder/tree/master)
 /// </summary>
-public class SortsList : List<Sort>
+public class ValueList : List<Value>
 {
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery()
     {
         var sb = new StringBuilder();
-
-        var sep = false;
-        foreach (var sort in this)
+        foreach (Value value in this)
         {
-            if (sep)
+            if (sb.Length > 0)
                 sb.Append(", ");
-            else
-                sep = true;
 
-            sb.Append(sort.GetQuery(format, tableAlias));
+            sb.Append(value.Expression);
         }
-
         return sb.ToString();
     }
 }

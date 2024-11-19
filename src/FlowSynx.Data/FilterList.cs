@@ -2,7 +2,7 @@
 
 namespace FlowSynx.Data;
 
-public class FiltersList : List<Filter>
+public class FilterList : List<Filter>
 {
     private string GetLogicOperator(LogicOperator? filterOperator)
     {

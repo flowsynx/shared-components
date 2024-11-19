@@ -40,8 +40,8 @@ public class LogManager : ILogManager
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
-            Filters = listOptions.Filters,
-            Sorts = listOptions.Sorts,
+            Filter = listOptions.Filter,
+            Sort = listOptions.Sort,
             Paging = listOptions.Paging,
             CaseSensitive = listOptions.CaseSensitive,
         };

@@ -14,4 +14,13 @@ public static class TemplateLibrary
             return new Template(sql);
         }
     }
+
+    public static Template Insert
+    {
+        get
+        {
+            string sql = "{{START}}INSERT INTO {{TABLE}}({{COLUMNS}}) VALUES({{VALUES}}){{END}}";
+            return new Template(sql);
+        }
+    }
 }

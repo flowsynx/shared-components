@@ -31,6 +31,11 @@ public static class SnippetLibrary
         return new Snippet("JOINS", ' ' + value);
     }
 
+    public static Snippet Values(string fields = "")
+    {
+        return new Snippet("VALUES", fields);
+    }
+
     public static Snippet Filters(string value)
     {
         return new Snippet("FILTERS", value, " WHERE ");

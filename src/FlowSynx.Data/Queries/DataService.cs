@@ -9,11 +9,11 @@ public class DataService : IDataService
         dataTable.CaseSensitive = option.CaseSensitive ?? false;
         var view = dataTable.DefaultView;
 
-        if (option.Filters is { Count: > 0 })
-            view.RowFilter = option.Filters.GetQuery();
+        if (option.Filter is { Count: > 0 })
+            view.RowFilter = option.Filter.GetQuery();
 
-        if (option.Sorts is { Count: > 0 })
-            view.Sort = option.Sorts.GetQuery();
+        if (option.Sort is { Count: > 0 })
+            view.Sort = option.Sort.GetQuery();
 
         var result = option.Fields is { Count: > 0 }
             ? view.ToTable(false, option.Fields.GetQuery())
