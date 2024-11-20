@@ -1,13 +1,13 @@
-﻿using FlowSynx.Data.SqlQuery.Queries;
+﻿using FlowSynx.Data.Sql.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlowSynx.Data.Sql;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFlowSynxDataSql(this IServiceCollection services)
+    public static IServiceCollection AddFlowSynxSqlBuilder(this IServiceCollection services)
     {
-        services.AddScoped<ISqlService, SqlService>();
+        services.AddScoped<ISqlBuilder, SqlBuilder>();
         return services;
     }
 }

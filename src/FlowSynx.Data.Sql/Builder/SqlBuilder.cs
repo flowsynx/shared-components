@@ -1,11 +1,10 @@
-﻿using FlowSynx.Data.Sql;
-using FlowSynx.Data.Sql.Templates;
+﻿using FlowSynx.Data.Sql.Templates;
 
-namespace FlowSynx.Data.SqlQuery.Queries;
+namespace FlowSynx.Data.Sql.Builder;
 
-public class SqlService : ISqlService
+public class SqlBuilder : ISqlBuilder
 {
-    public string Insert(Format format, InsertSqlOption option)
+    public string Insert(Format format, InsertOption option)
     {
         Template result = TemplateLibrary.Insert;
         result.Append(SnippetLibrary.Table(format, option.Table.Name, option.Table.Alias));
@@ -15,7 +14,7 @@ public class SqlService : ISqlService
         return result.GetQuery(format);
     }
 
-    public string Select(Format format, SelectSqlOption option)
+    public string Select(Format format, SelectOption option)
     {
         var result = TemplateLibrary.Select;
         result.Append(SnippetLibrary.Table(format, option.Table.Name, option.Table.Alias));

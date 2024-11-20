@@ -1,6 +1,6 @@
 ﻿namespace FlowSynx.Data.Sql;
 
-public static class SqlBuilder
+public static class FormatExtensions
 {
     public static string FormatField(this Format format, string field, string? tableAlias = "")
     {
