@@ -19,7 +19,7 @@ public static class TemplateLibrary
     {
         get
         {
-            string sql = "{{START}}INSERT INTO {{TABLE}}({{COLUMNS}}) VALUES({{VALUES}}){{END}}";
+            string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES({{VALUES}}){{END}}";
             return new Template(sql);
         }
     }
