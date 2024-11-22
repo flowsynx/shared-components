@@ -4,16 +4,9 @@ namespace FlowSynx.Data.Sql.Builder;
 
 public class SqlBuilder : ISqlBuilder
 {
-    public string Insert(Format format, InsertOption option)
+    public string Create(Format format, CreateOption option)
     {
-        option.Table.Alias = null;
-        option.Fields.ForEach(x=>x.Alias = null);
-        Template result = TemplateLibrary.Insert;
-        result.Append(SnippetLibrary.Table(format, option.Table.Name, option.Table.Alias));
-        result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format, option.Table.Alias)));
-        result.Append(SnippetLibrary.Values(option.Values.GetQuery()));
-
-        return result.GetQuery(format);
+        throw new NotImplementedException();
     }
 
     public string Select(Format format, SelectOption option)
@@ -39,6 +32,18 @@ public class SqlBuilder : ISqlBuilder
 
         if (option.Paging is not null)
             result.Append(SnippetLibrary.Paging(option.Paging.GetQuery(format)));
+
+        return result.GetQuery(format);
+    }
+
+    public string Insert(Format format, InsertOption option)
+    {
+        option.Table.Alias = null;
+        option.Fields.ForEach(x => x.Alias = null);
+        Template result = TemplateLibrary.Insert;
+        result.Append(SnippetLibrary.Table(format, option.Table.Name, option.Table.Alias));
+        result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format, option.Table.Alias)));
+        result.Append(SnippetLibrary.Values(option.Values.GetQuery()));
 
         return result.GetQuery(format);
     }
