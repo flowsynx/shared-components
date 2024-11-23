@@ -7,14 +7,10 @@ namespace FlowSynx.Data.Sql;
 /// </summary>
 public class FieldsList : List<Field>
 {
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery(Format format)
     {
         if (Count == 0)
-        {
-            return string.IsNullOrEmpty(tableAlias)
-                ? "*"
-                : format.FormatTableAlias(tableAlias) + ".*";
-        }
+            return "*";
 
         var sb = new StringBuilder();
         foreach (var field in this)
@@ -22,7 +18,7 @@ public class FieldsList : List<Field>
             if (sb.Length > 0)
                 sb.Append(", ");
 
-            sb.Append(field.GetQuery(format, tableAlias));
+            sb.Append(field.GetQuery(format));
         }
 
         return sb.ToString();

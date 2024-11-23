@@ -2,7 +2,7 @@
 
 public class InsertOption
 {
-    public required Table Table { get; set; }
+    public required string Table { get; set; }
     public FieldsList Fields { get; set; } = new();
     public ValueList Values { get; set; } = new();
 }

@@ -9,10 +9,10 @@ public class GroupBy
 {
     public required string Name { get; set; }
 
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
-        sb.Append(format.FormatField(Name, tableAlias));
+        sb.Append(format.FormatField(Name));
         return sb.ToString();
     }
 }

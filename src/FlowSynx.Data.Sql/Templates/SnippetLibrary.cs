@@ -10,15 +10,15 @@ public static class SnippetLibrary
         return new Snippet("END", value);
     }
 
-    public static Snippet Table(Format format, string table, string? tableAlias = "")
+    public static Snippet Table(Format format, string table)
     {
         table = format.FormatTable(table);
-        if (!string.IsNullOrEmpty(tableAlias))
-            tableAlias = format.FormatTableAlias(tableAlias);
+        return new Snippet("TABLE", table);
+    }
 
-        return string.IsNullOrEmpty(tableAlias)
-            ? new Snippet("TABLE", table)
-            : new Snippet("TABLE", table + format.AliasOperator + tableAlias);
+    public static Snippet CreateTableFields(string value)
+    {
+        return new Snippet("CREATETABLEFIELDS", value, "(", ")");
     }
 
     public static Snippet Fields(string value)

@@ -13,6 +13,14 @@ public class CreateTableField
     public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
+        sb.Append(format.FormatField(Name) + " " + Type);
+
+        var nullable = Nullable is true ? "NULL" : "NOT NULL";
+        sb.Append($" {nullable}");
+
+        if (!string.IsNullOrEmpty(Default))
+            sb.Append($" DEFAULT {Default}");
+
         return sb.ToString();
     }
 }

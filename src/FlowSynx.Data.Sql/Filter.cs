@@ -14,13 +14,13 @@ public class Filter
     public string? ValueMax { get; set; }
     public List<Filter>? Filters { get; set; } = new List<Filter>();
 
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
 
         sb.Append('(');
 
-        var fieldName = GetFieldName(format, Name, tableAlias);
+        var fieldName = GetFieldName(format, Name);
 
         switch (Comparison)
         {
@@ -72,14 +72,10 @@ public class Filter
         return sb.ToString();
     }
 
-    private string GetFieldName(Format format, string name, string? tableAlias = "")
+    private string GetFieldName(Format format, string name)
     {
         var sb = new StringBuilder();
-        if (!string.IsNullOrEmpty(tableAlias))
-            sb.Append(format.FormatTableAlias(tableAlias) + '.');
-
         sb.Append(format.FormatField(name));
-
         return sb.ToString();
     }
 

@@ -18,7 +18,7 @@ public class FilterList : List<Filter>
         };
     }
 
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
         foreach (var filter in this)
@@ -30,7 +30,7 @@ public class FilterList : List<Filter>
                 sb.Append(' ');
             }
 
-            sb.Append(filter.GetQuery(format, tableAlias));
+            sb.Append(filter.GetQuery(format));
         }
 
         return sb.ToString();

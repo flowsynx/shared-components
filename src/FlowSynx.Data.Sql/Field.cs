@@ -10,12 +10,9 @@ public class Field
     public required string Name { get; set; }
     public string? Alias { get; set; }
 
-    public string GetQuery(Format format, string? tableAlias = "")
+    public string GetQuery(Format format)
     {
         var sb = new StringBuilder();
-        if (!string.IsNullOrEmpty(tableAlias))
-            sb.Append(format.FormatTableAlias(tableAlias) + '.');
-
         sb.Append(format.FormatField(Name));
 
         if (!string.IsNullOrEmpty(Alias))

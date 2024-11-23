@@ -2,7 +2,7 @@
 
 public class SelectOption
 {
-    public required Table Table { get; set; }
+    public required string Table { get; set; }
     public FieldsList Fields { get; set; } = new();
     public JoinList? Join { get; set; } = new();
     public FilterList? Filter { get; set; } = new();

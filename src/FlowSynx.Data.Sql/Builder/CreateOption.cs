@@ -2,5 +2,6 @@
 
 public class CreateOption
 {
-    public CreateTableFieldList Tables { get; set; } = new();
+    public required string Name { get; set; }
+    public CreateTableFieldList Fields { get; set; } = new();
 }

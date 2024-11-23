@@ -9,7 +9,6 @@ public class Join
 {
     public JoinType Type { get; set; }
     public required string Table { get; set; }
-    public string? TableAlias { get; set; }
     public List<JoinItem> Expressions { get; set; } = new List<JoinItem>();
 
     public string GetQuery(Format format, string sourceTable)
@@ -18,11 +17,6 @@ public class Join
         sb.Append(GetJoinType());
         sb.Append(' ');
         sb.Append(format.FormatTable(Table));
-        if (!string.IsNullOrEmpty(TableAlias))
-        {
-            sb.Append(format.AliasOperator);
-            sb.Append(format.FormatTableAlias(TableAlias));
-        }
         sb.Append(" ON ");
 
         var ex = new StringBuilder();
@@ -32,13 +26,11 @@ public class Join
                 ex.Append(" AND ");
             else
             {
-                ex.Append(format.FormatTableAlias(sourceTable));
+                ex.Append(format.FormatTable(sourceTable));
                 ex.Append('.');
                 ex.Append(format.FormatField(item.Name));
                 ex.Append('=');
-                ex.Append(string.IsNullOrEmpty(TableAlias)
-                    ? format.FormatTable(Table)
-                    : format.FormatTableAlias(TableAlias));
+                ex.Append(format.FormatTable(Table));
                 ex.Append('.');
                 ex.Append(format.FormatField(item.Value));
             }
