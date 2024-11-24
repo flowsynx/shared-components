@@ -7,7 +7,7 @@ public class SqlBuilder : ISqlBuilder
     public string Create(Format format, CreateOption option)
     {
         Template result = TemplateLibrary.CreateTable;
-        result.Append(SnippetLibrary.Table(format, option.Name));
+        result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.CreateTableFields(option.Fields.GetQuery(format)));
 
         return result.GetQuery(format);
@@ -44,6 +44,17 @@ public class SqlBuilder : ISqlBuilder
         result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format)));
         result.Append(SnippetLibrary.Values(option.Values.GetQuery()));
+
+        return result.GetQuery(format);
+    }
+
+    public string Delete(Format format, DeleteOption option)
+    {
+        Template result = TemplateLibrary.Delete;
+        result.Append(SnippetLibrary.Table(format, option.Table));
+
+        if (option.Filter is { Count: > 0 })
+            result.Append(SnippetLibrary.Filters(option.Filter.GetQuery(format)));
 
         return result.GetQuery(format);
     }
