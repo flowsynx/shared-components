@@ -33,6 +33,12 @@ public class FilterList : List<Filter>
             sb.Append(filter.GetQuery(format));
         }
 
+        if (Count > 0) 
+        { 
+            sb.Insert(0, "(");
+            sb.Insert(sb.Length, ")");
+        }
+
         return sb.ToString();
     }
 }
