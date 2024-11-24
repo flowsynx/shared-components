@@ -14,6 +14,15 @@ public static class TemplateLibrary
         }
     }
 
+    public static Template Select
+    {
+        get
+        {
+            var sql = "{{START}}SELECT {{FIELDS}} FROM {{TABLE}}{{JOINS}}{{FILTERS}}{{GROUPBY}}{{ORDERBY}}{{FETCHES}}{{END}}";
+            return new Template(sql);
+        }
+    }
+
     public static Template Insert
     {
         get
@@ -23,11 +32,11 @@ public static class TemplateLibrary
         }
     }
 
-    public static Template Select
+    public static Template Delete
     {
         get
         {
-            var sql = "{{START}}SELECT {{FIELDS}} FROM {{TABLE}}{{JOINS}}{{FILTERS}}{{GROUPBY}}{{ORDERBY}}{{FETCHES}}{{END}}";
+            string sql = "{{START}}DELETE FROM {{TABLE}}{{FILTERS}}{{END}}";
             return new Template(sql);
         }
     }
