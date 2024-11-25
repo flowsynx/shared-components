@@ -6,7 +6,7 @@ public class SqlBuilder : ISqlBuilder
 {
     public string Create(Format format, CreateOption option)
     {
-        Template result = TemplateLibrary.CreateTable;
+        var result = TemplateLibrary.CreateTable;
         result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.CreateTableFields(option.Fields.GetQuery(format)));
 
@@ -40,7 +40,7 @@ public class SqlBuilder : ISqlBuilder
     public string Insert(Format format, InsertOption option)
     {
         option.Fields.ForEach(x => x.Alias = null);
-        Template result = TemplateLibrary.Insert;
+        var result = TemplateLibrary.Insert;
         result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format)));
         result.Append(SnippetLibrary.Values(option.Values.GetQuery()));
@@ -50,11 +50,19 @@ public class SqlBuilder : ISqlBuilder
 
     public string Delete(Format format, DeleteOption option)
     {
-        Template result = TemplateLibrary.Delete;
+        var result = TemplateLibrary.Delete;
         result.Append(SnippetLibrary.Table(format, option.Table));
 
         if (option.Filter is { Count: > 0 })
             result.Append(SnippetLibrary.Filters(option.Filter.GetQuery(format)));
+
+        return result.GetQuery(format);
+    }
+
+    public string DropTable(Format format, DropTableOption option)
+    {
+        var result = TemplateLibrary.DropTable;
+        result.Append(SnippetLibrary.Table(format, option.Table));
 
         return result.GetQuery(format);
     }

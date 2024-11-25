@@ -9,7 +9,7 @@ public static class TemplateLibrary
     {
         get
         {
-            string sql = "{{START}}CREATE TABLE {{TABLE}} {{CREATETABLEFIELDS}}{{END}}";
+            const string sql = "{{START}}CREATE TABLE {{TABLE}} {{CREATETABLEFIELDS}}{{END}}";
             return new Template(sql);
         }
     }
@@ -18,7 +18,7 @@ public static class TemplateLibrary
     {
         get
         {
-            var sql = "{{START}}SELECT {{FIELDS}} FROM {{TABLE}}{{JOINS}}{{FILTERS}}{{GROUPBY}}{{ORDERBY}}{{FETCHES}}{{END}}";
+            const string sql = "{{START}}SELECT {{FIELDS}} FROM {{TABLE}}{{JOINS}}{{FILTERS}}{{GROUPBY}}{{ORDERBY}}{{FETCHES}}{{END}}";
             return new Template(sql);
         }
     }
@@ -27,7 +27,7 @@ public static class TemplateLibrary
     {
         get
         {
-            string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES({{VALUES}}){{END}}";
+            const string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES({{VALUES}}){{END}}";
             return new Template(sql);
         }
     }
@@ -36,7 +36,16 @@ public static class TemplateLibrary
     {
         get
         {
-            string sql = "{{START}}DELETE FROM {{TABLE}}{{FILTERS}}{{END}}";
+            const string sql = "{{START}}DELETE FROM {{TABLE}}{{FILTERS}}{{END}}";
+            return new Template(sql);
+        }
+    }
+
+    public static Template DropTable
+    {
+        get
+        {
+            const string sql = "{{START}}DROP TABLE {{TABLE}}{{END}}";
             return new Template(sql);
         }
     }

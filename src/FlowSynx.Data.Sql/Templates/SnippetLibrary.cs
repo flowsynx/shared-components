@@ -9,7 +9,7 @@ public static class SnippetLibrary
     {
         return new Snippet("END", value);
     }
-
+    
     public static Snippet Table(Format format, string table)
     {
         table = format.FormatTable(table);
