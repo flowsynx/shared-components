@@ -5,7 +5,7 @@ namespace FlowSynx.Data.Sql;
 /// <summary>
 /// Inspired by SqlBuilder open source project (https://github.com/koshovyi/SqlBuilder/tree/master)
 /// </summary>
-public class GroupByList : List<GroupBy>
+public class GroupByList : List<string>
 {
     public string GetQuery(Format format)
     {
@@ -18,7 +18,7 @@ public class GroupByList : List<GroupBy>
                 sb.Append(", ");
             else
                 sep = true;
-            sb.Append(groupBy.GetQuery(format));
+            sb.Append(format.FormatField(groupBy));
         }
 
         return sb.ToString();
