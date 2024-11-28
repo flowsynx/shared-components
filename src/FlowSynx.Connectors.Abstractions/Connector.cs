@@ -30,9 +30,11 @@ public abstract class Connector
 
     public abstract Task<IEnumerable<object>> ListAsync(Context context, CancellationToken cancellationToken = default);
 
-    public abstract Task TransferAsync(Context sourceContext, Context destinationContext, CancellationToken cancellationToken = default);
+    public abstract Task TransferAsync(Context sourceContext, Context destinationContext, TransferKind transferKind, 
+        CancellationToken cancellationToken = default);
 
-    public abstract Task ProcessTransferAsync(Context context, TransferData transferData, CancellationToken cancellationToken = default);
+    public abstract Task ProcessTransferAsync(Context context, TransferData transferData, TransferKind transferKind, 
+        CancellationToken cancellationToken = default);
 
     public abstract Task<IEnumerable<CompressEntry>> CompressAsync(Context context, CancellationToken cancellationToken = default);
 }
