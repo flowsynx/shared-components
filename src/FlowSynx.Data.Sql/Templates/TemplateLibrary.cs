@@ -49,4 +49,13 @@ public static class TemplateLibrary
             return new Template(sql);
         }
     }
+
+    public static Template ExistTable
+    {
+        get
+        {
+            const string sql = "{{START}}SELECT * FROM information_schema.tables WHERE table_name = {{TABLE}}{{END}}";
+            return new Template(sql);
+        }
+    }
 }

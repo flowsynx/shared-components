@@ -37,13 +37,21 @@ public class SqlBuilder : ISqlBuilder
         return result.GetQuery(format);
     }
 
-    public string Exist(Format format, ExistOption option)
+    public string ExistRecord(Format format, ExistRecordOption option)
     {
         var result = TemplateLibrary.Select;
         result.Append(SnippetLibrary.Table(format, option.Table));
 
         if (option.Filter is { Count: > 0 })
             result.Append(SnippetLibrary.Filters(option.Filter.GetQuery(format)));
+
+        return result.GetQuery(format);
+    }
+
+    public string ExistTable(Format format, ExistTableOption option)
+    {
+        var result = TemplateLibrary.ExistTable;
+        result.Append(SnippetLibrary.Table(format, option.Table));
 
         return result.GetQuery(format);
     }
