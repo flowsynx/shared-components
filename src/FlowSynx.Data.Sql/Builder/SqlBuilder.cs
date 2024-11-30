@@ -85,4 +85,12 @@ public class SqlBuilder : ISqlBuilder
 
         return result.GetQuery(format);
     }
+
+    public string TableFields(Format format, TableFieldsOption option)
+    {
+        var result = TemplateLibrary.TableFields;
+        result.Append(SnippetLibrary.Table(format, option.Table));
+
+        return result.GetQuery(format);
+    }
 }

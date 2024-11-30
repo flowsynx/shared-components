@@ -54,7 +54,16 @@ public static class TemplateLibrary
     {
         get
         {
-            const string sql = "{{START}}SELECT * FROM information_schema.tables WHERE table_name = {{TABLE}}{{END}}";
+            const string sql = "{{START}}SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {{TABLE}}{{END}}";
+            return new Template(sql);
+        }
+    }
+
+    public static Template TableFields
+    {
+        get
+        {
+            const string sql = "{{START}}SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = {{TABLE}}{{END}}";
             return new Template(sql);
         }
     }

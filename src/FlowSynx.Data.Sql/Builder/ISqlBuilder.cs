@@ -9,4 +9,5 @@ public interface ISqlBuilder
     string Insert(Format format, InsertOption option);
     string Delete(Format format, DeleteOption option);
     string DropTable(Format format, DropTableOption option);
+    string TableFields(Format format, TableFieldsOption option);
 }
