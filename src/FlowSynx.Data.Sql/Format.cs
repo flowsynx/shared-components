@@ -5,6 +5,7 @@
 /// </summary>
 public class Format
 {
+    protected Dictionary<Type, string> TypeMap = new Dictionary<Type, string>();
     public SqlType Type { get; set; } = SqlType.Unknown;
     public char Parameter { get; set; }
     public bool EscapeEnabled { get; set; }
@@ -15,6 +16,24 @@ public class Format
     public char EndOfStatement { get; set; }
     public char AliasEscape { get; set; }
     public string AliasOperator { get; set; } = string.Empty;
+
+    public string GetDbType(Type? giveType)
+    {
+        if (giveType == null)
+            return TypeMap[typeof(string)];
+
+        giveType = Nullable.GetUnderlyingType(giveType) ?? giveType;
+
+        if (TypeMap.ContainsKey(giveType))
+            return TypeMap[giveType];
+        
+        throw new ArgumentException($"{giveType.FullName} is not a supported .NET class");
+    }
+
+    public string GetDbType<T>()
+    {
+        return GetDbType(typeof(T));
+    }
 
     /// <summary>
     /// MySQL configuration
@@ -31,6 +50,23 @@ public class Format
         EndOfStatement = ';',
         AliasEscape = '\"',
         AliasOperator = " as ",
+        TypeMap = new Dictionary<Type, string>
+        {
+            [typeof(string)] = "LONGTEXT",
+            [typeof(char[])] = "VARCHAR",
+            [typeof(byte)] = "tinyint",
+            [typeof(short)] = "smallint",
+            [typeof(int)] = "int",
+            [typeof(long)] = "bigint",
+            [typeof(byte[])] = "image",
+            [typeof(bool)] = "bit",
+            [typeof(DateTime)] = "datetime2",
+            [typeof(DateTimeOffset)] = "datetimeoffset",
+            [typeof(decimal)] = "money",
+            [typeof(float)] = "real",
+            [typeof(double)] = "float",
+            [typeof(TimeSpan)] = "time"
+        }
     };
 
     /// <summary>
@@ -48,6 +84,23 @@ public class Format
         EndOfStatement = ';',
         AliasEscape = '\'',
         AliasOperator = " as ",
+        TypeMap = new Dictionary<Type, string>
+        {
+            [typeof(string)] = "nvarchar",
+            [typeof(char[])] = "nvarchar",
+            [typeof(byte)] = "tinyint",
+            [typeof(short)] = "smallint",
+            [typeof(int)] = "int",
+            [typeof(long)] = "bigint",
+            [typeof(byte[])] = "image",
+            [typeof(bool)] = "bit",
+            [typeof(DateTime)] = "datetime2",
+            [typeof(DateTimeOffset)] = "datetimeoffset",
+            [typeof(decimal)] = "money",
+            [typeof(float)] = "real",
+            [typeof(double)] = "float",
+            [typeof(TimeSpan)] = "time"
+        }
     };
 
     /// <summary>
@@ -65,5 +118,22 @@ public class Format
         EndOfStatement = ';',
         AliasEscape = '\0',
         AliasOperator = " as ",
+        TypeMap = new Dictionary<Type, string>
+        {
+            [typeof(string)] = "nvarchar",
+            [typeof(char[])] = "nvarchar",
+            [typeof(byte)] = "tinyint",
+            [typeof(short)] = "smallint",
+            [typeof(int)] = "int",
+            [typeof(long)] = "bigint",
+            [typeof(byte[])] = "image",
+            [typeof(bool)] = "bit",
+            [typeof(DateTime)] = "datetime2",
+            [typeof(DateTimeOffset)] = "datetimeoffset",
+            [typeof(decimal)] = "money",
+            [typeof(float)] = "real",
+            [typeof(double)] = "float",
+            [typeof(TimeSpan)] = "time"
+        }
     };
 }
