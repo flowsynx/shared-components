@@ -3,6 +3,6 @@
 public class InsertOption
 {
     public required string Table { get; set; }
-    public FieldsList Fields { get; set; } = new();
-    public ValueList Values { get; set; } = new();
+    public InsertFieldsList Fields { get; set; } = new();
+    public InsertValueList Values { get; set; } = new();
 }

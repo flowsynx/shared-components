@@ -58,7 +58,6 @@ public class SqlBuilder : ISqlBuilder
 
     public string Insert(Format format, InsertOption option)
     {
-        option.Fields.ForEach(x => x.Alias = null);
         var result = TemplateLibrary.Insert;
         result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format)));
