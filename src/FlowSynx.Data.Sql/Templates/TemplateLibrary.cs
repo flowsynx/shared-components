@@ -32,6 +32,15 @@ public static class TemplateLibrary
         }
     }
 
+    public static Template BulkInsert
+    {
+        get
+        {
+            const string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES {{VALUES}}{{END}}";
+            return new Template(sql);
+        }
+    }
+
     public static Template Delete
     {
         get
