@@ -27,7 +27,7 @@ public static class TemplateLibrary
     {
         get
         {
-            const string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES({{VALUES}}){{END}}";
+            const string sql = "{{START}}INSERT INTO {{TABLE}} ({{FIELDS}}) VALUES({{VALUES}}){{END}}";
             return new Template(sql);
         }
     }
@@ -36,7 +36,7 @@ public static class TemplateLibrary
     {
         get
         {
-            const string sql = "{{START}}INSERT INTO {{TABLE}}({{FIELDS}}) VALUES {{VALUES}}{{END}}";
+            const string sql = "{{START}}INSERT INTO {{TABLE}} ({{FIELDS}}) VALUES {{VALUES}}{{END}}";
             return new Template(sql);
         }
     }
