@@ -72,21 +72,7 @@ public class SqlBuilder : ISqlBuilder
         var result = TemplateLibrary.BulkInsert;
         result.Append(SnippetLibrary.Table(format, option.Table));
         result.Append(SnippetLibrary.Fields(option.Fields.GetQuery(format)));
-
-        var index = 1;
-        var sb = new StringBuilder();
-        foreach (var item in option.Values)
-        {
-            sb.Append('(');
-            sb.Append(item.GetQuery());
-            sb.Append(')');
-
-            if (index != option.Values.Count)
-                sb.Append(", ");
-            index++;
-        }
-
-        result.Append(SnippetLibrary.Values(sb.ToString()));
+        result.Append(SnippetLibrary.Values(option.Values.GetQuery()));
 
         return result.GetQuery(format);
     }

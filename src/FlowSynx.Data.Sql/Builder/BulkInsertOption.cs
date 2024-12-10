@@ -3,6 +3,6 @@
 public class BulkInsertOption
 {
     public required string Table { get; set; }
-    public InsertFieldsList Fields { get; set; } = new();
-    public List<InsertValueList> Values { get; set; } = new();
+    public BulkInsertFieldsList Fields { get; set; } = new();
+    public BulkInsertValueList Values { get; set; } = new();
 }
