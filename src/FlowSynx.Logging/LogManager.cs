@@ -36,7 +36,7 @@ public class LogManager : ILogManager
 
     public IEnumerable<object> List(LogListOptions listOptions)
     {
-        var dataTable = Logs().ListToDataTable();
+        var dataTable = Logs().ListToInterchangeData();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,

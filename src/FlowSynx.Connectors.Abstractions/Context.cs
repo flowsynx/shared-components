@@ -1,4 +1,6 @@
-﻿namespace FlowSynx.Connectors.Abstractions;
+﻿using FlowSynx.Data;
+
+namespace FlowSynx.Connectors.Abstractions;
 
 public class Context: ICloneable
 {
@@ -21,6 +23,7 @@ public class Context: ICloneable
     }
 
     public ConnectorOptions Options { get; set; }
+    public InterchangeData? Data { get; set; }
     public ConnectorContext? ConnectorContext { get; }
 
     public object Clone()

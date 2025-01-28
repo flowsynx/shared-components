@@ -1,10 +1,11 @@
-﻿using System.Data;
+﻿using FlowSynx.Data.Extensions;
+using System.Data;
 
 namespace FlowSynx.Data.Queries;
 
 public class DataService : IDataService
 {
-    public DataTable Select(DataTable dataTable, SelectDataOption option)
+    public InterchangeData Select(InterchangeData dataTable, SelectDataOption option)
     {
         dataTable.CaseSensitive = option.CaseSensitive ?? false;
         var view = dataTable.DefaultView;
@@ -16,12 +17,12 @@ public class DataService : IDataService
             view.Sort = option.Sort.GetQuery();
 
         var result = option.Fields is { Count: > 0 }
-            ? view.ToTable(false, option.Fields.GetQuery())
-            : view.ToTable(false);
+            ? view.ToTable(option.Fields.GetQuery())
+            : view.ToTable();
 
         if (option.Paging is not null)
         {
-            IEnumerable<DataRow> list = result.AsEnumerable();
+            IEnumerable<InterchangeRow> list = result.AsEnumerable();
             if (option.Paging.OffSet.HasValue && option.Paging.OffSet > 0)
             {
                 if (option.Paging.OffSet.Value >= list.Count())
@@ -33,7 +34,7 @@ public class DataService : IDataService
             if (option.Paging.Size.HasValue && option.Paging.Size > 0)
                 list = list.Take(option.Paging.Size.Value);
 
-            result = list.CopyToDataTable();
+            result = list.CopyToInterchangeData(dataTable);
         }
 
         return result;

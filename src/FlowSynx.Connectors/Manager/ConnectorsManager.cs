@@ -35,7 +35,7 @@ public class ConnectorsManager : IConnectorsManager
             Description = plg.Description
         });
 
-        var dataTable = connectors.ListToDataTable();
+        var dataTable = connectors.ListToInterchangeData();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,

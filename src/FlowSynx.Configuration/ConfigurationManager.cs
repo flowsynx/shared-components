@@ -50,7 +50,7 @@ public class ConfigurationManager : IConfigurationManager
             ModifiedTime = x.ModifiedTime,
         });
 
-        var dataTable = configurations.ListToDataTable();
+        var dataTable = configurations.ListToInterchangeData();
         var selectDataOption = new SelectDataOption()
         {
             Fields = listOptions.Fields,
