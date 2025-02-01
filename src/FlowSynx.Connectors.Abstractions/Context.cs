@@ -7,24 +7,23 @@ public class Context: ICloneable
     public Context()
     {
         Options = new ConnectorOptions();
-        ConnectorContext = null;
+        Data = new List<object>();
     }
 
     public Context(ConnectorOptions options)
     {
         Options = options;
-        ConnectorContext = null;
+        Data = new List<object>();
     }
 
-    public Context(ConnectorOptions options, ConnectorContext? connector)
+    public Context(ConnectorOptions options, List<object>? data)
     {
         Options = options;
-        ConnectorContext = connector;
+        Data = data;
     }
 
     public ConnectorOptions Options { get; set; }
-    public InterchangeData? Data { get; set; }
-    public ConnectorContext? ConnectorContext { get; }
+    public List<object>? Data { get; set; }
 
     public object Clone()
     {
