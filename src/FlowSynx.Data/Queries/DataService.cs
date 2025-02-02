@@ -34,7 +34,7 @@ public class DataService : IDataService
             if (option.Paging.Size.HasValue && option.Paging.Size > 0)
                 list = list.Take(option.Paging.Size.Value);
 
-            result = list.CopyToInterchangeData(dataTable);
+            result = list.ToList().CopyToInterchangeData(dataTable.Metadata);
         }
 
         return result;

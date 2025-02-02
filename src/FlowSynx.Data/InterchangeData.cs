@@ -61,6 +61,46 @@ public class InterchangeData : DataTable
         var clone = (InterchangeData)base.Clone();
         return clone;
     }
+
+    public InterchangeData CopyWithMetadata()
+    {
+        InterchangeData newTable = (InterchangeData)this.Clone(); // Clone structure
+
+        foreach (InterchangeRow originalRow in Rows)
+        {
+            InterchangeRow newRow = (InterchangeRow)newTable.NewRow();
+            newRow.ItemArray = originalRow.ItemArray; // Copy column values
+
+            // Copy metadata manually
+            newRow.Metadata = originalRow.Metadata;
+            newTable.ImportRow(newRow); // Import row into new table
+        }
+
+        return newTable;
+    }
+
+    public InterchangeData FromList(List<InterchangeRow> rowList)
+    {
+        if (rowList == null || rowList.Count == 0) return new InterchangeData();
+
+        InterchangeData newTable = new InterchangeData();
+        newTable = (InterchangeData)rowList[0].Table.Clone(); // Copy schema
+
+        foreach (InterchangeRow row in rowList)
+        {
+            InterchangeRow newRow = newTable.NewRow();
+
+            // Copy column values
+            newRow.ItemArray = row.ItemArray;
+
+            // Copy metadata
+            newRow.Metadata = row.Metadata;
+
+            newTable.Rows.Add(newRow);
+        }
+
+        return newTable;
+    }
 }
 
 public class InterchangeRow : DataRow
