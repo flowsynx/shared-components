@@ -54,7 +54,31 @@ public static class DataTableExtensions
         return result;
     }
 
-    public static InterchangeData CopyToInterchangeData(this IEnumerable<InterchangeRow> rows, InterchangeData dataTable)
+    public static InterchangeData CopyToInterchangeData(this List<InterchangeRow> rowList, InterchangeMetadata metadata)
+    {
+        if (rowList == null || rowList.Count == 0) return new InterchangeData();
+
+        InterchangeData newTable = new InterchangeData();
+        newTable = (InterchangeData)rowList[0].Table.Clone(); // Copy schema
+        newTable.Metadata = metadata;
+
+        foreach (InterchangeRow row in rowList)
+        {
+            InterchangeRow newRow = newTable.NewRow();
+
+            // Copy column values
+            newRow.ItemArray = row.ItemArray;
+
+            // Copy metadata
+            newRow.Metadata = row.Metadata;
+
+            newTable.Rows.Add(newRow);
+        }
+
+        return newTable;
+    }
+
+    public static InterchangeData CopyToInterchangeData2(this IEnumerable<InterchangeRow> rows, InterchangeData dataTable)
     {
         InterchangeData interchangeData = new InterchangeData(dataTable.TableName);
         interchangeData.Metadata = dataTable.Metadata;
@@ -71,7 +95,29 @@ public static class DataTableExtensions
         foreach (InterchangeRow row in rows)
         {
             interchangeData.ImportRow(row);
+
+            interchangeData.ImportMetadata(row);
         }
+
+        //for (int i = 0; i < rows.Count(); i++)
+        //{
+        //    var row = rows.ElementAt(i);
+        //    var newRow = interchangeData.NewRow();
+
+        //    // Copy values
+        //    for (int j = 0; i < dataTable.Columns.Count; i++)
+        //    {
+        //        newRow[j] = row[j];
+        //    }
+
+        //    // Copy metadata
+        //    newRow.RowError = row.RowError;
+        //    newRow.ItemArray = row.ItemArray.Clone() as object[]; // Copies values deeply
+        //    newRow.AcceptChanges(); // Maintain state
+        //    newRow.ImportMetadata(row);
+
+        //    interchangeData.Rows.Add(newRow);
+        //}
 
         return interchangeData;
     }
